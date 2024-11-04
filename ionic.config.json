@@ -1,0 +1,7 @@
+{
+  "name": "ReadyToEnjoy",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
