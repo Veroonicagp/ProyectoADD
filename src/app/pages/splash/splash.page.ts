@@ -17,7 +17,7 @@ export class SplashPage implements OnInit {
     
   ) {
     timer(2000).subscribe(_=>{
-      this.router.navigate(['/home'])
+      this.router.navigate(['/login'])
     }
     )
   }
