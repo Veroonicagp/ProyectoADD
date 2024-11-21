@@ -1,3 +1,21 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- Menú lateral -->
+  <ion-menu #menu side="start" menuId="mainMenu" contentId="mainContent" >
+   <ion-header>
+     <ion-toolbar>
+       <ion-title>menu</ion-title>
+       <ion-fab slot="end">
+       </ion-fab>
+     </ion-toolbar>
+   </ion-header>
+   <ion-content>
+    <ion-list>
+      <ion-item (click)="menu.close()"  routerLink="/adventurous" routerDirection="root">Aventureros</ion-item>
+      <ion-item (click)="menu.close()"  routerLink="/activities" routerDirection="root">Activities</ion-item>
+      <ion-item (click)="menu.close()"  routerLink="/mi-activities" routerDirection="root">My Activities</ion-item>
+      <ion-item (click)="menu.close()"  routerLink="/porfile" routerDirection="root">Porfile</ion-item>
+    </ion-list>
+  </ion-content>
+ </ion-menu>
+ <ion-router-outlet id="mainContent"></ion-router-outlet>
 </ion-app>
