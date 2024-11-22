@@ -18,6 +18,9 @@ export interface ActivityData {
 
 export interface ActivityAttributes {
     title: string
+    description:string
+    location:string
+    price:string
     createdAt?: string
     updatedAt?: string
     publishedAt?: string
@@ -29,19 +32,31 @@ export interface Meta {}
     providedIn: 'root'
   })
   export class ActivitiesMappingStrapi implements IBaseMapping<Activity> {
+    toLocationMapping:any = {
+        Malaga:'',
+        Cordoba:'female',
+        Otros:'other'
+    };
     
 
     setAdd(data: Activity):ActivityData {
         return {
             data:{
-                title:data.title
+                title:data.title,
+                description:data.description,
+                location:data.location,
+                price:data.price
+                
             }
         };
     }
     setUpdate(data: Activity):ActivityData {
         let toReturn:ActivityData = {
             data:{
-                title:""
+                title:"",
+                description:"",
+                location:"",
+                price:""
             }
         };  
         Object.keys(data).forEach(key=>{
@@ -67,10 +82,9 @@ export interface Meta {}
         return {
             id: id.toString(),
             title: attributes.title,
-            description:attributes.,
-            location:,
-            price:,
-            
+            description:attributes.description,
+            location:attributes.location,
+            price:attributes.price,
         };
     }
     getAdded(data: ActivityRaw):Activity {

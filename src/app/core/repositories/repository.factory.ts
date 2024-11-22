@@ -16,7 +16,7 @@ import { IAuthMapping } from '../services/interfaces/auth-mapping.interface';
 import { StrapiAuthenticationService } from '../services/impl/strapi-authentication.service';
 import { PeopleLocalStorageMapping } from './impl/people-mapping-local-storage.service';
 import { PeopleMappingJsonServer } from './impl/adven-mapping-json-server.service';
-import { PeopleMappingStrapi } from './impl/people-mapping-strapi.service';
+import { PeopleMappingStrapi } from './impl/adven-mapping-strapi.service';
 import { StrapiAuthMappingService } from '../services/impl/strapi-auth-mapping.service';
 import { GroupsMappingJsonServer } from './impl/activities-mapping-json-server.service';
 import { GroupsMappingStrapi } from './impl/activities-mapping-strapi.service';
