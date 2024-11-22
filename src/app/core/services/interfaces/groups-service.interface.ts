@@ -1,5 +1,5 @@
 // src/app/services/interfaces/people.service.interface.ts
-import { Group } from '../../models/group.model';
+import { Group } from '../../models/activity.model';
 import { Person } from '../../models/adven.model';
 import { IBaseService } from './base-service.interface';
 

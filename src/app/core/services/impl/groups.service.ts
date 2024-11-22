@@ -6,7 +6,7 @@ import { Person } from '../../models/adven.model';
 import { GROUPS_REPOSITORY_TOKEN, PEOPLE_REPOSITORY_TOKEN } from '../../repositories/repository.tokens';
 import { IPeopleRepository } from '../../repositories/intefaces/people-repository.interface';
 import { IGroupsService } from '../interfaces/groups-service.interface';
-import { Group } from '../../models/group.model';
+import { Group } from '../../models/activity.model';
 import { IGroupsRepository } from '../../repositories/intefaces/groups-repository.interface';
 
 @Injectable({

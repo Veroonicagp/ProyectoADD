@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { Person } from "../models/adven.model";
 import { Paginated } from "../models/paginated.model";
-import { Group } from "../models/group.model";
+import { Group } from "../models/activity.model";
 
 export interface PaginatedRaw<T> {
     first: number

@@ -1,11 +1,10 @@
-import { Model } from "./base.model";
+// src/app/core/person.model.ts
 import { Adven } from "./adven.model";
+import { Model } from "./base.model";
 
 export interface Activity extends Model{
-    owner:Adven,
     title:string,
     description:string,
     location:string,
     price:string
-
 }

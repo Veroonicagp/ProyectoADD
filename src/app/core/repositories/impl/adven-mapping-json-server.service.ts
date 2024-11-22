@@ -1,22 +1,18 @@
 import { Injectable } from "@angular/core";
 import { IBaseMapping } from "../intefaces/base-mapping.interface";
 import { Paginated } from "../../models/paginated.model";
-import { Person } from "../../models/adven.model";
+import { Adven } from "../../models/adven.model";
 
-
-export interface PersonRaw {
+export interface AdvenRaw {
     id?: string
     nombre: string
     apellidos: string
     email: string
-    genero: string
-    edad:string,
-    grupoId: string
 }
 @Injectable({
     providedIn: 'root'
   })
-  export class PeopleMappingJsonServer implements IBaseMapping<Person> {
+  export class PeopleMappingJsonServer implements IBaseMapping<Adven> {
     toGenderMapping:any = {
         Masculino:'male',
         Femenino:'female',
@@ -29,17 +25,14 @@ export interface PersonRaw {
         other:'Otros'
     };
 
-    setAdd(data: Person):PersonRaw {
+    setAdd(data: Adven):AdvenRaw {
         return {
             nombre:data.name,
             apellidos:data.surname,
             email:data.email??'',
-            edad:data.age?.toString()??'',
-            genero: this.toGenderMapping[data.gender],
-            grupoId:data.groupId??''
         };
     }
-    setUpdate(data: Person):PersonRaw {
+    setUpdate(data: Adven):AdvenRaw {
         let toReturn:any = {};  
         Object.keys(data).forEach(key=>{
             switch(key){
@@ -47,33 +40,24 @@ export interface PersonRaw {
                 break;
                 case 'surname': toReturn['apellidos']=data[key];
                 break;
-                case 'age': toReturn['edad']=data[key];
-                break;
                 case 'email': toReturn['email']=data[key];
-                break;
-                case 'gender': toReturn['genero']=data[key]=='Masculino'?'male':data[key]=='Femenino'?'female':'other';
-                break;
-                case 'groupId': toReturn['grupoId']=data[key];
                 break;
                 default:
             }
         });
         return toReturn;
     }
-    getPaginated(page:number, pageSize: number, pages:number, data:PersonRaw[]): Paginated<Person> {
-        return {page:page, pageSize:pageSize, pages:pages, data:data.map<Person>((d:PersonRaw)=>{
+    getPaginated(page:number, pageSize: number, pages:number, data:AdvenRaw[]): Paginated<Adven> {
+        return {page:page, pageSize:pageSize, pages:pages, data:data.map<Adven>((d:AdvenRaw)=>{
             return this.getOne(d);
         })};
     }
-    getOne(data: PersonRaw):Person {
+    getOne(data: AdvenRaw):Adven {
         return {
             id:data.id!, 
             name:data.nombre, 
             surname:data.apellidos, 
-            age:(data as any)["edad"]??0,
             email:(data as any)["email"]??'',
-            groupId:(data as any)["grupoId"]??'',
-            gender:this.fromGenderMapping[data.genero],
             picture:(data as any)["picture"]?{
                 url:(data as any)["picture"].url,
                 large:(data as any)["picture"].large, 
@@ -82,13 +66,13 @@ export interface PersonRaw {
                 thumbnail:(data as any)["picture"].thumbnail
             }:undefined};
     }
-    getAdded(data: PersonRaw):Person {
+    getAdded(data: AdvenRaw):Adven {
         return this.getOne(data);
     }
-    getUpdated(data: PersonRaw):Person {
+    getUpdated(data: AdvenRaw):Adven {
         return this.getOne(data);
     }
-    getDeleted(data: PersonRaw):Person {
+    getDeleted(data: AdvenRaw):Adven {
         return this.getOne(data);
     }
   }
