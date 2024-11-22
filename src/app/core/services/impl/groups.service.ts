@@ -2,7 +2,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { BaseService } from './base-service.service';
 import { IPeopleService } from '../interfaces/people-service.interface';
-import { Person } from '../../models/person.model';
+import { Person } from '../../models/adven.model';
 import { GROUPS_REPOSITORY_TOKEN, PEOPLE_REPOSITORY_TOKEN } from '../../repositories/repository.tokens';
 import { IPeopleRepository } from '../../repositories/intefaces/people-repository.interface';
 import { IGroupsService } from '../interfaces/groups-service.interface';

@@ -4,7 +4,7 @@ import { IBaseRepository } from './intefaces/base-repository.interface';
 import { ITasksRepository } from './intefaces/tasks-repository.interface';
 import { IPeopleRepository } from './intefaces/people-repository.interface';
 import { IBaseMapping } from './intefaces/base-mapping.interface';
-import { Person } from '../models/person.model';
+import { Person } from '../models/adven.model';
 import { IStrapiAuthentication } from '../services/interfaces/strapi-authentication.interface';
 import { IAuthentication } from '../services/interfaces/authentication.interface';
 

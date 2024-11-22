@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { IBaseMapping } from "../intefaces/base-mapping.interface";
 import { Paginated } from "../../models/paginated.model";
-import { Person } from "../../models/person.model";
+import { Person } from "../../models/adven.model";
 
 
 export interface PersonRaw {

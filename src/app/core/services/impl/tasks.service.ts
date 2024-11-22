@@ -1,7 +1,7 @@
 // src/app/services/impl/people.service.ts
 import { Injectable, Inject } from '@angular/core';
 import { BaseService } from './base-service.service';
-import { Task } from '../../models/task.model';
+import { Task } from '../../models/activity.model';
 import { TASKS_REPOSITORY_TOKEN } from '../../repositories/repository.tokens';
 import { ITasksRepository } from '../../repositories/intefaces/tasks-repository.interface';
 import { ITasksService } from '../interfaces/tasks-service.interface';

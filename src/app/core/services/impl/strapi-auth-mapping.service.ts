@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Paginated } from "../../models/paginated.model";
-import { Person } from "../../models/person.model";
+import { Person } from "../../models/adven.model";
 import { Group } from "../../models/group.model";
 import { IAuthMapping } from "../interfaces/auth-mapping.interface";
 import { SignInPayload, SignUpPayload, User } from "../../models/auth.model";

@@ -3,7 +3,7 @@ import { FactoryProvider, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseRepositoryHttpService } from './impl/base-repository-http.service';
 import { IBaseRepository } from './intefaces/base-repository.interface';
-import { Person } from '../models/person.model';
+import { Person } from '../models/adven.model';
 import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, GROUPS_API_URL_TOKEN, GROUPS_REPOSITORY_MAPPING_TOKEN, GROUPS_REPOSITORY_TOKEN, GROUPS_RESOURCE_NAME_TOKEN, PEOPLE_API_URL_TOKEN, PEOPLE_REPOSITORY_MAPPING_TOKEN, PEOPLE_REPOSITORY_TOKEN, PEOPLE_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN } from './repository.tokens';
 import { BaseRespositoryLocalStorageService } from './impl/base-repository-local-storage.service';
 import { Model } from '../models/base.model';
