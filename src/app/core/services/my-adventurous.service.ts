@@ -25,7 +25,7 @@ export interface PaginatedRaw<T> {
 })
 export class MyPeopleService{
 
-    private apiUrl:string = "http://localhost:3000/adventurers"
+    private apiUrl:string = "http://localhost:3000/adventurous"
     constructor(
         private http:HttpClient
     ){

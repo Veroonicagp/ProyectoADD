@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AlertController, AnimationController, InfiniteScrollCustomEvent, ModalController, Platform } from '@ionic/angular';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { Activity } from 'src/app/core/models/activity.model';
+import { Paginated } from 'src/app/core/models/paginated.model';
+import { ActivitiesService } from 'src/app/core/services/impl/activities.service';
+import { ActivityModalComponent } from 'src/app/shared/components/activity-modal/activity-modal.component';
 
 @Component({
   selector: 'app-mi-activities',
@@ -7,36 +13,80 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MiActivitiesPage implements OnInit {
 
-  constructor() { }
+  _activities:BehaviorSubject<Activity[]> = new BehaviorSubject<Activity[]>([]);
+  activities$:Observable<Activity[]> = this._activities.asObservable();
+
+  constructor(
+    private actSvc:ActivitiesService,
+    private modalCtrl:ModalController,
+    private alertController: AlertController
+  ) { }
+
+  selectedActivity: any = null;
+  isAnimating = false;
+  page:number = 1;
+  pageSize:number = 25;
+
+  
+  refresh(){
+    this.page=1;
+    this.actSvc.getAll(this.page, this.pageSize).subscribe({
+      next:(response:Paginated<Activity>)=>{
+        this._activities.next([...response.data]);
+        this.page++;
+      }
+    });
+  }
 
   ngOnInit() {
   }
-  /*** 
-  private async presentModalActivity(mode:'new'|'edit', person:Person|undefined=undefined){
-    let _groups:Group[] = await lastValueFrom(this.groupSvc.getAll())
+
+  @ViewChildren('avatar') avatars!: QueryList<ElementRef>;
+  @ViewChild('animatedAvatar') animatedAvatar!: ElementRef;
+  @ViewChild('animatedAvatarContainer') animatedAvatarContainer!: ElementRef;
+
+
+  getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
+    this.actSvc.getAll(this.page, this.pageSize).subscribe({
+      next:(response:Paginated<Activity>)=>{
+        this._activities.next([...this._activities.value, ...response.data]);
+        this.page++;
+        notify?.complete();
+      }
+    });
+  }
+
+  async openActivityDetail(activity: any, index: number) {
+    await this.presentModalActivity('edit', activity);
+    this.selectedActivity = activity;
+  }
+
+  onIonInfinite(ev:InfiniteScrollCustomEvent) {
+    this.getMoreActivity(ev.target);
+    
+  }
+
+  private async presentModalActivity(mode:'new'|'edit', activity:Activity|undefined=undefined){
     const modal = await this.modalCtrl.create({
-      component:PersonModalComponent,
+      component:ActivityModalComponent,
       componentProps:(mode=='edit'?{
-        person: person,
-        groups: _groups
-      }:{
-        groups: _groups
-      })
+        activity: activity
+      }:{})
     });
     modal.onDidDismiss().then((response:any)=>{
       switch (response.role) {
         case 'new':
-          this.peopleSvc.add(response.data).subscribe({
+          this.actSvc.add(response.data).subscribe({
             next:res=>{
-              this.loadGroups();
+              this.refresh();
             },
             error:err=>{}
           });
           break;
         case 'edit':
-          this.peopleSvc.update(person!.id, response.data).subscribe({
+          this.actSvc.update(activity!.id, response.data).subscribe({
             next:res=>{
-              this.loadGroups();
+              this.refresh();
             },
             error:err=>{}
           });
@@ -51,6 +101,35 @@ export class MiActivitiesPage implements OnInit {
   async onAddActivity(){
     await this.presentModalActivity('new');
   }
-*/
+
+  async presentAlert(activity:Activity) {
+    const alert = await this.alertController.create({
+      header: 'Eliminar',
+      message: 'Desea eliminar a esta actividad permanentemente',
+      buttons: [ {
+        text: 'Confirmar',
+        htmlAttributes: {
+          'aria-label': 'close',
+        },
+        handler: () =>{
+          this.actSvc.delete(activity.id).subscribe({
+            next:res=>{
+              this.refresh();
+            },
+            error:err=>{}
+          });
+        }
+      },
+      {
+        text: 'Salir',
+        htmlAttributes: {
+          'aria-label': 'close',
+        },
+      },
+    ],
+    });
+
+    await alert.present();
+  }
 
 }
