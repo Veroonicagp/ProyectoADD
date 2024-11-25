@@ -26,6 +26,22 @@ interface UserAttributes {
     createdAt: string
     updatedAt: string
   }
+  interface ActivityRaw{
+    data: ActivityData,
+    meta: Meta
+}
+
+interface ActivityData {
+    id: number
+    attributes: ActivityAttributes
+}
+  
+interface ActivityAttributes {
+    name: string
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
+}
 
 interface AdvenRaw {
     data: Data
@@ -50,7 +66,7 @@ interface AdvenAttributes {
     picture:MediaRaw | number | null
 }
 
-interface GroupAttributes {
+interface ActivityAttributes {
     name: string
 }
 
@@ -60,17 +76,6 @@ interface Meta {}
     providedIn: 'root'
   })
   export class PeopleMappingStrapi implements IBaseMapping<Adven> {
-    toGenderMapping:any = {
-        Masculino:'male',
-        Femenino:'female',
-        Otros:'other'
-    };
-    
-    fromGenderMapping:any = {
-        male:'Masculino',
-        female:'Femenino',
-        other:'Otros'
-    };
 
     setAdd(data: Adven):AdvenData {
         return {

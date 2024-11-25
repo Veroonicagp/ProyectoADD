@@ -32,11 +32,6 @@ export interface Meta {}
     providedIn: 'root'
   })
   export class ActivitiesMappingStrapi implements IBaseMapping<Activity> {
-    toLocationMapping:any = {
-        Malaga:'',
-        Cordoba:'female',
-        Otros:'other'
-    };
     
 
     setAdd(data: Activity):ActivityData {

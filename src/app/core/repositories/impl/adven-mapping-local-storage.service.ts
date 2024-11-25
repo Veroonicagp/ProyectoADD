@@ -1,17 +1,15 @@
 import { Injectable } from "@angular/core";
 import { IBaseMapping } from "../intefaces/base-mapping.interface";
 import { Paginated } from "../../models/paginated.model";
-import { Person } from "../../models/adven.model";
+import { Adven } from "../../models/adven.model";
 
-interface PersonRaw{
+interface AdvenRaw{
     id:string,
     name:{
         title:string;
         first:string;
         last:string;
     },
-    age:number,
-    genero:string,
     picture:{
         url:string,
         large:string,
@@ -24,25 +22,23 @@ interface PersonRaw{
 @Injectable({
     providedIn: 'root'
   })
-  export class PeopleLocalStorageMapping implements IBaseMapping<Person> {
-    setAdd(data: Person) {
+  export class AdvenLocalStorageMapping implements IBaseMapping<Adven> {
+    setAdd(data: Adven) {
         throw new Error("Method not implemented.");
     }
     setUpdate(data: any) {
         throw new Error("Method not implemented.");
     }
-    getPaginated(page:number, pageSize:number, pages:number, data: PersonRaw[]): Paginated<Person> {
-        return {page:page, pageSize:pageSize, pages:pages, data:data.map<Person>((d:PersonRaw)=>{
+    getPaginated(page:number, pageSize:number, pages:number, data: AdvenRaw[]): Paginated<Adven> {
+        return {page:page, pageSize:pageSize, pages:pages, data:data.map<Adven>((d:AdvenRaw)=>{
             return this.getOne(d);
         })};
     }
-    getOne(data: PersonRaw):Person {
+    getOne(data: AdvenRaw):Adven {
         return {
             id:data.id, 
             name:data.name.first, 
             surname:data.name.last, 
-            age:data.age,
-            gender:data.genero,
             picture:{
                 url:data.picture.url,
                 large:data.picture.large, 
@@ -51,13 +47,13 @@ interface PersonRaw{
                 thumbnail:data.picture.thumbnail
             }};
     }
-    getAdded(data: PersonRaw):Person {
+    getAdded(data: AdvenRaw):Adven {
         return this.getOne(data);
     }
-    getUpdated(data: PersonRaw):Person {
+    getUpdated(data: AdvenRaw):Adven {
         return this.getOne(data);
     }
-    getDeleted(data: PersonRaw):Person {
+    getDeleted(data: AdvenRaw):Adven {
         return this.getOne(data);
     }
   }

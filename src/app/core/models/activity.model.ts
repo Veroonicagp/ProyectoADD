@@ -7,4 +7,5 @@ export interface Activity extends Model{
     description:string,
     location:string,
     price:string
+    advenId?:string
 }

@@ -3,23 +3,23 @@ import { FactoryProvider, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseRepositoryHttpService } from './impl/base-repository-http.service';
 import { IBaseRepository } from './intefaces/base-repository.interface';
-import { Person } from '../models/adven.model';
-import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, GROUPS_API_URL_TOKEN, GROUPS_REPOSITORY_MAPPING_TOKEN, GROUPS_REPOSITORY_TOKEN, GROUPS_RESOURCE_NAME_TOKEN, PEOPLE_API_URL_TOKEN, PEOPLE_REPOSITORY_MAPPING_TOKEN, PEOPLE_REPOSITORY_TOKEN, PEOPLE_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN } from './repository.tokens';
+import { Adven } from '../models/adven.model';
+import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN, ACTIVITIES_REPOSITORY_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN, ADVEN_REPOSITORY_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN } from './repository.tokens';
 import { BaseRespositoryLocalStorageService } from './impl/base-repository-local-storage.service';
 import { Model } from '../models/base.model';
 import { IBaseMapping } from './intefaces/base-mapping.interface';
 import { JsonServerRepositoryService } from './impl/json-server-repository.service';
-import { Group } from '../models/activity.model';
+import { Activity } from '../models/activity.model';
 import { StrapiRepositoryService } from './impl/strapi-repository.service';
 import { BaseAuthenticationService } from '../services/impl/base-authentication.service';
 import { IAuthMapping } from '../services/interfaces/auth-mapping.interface';
 import { StrapiAuthenticationService } from '../services/impl/strapi-authentication.service';
-import { PeopleLocalStorageMapping } from './impl/people-mapping-local-storage.service';
+import { AdvenLocalStorageMapping } from './impl/adven-mapping-local-storage.service';
 import { PeopleMappingJsonServer } from './impl/adven-mapping-json-server.service';
 import { PeopleMappingStrapi } from './impl/adven-mapping-strapi.service';
 import { StrapiAuthMappingService } from '../services/impl/strapi-auth-mapping.service';
-import { GroupsMappingJsonServer } from './impl/activities-mapping-json-server.service';
-import { GroupsMappingStrapi } from './impl/activities-mapping-strapi.service';
+import { ActivitiesMappingJsonServer } from './impl/activities-mapping-json-server.service';
+import { ActivitiesMappingStrapi } from './impl/activities-mapping-strapi.service';
 import { IStrapiAuthentication } from '../services/interfaces/strapi-authentication.interface';
 import { StrapiMediaService } from '../services/impl/strapi-media.service';
 import { BaseMediaService } from '../services/impl/base-media.service';
@@ -50,24 +50,24 @@ export function createBaseRepositoryFactory<T extends Model>(
 export function createBaseMappingFactory<T extends Model>(
   token: InjectionToken<IBaseMapping<T>>,
   dependencies: any[],
-  modelType: 'person' | 'group'
+  modelType: 'Adven' | 'Activity'
 ): FactoryProvider {
   return {
     provide: token,
     useFactory: (backend: string) => {
       switch (backend) {
         case 'local-storage':
-          return modelType === 'person' 
-            ? new PeopleLocalStorageMapping()
+          return modelType === 'Adven' 
+            ? new AdvenLocalStorageMapping()
             : null;
         case 'json-server':
-          return modelType === 'person'
+          return modelType === 'Adven'
             ? new PeopleMappingJsonServer()
-            : new GroupsMappingJsonServer();
+            : new ActivitiesMappingJsonServer();
         case 'strapi':
-          return modelType === 'person'
+          return modelType === 'Adven'
             ? new PeopleMappingStrapi()
-            : new GroupsMappingStrapi();
+            : new ActivitiesMappingStrapi();
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
       }
@@ -98,16 +98,16 @@ export function createBaseAuthMappingFactory(token: InjectionToken<IAuthMapping>
 };
 
 
-export const PeopleMappingFactory = createBaseMappingFactory<Person>(
-  PEOPLE_REPOSITORY_MAPPING_TOKEN, 
+export const AdvenMappingFactory = createBaseMappingFactory<Adven>(
+  ADVEN_REPOSITORY_MAPPING_TOKEN, 
   [BACKEND_TOKEN],
-  'person'
+  'Adven'
 );
 
-export const GroupsMappingFactory = createBaseMappingFactory<Group>(
-  GROUPS_REPOSITORY_MAPPING_TOKEN, 
+export const ActivitiesMappingFactory = createBaseMappingFactory<Activity>(
+  ACTIVITIES_REPOSITORY_MAPPING_TOKEN, 
   [BACKEND_TOKEN],
-  'group'
+  'Activity'
 );
 
 export const AuthMappingFactory: FactoryProvider = createBaseAuthMappingFactory(AUTH_MAPPING_TOKEN, [BACKEND_TOKEN]);
@@ -152,9 +152,9 @@ export const MediaServiceFactory:FactoryProvider = {
   deps: [BACKEND_TOKEN, UPLOAD_API_URL_TOKEN, BaseAuthenticationService, HttpClient]
 };
 
-export const PeopleRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Person>(PEOPLE_REPOSITORY_TOKEN,
-  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, PEOPLE_API_URL_TOKEN, PEOPLE_RESOURCE_NAME_TOKEN, PEOPLE_REPOSITORY_MAPPING_TOKEN]
+export const PeopleRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Adven>(ADVEN_REPOSITORY_TOKEN,
+  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, ADVEN_API_URL_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN]
 );
-export const GroupsRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Group>(GROUPS_REPOSITORY_TOKEN,
-  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, GROUPS_API_URL_TOKEN, GROUPS_RESOURCE_NAME_TOKEN, GROUPS_REPOSITORY_MAPPING_TOKEN]
+export const ActivitysRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Activity>(ACTIVITIES_REPOSITORY_TOKEN,
+  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN]
 );
