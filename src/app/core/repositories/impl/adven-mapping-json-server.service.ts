@@ -12,7 +12,7 @@ export interface AdvenRaw {
 @Injectable({
     providedIn: 'root'
   })
-  export class PeopleMappingJsonServer implements IBaseMapping<Adven> {
+  export class AdvenMappingJsonServer implements IBaseMapping<Adven> {
     toGenderMapping:any = {
         Masculino:'male',
         Femenino:'female',

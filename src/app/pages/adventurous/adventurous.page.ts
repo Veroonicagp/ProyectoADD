@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdvenService } from 'src/app/core/services/impl/adven.service';
 
 @Component({
   selector: 'app-adventurous',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdventurousPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private advenSvc: AdvenService
+  ) { }
 
   ngOnInit() {
   }

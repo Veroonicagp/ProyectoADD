@@ -4,6 +4,7 @@ import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import { Activity } from 'src/app/core/models/activity.model';
 import { Paginated } from 'src/app/core/models/paginated.model';
 import { ActivitiesService } from 'src/app/core/services/impl/activities.service';
+import { MyActivitiesService } from 'src/app/core/services/my-activities.service';
 import { ActivityModalComponent } from 'src/app/shared/components/activity-modal/activity-modal.component';
 
 @Component({
@@ -17,9 +18,8 @@ export class MiActivitiesPage implements OnInit {
   activities$:Observable<Activity[]> = this._activities.asObservable();
 
   constructor(
-    private actSvc:ActivitiesService,
-    private modalCtrl:ModalController,
-    private alertController: AlertController
+    private myActSvc: MyActivitiesService
+
   ) { }
 
   selectedActivity: any = null;
@@ -28,7 +28,20 @@ export class MiActivitiesPage implements OnInit {
   pageSize:number = 25;
 
   
-  refresh(){
+  
+
+  ngOnInit() {
+  }
+
+
+/**
+ * 
+ * 
+  @ViewChildren('avatar') avatars!: QueryList<ElementRef>;
+  @ViewChild('animatedAvatar') animatedAvatar!: ElementRef;
+  @ViewChild('animatedAvatarContainer') animatedAvatarContainer!: ElementRef;
+
+ * refresh(){
     this.page=1;
     this.actSvc.getAll(this.page, this.pageSize).subscribe({
       next:(response:Paginated<Activity>)=>{
@@ -37,14 +50,6 @@ export class MiActivitiesPage implements OnInit {
       }
     });
   }
-
-  ngOnInit() {
-  }
-
-  @ViewChildren('avatar') avatars!: QueryList<ElementRef>;
-  @ViewChild('animatedAvatar') animatedAvatar!: ElementRef;
-  @ViewChild('animatedAvatarContainer') animatedAvatarContainer!: ElementRef;
-
 
   getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
     this.actSvc.getAll(this.page, this.pageSize).subscribe({
@@ -57,7 +62,7 @@ export class MiActivitiesPage implements OnInit {
   }
 
   async openActivityDetail(activity: any, index: number) {
-    await this.presentModalActivity('edit', activity);
+    /**await this.presentModalActivity('edit', activity);
     this.selectedActivity = activity;
   }
 
@@ -96,10 +101,10 @@ export class MiActivitiesPage implements OnInit {
       }
     });
     await modal.present();
-  }
+  } 
 
   async onAddActivity(){
-    await this.presentModalActivity('new');
+    /**await this.presentModalActivity('new');
   }
 
   async presentAlert(activity:Activity) {
@@ -130,6 +135,5 @@ export class MiActivitiesPage implements OnInit {
     });
 
     await alert.present();
-  }
-
+  }**/
 }

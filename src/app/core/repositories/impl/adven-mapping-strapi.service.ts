@@ -75,7 +75,7 @@ interface Meta {}
 @Injectable({
     providedIn: 'root'
   })
-  export class PeopleMappingStrapi implements IBaseMapping<Adven> {
+  export class AdvenMappingStrapi implements IBaseMapping<Adven> {
 
     setAdd(data: Adven):AdvenData {
         return {

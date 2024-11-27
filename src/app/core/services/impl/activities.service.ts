@@ -1,7 +1,7 @@
 // src/app/services/impl/people.service.ts
 import { Injectable, Inject } from '@angular/core';
 import { BaseService } from './base-service.service';
-import { ACTIVITIES_REPOSITORY_TOKEN, ADVEN_REPOSITORY_TOKEN } from '../../repositories/repository.tokens';
+import { ACTIVITIES_REPOSITORY_TOKEN } from '../../repositories/repository.tokens';
 import { IActivitiesService } from '../interfaces/activities-service.interface';
 import { Activity } from '../../models/activity.model';
 import { IActivitiesRepository } from '../../repositories/intefaces/activities-repository.interface';

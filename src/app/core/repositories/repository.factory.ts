@@ -15,8 +15,8 @@ import { BaseAuthenticationService } from '../services/impl/base-authentication.
 import { IAuthMapping } from '../services/interfaces/auth-mapping.interface';
 import { StrapiAuthenticationService } from '../services/impl/strapi-authentication.service';
 import { AdvenLocalStorageMapping } from './impl/adven-mapping-local-storage.service';
-import { PeopleMappingJsonServer } from './impl/adven-mapping-json-server.service';
-import { PeopleMappingStrapi } from './impl/adven-mapping-strapi.service';
+import { AdvenMappingJsonServer } from './impl/adven-mapping-json-server.service';
+import { AdvenMappingStrapi } from './impl/adven-mapping-strapi.service';
 import { StrapiAuthMappingService } from '../services/impl/strapi-auth-mapping.service';
 import { ActivitiesMappingJsonServer } from './impl/activities-mapping-json-server.service';
 import { ActivitiesMappingStrapi } from './impl/activities-mapping-strapi.service';
@@ -62,11 +62,11 @@ export function createBaseMappingFactory<T extends Model>(
             : null;
         case 'json-server':
           return modelType === 'Adven'
-            ? new PeopleMappingJsonServer()
+            ? new AdvenMappingJsonServer()
             : new ActivitiesMappingJsonServer();
         case 'strapi':
           return modelType === 'Adven'
-            ? new PeopleMappingStrapi()
+            ? new AdvenMappingStrapi()
             : new ActivitiesMappingStrapi();
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
@@ -152,9 +152,9 @@ export const MediaServiceFactory:FactoryProvider = {
   deps: [BACKEND_TOKEN, UPLOAD_API_URL_TOKEN, BaseAuthenticationService, HttpClient]
 };
 
-export const PeopleRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Adven>(ADVEN_REPOSITORY_TOKEN,
+export const AdvenRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Adven>(ADVEN_REPOSITORY_TOKEN,
   [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, ADVEN_API_URL_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN]
 );
-export const ActivitysRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Activity>(ACTIVITIES_REPOSITORY_TOKEN,
+export const ActivitiesRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Activity>(ACTIVITIES_REPOSITORY_TOKEN,
   [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN]
 );

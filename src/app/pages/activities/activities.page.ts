@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivitiesService } from 'src/app/core/services/impl/activities.service';
 
 @Component({
   selector: 'app-activities',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivitiesPage implements OnInit {
 
-  constructor() { }
+  constructor(
+   
+    private actSvc: ActivitiesService
+  ) { }
 
   ngOnInit() {
   }
