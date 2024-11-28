@@ -4,8 +4,8 @@ import { Model } from "./base.model";
 
 export interface Activity extends Model{
     title:string,
-    description:string,
     location:string,
     price:string
+    description:string,
     advenId?:string
 }

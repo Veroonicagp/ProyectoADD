@@ -5,7 +5,7 @@ export interface Adven extends Model{
     name:string,
     surname:string,
     email?:string, //TODO: Quitar interrogación más adelante
-    picture?:{
+    media?:{
         url:string | undefined,
         large:string | undefined,
         medium:string | undefined,

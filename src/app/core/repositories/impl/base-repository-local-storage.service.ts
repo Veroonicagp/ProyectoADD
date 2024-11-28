@@ -38,13 +38,13 @@ export class BaseRespositoryLocalStorageService<T extends Model> implements IBas
           last:"García Gómez"
         },
         age:47,
-        picture:{
+        media:{
           large:"https://picsum.photos/id/0/200/300",
           thumbnail:"https://picsum.photos/id/0/200/300"
         }
       };
-      mockup.picture.large = `https://picsum.photos/id/${i}/200/300`;
-      mockup.picture.thumbnail = `https://picsum.photos/id/${i}/200/300`;
+      mockup.media.large = `https://picsum.photos/id/${i}/200/300`;
+      mockup.media.thumbnail = `https://picsum.photos/id/${i}/200/300`;
       mockupList = [...mockupList, mockup];
     }
     this._items = JSON.parse(localStorage.getItem(resource) ?? JSON.stringify(mockupList));

@@ -58,12 +58,12 @@ export interface AdvenRaw {
             name:data.nombre, 
             surname:data.apellidos, 
             email:(data as any)["email"]??'',
-            picture:(data as any)["picture"]?{
-                url:(data as any)["picture"].url,
-                large:(data as any)["picture"].large, 
-                medium:(data as any)["picture"].medium,
-                small:(data as any)["picture"].small,
-                thumbnail:(data as any)["picture"].thumbnail
+            media:(data as any)["media"]?{
+                url:(data as any)["media"].url,
+                large:(data as any)["media"].large, 
+                medium:(data as any)["media"].medium,
+                small:(data as any)["media"].small,
+                thumbnail:(data as any)["media"].thumbnail
             }:undefined};
     }
     getAdded(data: AdvenRaw):Adven {

@@ -50,22 +50,22 @@ export function createBaseRepositoryFactory<T extends Model>(
 export function createBaseMappingFactory<T extends Model>(
   token: InjectionToken<IBaseMapping<T>>,
   dependencies: any[],
-  modelType: 'Adven' | 'Activity'
+  modelType: 'adven' | 'activity'
 ): FactoryProvider {
   return {
     provide: token,
     useFactory: (backend: string) => {
       switch (backend) {
         case 'local-storage':
-          return modelType === 'Adven' 
+          return modelType === 'adven' 
             ? new AdvenLocalStorageMapping()
             : null;
         case 'json-server':
-          return modelType === 'Adven'
+          return modelType === 'adven'
             ? new AdvenMappingJsonServer()
             : new ActivitiesMappingJsonServer();
         case 'strapi':
-          return modelType === 'Adven'
+          return modelType === 'adven'
             ? new AdvenMappingStrapi()
             : new ActivitiesMappingStrapi();
         default:
@@ -101,13 +101,13 @@ export function createBaseAuthMappingFactory(token: InjectionToken<IAuthMapping>
 export const AdvenMappingFactory = createBaseMappingFactory<Adven>(
   ADVEN_REPOSITORY_MAPPING_TOKEN, 
   [BACKEND_TOKEN],
-  'Adven'
+  'adven'
 );
 
 export const ActivitiesMappingFactory = createBaseMappingFactory<Activity>(
   ACTIVITIES_REPOSITORY_MAPPING_TOKEN, 
   [BACKEND_TOKEN],
-  'Activity'
+  'activity'
 );
 
 export const AuthMappingFactory: FactoryProvider = createBaseAuthMappingFactory(AUTH_MAPPING_TOKEN, [BACKEND_TOKEN]);

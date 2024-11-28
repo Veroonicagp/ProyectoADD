@@ -10,7 +10,7 @@ interface AdvenRaw{
         first:string;
         last:string;
     },
-    picture:{
+    media:{
         url:string,
         large:string,
         medium:string,
@@ -39,12 +39,12 @@ interface AdvenRaw{
             id:data.id, 
             name:data.name.first, 
             surname:data.name.last, 
-            picture:{
-                url:data.picture.url,
-                large:data.picture.large, 
-                medium:data.picture.medium,
-                small:data.picture.small,
-                thumbnail:data.picture.thumbnail
+            media:{
+                url:data.media.url,
+                large:data.media.large, 
+                medium:data.media.medium,
+                small:data.media.small,
+                thumbnail:data.media.thumbnail
             }};
     }
     getAdded(data: AdvenRaw):Adven {

@@ -63,7 +63,7 @@ interface AdvenAttributes {
     updatedAt?: string
     publishedAt?: string
     user:UserRaw | number | null,
-    picture:MediaRaw | number | null
+    media:MediaRaw | number | null
 }
 
 interface ActivityAttributes {
@@ -83,7 +83,7 @@ interface Meta {}
                 name:data.name,
                 surname:data.surname,
                 user:data.userId?Number(data.userId):null,
-                picture:data.picture?Number(data.picture):null
+                media:data.media?Number(data.media):null
             }
         };
     }
@@ -98,7 +98,7 @@ interface Meta {}
                 break;
                 case 'userId': mappedData.user = data[key] ? Number(data[key]) : null;
                 break;
-                case 'picture': mappedData.picture = data[key] ? Number(data[key]) : null;
+                case 'media': mappedData.media = data[key] ? Number(data[key]) : null;
                 break;
             }
         });
@@ -124,12 +124,12 @@ interface Meta {}
             name: attributes.name,
             surname: attributes.surname,
             userId: typeof attributes.user === 'object' ? attributes.user?.data?.id.toString() : undefined,
-            picture: typeof attributes.picture === 'object' ? {
-                url: attributes.picture?.data?.attributes?.url,
-                large: attributes.picture?.data?.attributes?.formats?.large?.url || attributes.picture?.data?.attributes?.url,
-                medium: attributes.picture?.data?.attributes?.formats?.medium?.url || attributes.picture?.data?.attributes?.url,
-                small: attributes.picture?.data?.attributes?.formats?.small?.url || attributes.picture?.data?.attributes?.url,
-                thumbnail: attributes.picture?.data?.attributes?.formats?.thumbnail?.url || attributes.picture?.data?.attributes?.url,
+            media: typeof attributes.media === 'object' ? {
+                url: attributes.media?.data?.attributes?.url,
+                large: attributes.media?.data?.attributes?.formats?.large?.url || attributes.media?.data?.attributes?.url,
+                medium: attributes.media?.data?.attributes?.formats?.medium?.url || attributes.media?.data?.attributes?.url,
+                small: attributes.media?.data?.attributes?.formats?.small?.url || attributes.media?.data?.attributes?.url,
+                thumbnail: attributes.media?.data?.attributes?.formats?.thumbnail?.url || attributes.media?.data?.attributes?.url,
             } : undefined
         };
     }

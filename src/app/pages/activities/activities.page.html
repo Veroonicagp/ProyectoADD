@@ -11,7 +11,17 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">activities</ion-title>
+      <ion-title size="large">Grupos</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-list>
+    <ion-item *ngFor="let activity of _activities | async; let i = index">
+      <ion-label>
+        {{activity.title}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

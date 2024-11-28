@@ -1,8 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -10,29 +6,18 @@
       <ion-title size="large">register</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class="custom-margin" >
   <ion-list>
     <ion-list>
-      <ion-item>
-        <ion-input label="Name" placeholder="Name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Surname" placeholder="Surname"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Birthday" type="date" placeholder="000"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Email" type="email" placeholder="email@domain.com"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Password" type="password" value="password"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="RepeatPassword" type="password" value="RepeatPassword"></ion-input>
-      </ion-item>
+      <ion-input  label="Nombre" label-placement="floating" fill="outline" placeholder="Nombre"></ion-input>
+      <ion-input label="Apellido" label-placement="floating" fill="outline" placeholder="Apellido"></ion-input>
+      <ion-input label="Email" label-placement="floating" fill="outline"  type="email" placeholder="Email"></ion-input>
+      <ion-input  label="Password" label-placement="floating" fill="outline" type="password"  placeholder="Pasword"></ion-input>
+      <ion-input label="RepeatPasword" label-placement="floating" fill="outline" type="password"  placeholder="Pasword"></ion-input>
     </ion-list>
   </ion-list>
   <div class="container">
-    <ion-button class="bttn" shape="round" gravity="center" routerLink="/activities">Login</ion-button>
+    <ion-button class="bttn" shape="round" gravity="center" routerLink="/login">Login</ion-button>
   </div>
+</div>
 </ion-content>
