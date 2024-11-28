@@ -1,4 +1,4 @@
-// src/app/services/interfaces/people.service.interface.ts
+
 import { Observable } from 'rxjs';
 import { Adven } from '../../models/adven.model';
 import { IBaseService } from './base-service.interface';

@@ -35,7 +35,7 @@ import { ActivitiesService } from './core/services/impl/activities.service';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideHttpClient(),
     { provide: BACKEND_TOKEN, useValue: 'strapi' },
-    {provide: ADVEN_RESOURCE_NAME_TOKEN,useValue: 'advens'},
+    {provide: ADVEN_RESOURCE_NAME_TOKEN,useValue: 'adventurers'},
     {provide: ACTIVITIES_RESOURCE_NAME_TOKEN,useValue: 'activities'},
     {provide: ADVEN_API_URL_TOKEN,useValue: 'http://localhost:1337/api'},
     { provide: ACTIVITIES_API_URL_TOKEN, useValue: 'http://localhost:1337/api' },

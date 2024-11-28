@@ -7,7 +7,7 @@ export function passwordValidator(control: AbstractControl): ValidationErrors | 
   return valid ? null : { passwordStrength: 'La contraseña no cumple con los requisitos' };
 }
 
-
+//validador de contraseña
 export function passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password = group.get('password')?.value;
   const confirmPassword = group.get('confirmPassword')?.value;

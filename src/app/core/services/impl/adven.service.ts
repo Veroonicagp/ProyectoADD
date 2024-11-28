@@ -1,4 +1,4 @@
-// src/app/services/impl/people.service.ts
+
 import { Injectable, Inject } from '@angular/core';
 import { BaseService } from './base-service.service';
 import { IAdvenService } from '../interfaces/adven-service.interface';
