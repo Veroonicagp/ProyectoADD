@@ -14,8 +14,8 @@ import { ActivityModalComponent } from 'src/app/shared/components/activity-modal
 })
 export class MiActivitiesPage implements OnInit {
 
-  _activities:BehaviorSubject<Activity[]> = new BehaviorSubject<Activity[]>([]);
-  activities$:Observable<Activity[]> = this._activities.asObservable();
+  _myActivities:BehaviorSubject<Activity[]> = new BehaviorSubject<Activity[]>([]);
+  myActivities$:Observable<Activity[]> = this._myActivities.asObservable();
 
   constructor(
     private myActSvc: MyActivitiesService,
@@ -45,7 +45,7 @@ export class MiActivitiesPage implements OnInit {
     this.page=1;
     this.myActSvc.getAll(this.page, this.pageSize).subscribe({
       next:(response:Paginated<Activity>)=>{
-        this._activities.next([...response.data]);
+        this._myActivities.next([...response.data]);
         this.page++;
       }
     });
@@ -54,7 +54,7 @@ export class MiActivitiesPage implements OnInit {
   getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
     this.myActSvc.getAll(this.page, this.pageSize).subscribe({
       next:(response:Paginated<Activity>)=>{
-        this._activities.next([...this._activities.value, ...response.data]);
+        this._myActivities.next([...this._myActivities.value, ...response.data]);
         this.page++;
         notify?.complete();
       }
