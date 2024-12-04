@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
     if (this.loginForm.valid) {
       this.authSvc.signIn(this.loginForm.value).subscribe({
         next: resp=>{
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
           this.router.navigateByUrl(returnUrl); // Redirige a la página solicitada
         },
         error: err=>{
@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
 
   onRegister(){
     this.loginForm.reset();
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
     this.router.navigate(['/register'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
   }
 

@@ -1,21 +1,29 @@
-.container {
-    display: flex;
-    justify-content: center; /* Alinea horizontalmente */
-    align-items: center; /* Alinea verticalmente */
-    height: 10vh; /* Ajusta si necesitas */
-  }
-  
-  .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-  }
+div.login-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  padding: 16px; /* Espaciado para evitar bordes ajustados */
+  overflow-y: auto; /* Permitir scroll vertical si el contenido crece */
+}
 
-  ion-input {
-    margin-bottom: 20px; /* Ajusta el valor según tus necesidades */
-  }
+form {
+  width: 100%;
+  max-width: 400px;
+  height:100%;
+}
 
-  .custom-margin {
-    margin-left: 450px;
-    margin-right: 450px;
-    margin-top: 50px; /* Cambia a top, bottom, left o right si necesitas */
-  }
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+ion-item{
+  margin-bottom:10px;
+}
+ion-text.input-error{
+  margin-top:-10px;
+}
+
