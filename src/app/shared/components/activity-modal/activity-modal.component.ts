@@ -22,13 +22,14 @@ export class ActivityModalComponent  implements OnInit {
     this._activities.next(activities);
   }
 
-  @Input() set adven(_adven:Adven){
-    if(_adven && _adven.id)
+  @Input() set activity(_activities:Activity){
+    if(_activities && _activities.id)
       this.mode = 'edit';
     
-    this.formGroup.controls['name'].setValue(_adven.name);
-    this.formGroup.controls['surname'].setValue(_adven.surname);
-    this.formGroup.controls['email'].setValue(_adven.email);
+    this.formGroup.controls['title'].setValue(_activities.title);
+    this.formGroup.controls['location'].setValue(_activities.location);
+    this.formGroup.controls['price'].setValue(_activities.price);
+    this.formGroup.controls['description'].setValue(_activities.description);
     
   }
 
@@ -38,29 +39,30 @@ export class ActivityModalComponent  implements OnInit {
     private platform: Platform) {
       this.isMobile = this.platform.is('ios') || this.platform.is('android');
       this.formGroup = this.fb.group({
-      name:['', [Validators.required, Validators.minLength(2)]],
-      surname:['', [Validators.required, Validators.minLength(2)]],
-      email:['', [Validators.required, Validators.email]],
+      title:['', [Validators.required, Validators.minLength(2)]],
+      location:['', [Validators.required, Validators.minLength(2)]],
+      price:['', [Validators.required,Validators.minLength(2)]],
+      description:['', [Validators.required,Validators.minLength(2)]],
     });
      }
 
   ngOnInit() {}
 
   
-  get name(){
-    return this.formGroup.controls['name'];
+  get title(){
+    return this.formGroup.controls['title'];
   }
 
-  get surname(){
-    return this.formGroup.controls['surname'];
+  get location(){
+    return this.formGroup.controls['location'];
   }
 
-  get age(){
-    return this.formGroup.controls['age'];
+  get price(){
+    return this.formGroup.controls['price'];
   }
 
-  get email(){
-    return this.formGroup.controls['email'];
+  get description(){
+    return this.formGroup.controls['description'];
   }
 
   getDirtyValues(formGroup: FormGroup): any {

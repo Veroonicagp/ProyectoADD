@@ -4,10 +4,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" scrollY="true">
-  <div class="login-container">
+<ion-content [fullscreen]="true" scrollY="true" >
+  <div class="container">
+  <div class="login-form">
     
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
       <ion-grid>
         <ion-row>
           <ion-col style="display:flex" class="ion-justify-content-center">
@@ -22,12 +23,15 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <ion-item>
-        <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input labelPlacement="floating" label="Contraseña" type="password" formControlName="password" required></ion-input>
-      </ion-item>
+      
+      
+      
+
+        <ion-input label-placement="floating" label="Email" fill="outline" type="email" formControlName="email" required></ion-input>
+      
+      
+        <ion-input labelPlacement="floating" label="Contraseña" fill="outline" type="password" formControlName="password" required></ion-input>
+      
       <ion-text class="input-error" color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
         <p *ngIf="email?.errors?.['required']">*Debe introducir un email</p>
         <p *ngIf="email?.errors?.['email']">*Debe introducir un email correcto</p>
@@ -39,6 +43,10 @@
         Iniciar sesión
       </ion-button>
     </form>
+  </div>
+  <div class="image-section">
+    <img src="https://via.placeholder.com/300" alt="Imagen descriptiva">
+  </div>
   </div>
 </ion-content>
 

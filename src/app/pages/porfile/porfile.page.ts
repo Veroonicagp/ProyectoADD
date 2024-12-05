@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
 
 @Component({
   selector: 'app-porfile',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PorfilePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public authSvc: BaseAuthenticationService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }

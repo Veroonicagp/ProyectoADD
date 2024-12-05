@@ -26,27 +26,18 @@ export interface PaginatedRaw<T> {
 @Injectable({
     providedIn:'root'
 })
+
+
 export class MyActivitiesService{
 
-    private apiUrl:string = "http://localhost:3000/activities"
+    private apiUrl:string = "http://localhost:1337/api/activities"
     constructor(
         private http:HttpClient
     ){
 
     }
 
-    getAll(page:number, pageSize:number): Observable<Paginated<Activity>> {
-        return this.http.get<PaginatedRaw<ActivityRaw>>(`${this.apiUrl}/?_page=${page}&_per_page=${pageSize}`).pipe(map(res=>{
-            return {page:page, pageSize:pageSize, pages:res.pages, data:res.data.map<Activity>((d:ActivityRaw)=>{
-                return {
-                    id:d.id, 
-                    title:d.title,
-                    location:d.location,
-                    price:d.price,
-                    description:d.description,
-
-                };
-            })};
-        }))
+    getAll(userId:string){
+        return this.http.get<PaginatedRaw<ActivityRaw>>(`${this.apiUrl}?filters[persona][id][$eq]=${userId}&populate=*`);
     }
 }

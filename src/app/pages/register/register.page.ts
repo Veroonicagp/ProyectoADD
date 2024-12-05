@@ -44,7 +44,7 @@ export class RegisterPage {
           
           this.advenSvc.add(userData).subscribe({
             next: resp => {
-              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
+              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
               this.router.navigateByUrl(returnUrl);
             },
             error: err => {}
@@ -64,7 +64,7 @@ export class RegisterPage {
 
    onLogin(){
     this.registerForm.reset();
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
     this.router.navigate(['/login'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
   }
 

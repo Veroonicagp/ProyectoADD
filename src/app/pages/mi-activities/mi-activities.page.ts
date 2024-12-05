@@ -14,6 +14,8 @@ import { ActivityModalComponent } from 'src/app/shared/components/activity-modal
 })
 export class MiActivitiesPage implements OnInit {
 
+  userId: string = '1';
+
   _myActivities:BehaviorSubject<Activity[]> = new BehaviorSubject<Activity[]>([]);
   myActivities$:Observable<Activity[]> = this._myActivities.asObservable();
 
@@ -41,17 +43,14 @@ export class MiActivitiesPage implements OnInit {
   @ViewChild('animatedAvatar') animatedAvatar!: ElementRef;
   @ViewChild('animatedAvatarContainer') animatedAvatarContainer!: ElementRef;
 
- * refresh(){
+  refresh(){
     this.page=1;
-    this.myActSvc.getAll(this.page, this.pageSize).subscribe({
-      next:(response:Paginated<Activity>)=>{
-        this._myActivities.next([...response.data]);
-        this.page++;
-      }
-    });
+    /**this.actSvc.getAll(this.userId).subscribe((data) => {
+      this._myActivities= data;
+    });**/
   }
 
-  getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
+  /**getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
     this.myActSvc.getAll(this.page, this.pageSize).subscribe({
       next:(response:Paginated<Activity>)=>{
         this._myActivities.next([...this._myActivities.value, ...response.data]);
@@ -59,17 +58,17 @@ export class MiActivitiesPage implements OnInit {
         notify?.complete();
       }
     });
-  }
+  }**/
 
   async openActivityDetail(activity: any, index: number) {
     await this.presentModalActivity('edit', activity);
     this.selectedActivity = activity;
   }
 
-  onIonInfinite(ev:InfiniteScrollCustomEvent) {
+  /**onIonInfinite(ev:InfiniteScrollCustomEvent) {
     this.getMoreActivity(ev.target);
     
-  }
+  }**/
 
   private async presentModalActivity(mode:'new'|'edit', activity:Activity|undefined=undefined){
     const modal = await this.modalCtrl.create({

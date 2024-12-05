@@ -1,14 +1,35 @@
+
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Crear Actividad</ion-title>
-    </ion-toolbar>
-  </ion-header>
-<ion-list class="custom-margin">
-    <ion-list>
-      <ion-input  label="Title" label-placement="floating" fill="outline" placeholder="Title"></ion-input>
-      <ion-input label="Location" label-placement="floating" fill="outline" placeholder="Location"></ion-input>
-      <ion-input label="Price" label-placement="floating" fill="outline" placeholder="Price"></ion-input>
-      <ion-textarea class="large-textarea" label="Description" label-placement="floating" fill="outline" placeholder="Description"></ion-textarea>
-    </ion-list>
-    <ion-button expand="full" type="submit">Crear</ion-button> 
-</ion-list>
+  <ion-toolbar>
+    <ion-icon slot="start" title="person-outline"></ion-icon>
+    <ion-title>
+      modal
+    </ion-title>
+    @if (isMobile) {
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    }
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    
+      <ion-input label-placement="floating" label="title" fill="outline"  type="text" formControlName="title"></ion-input>
+    
+    
+      <ion-input label-placement="floating" fill="outline" label="location"  type="text" formControlName="location"></ion-input>
+    
+    
+      <ion-input label-placement="floating" fill="outline" label="price"  type="text" formControlName="price"></ion-input>
+    
+    
+      <ion-input label-placement="floating" fill="outline"label="description"  type="text" formControlName="description" class="large-textarea"></ion-input>
+    
+    
+    <ion-button expand="full" type="submit" >crear</ion-button>
+  </form>
+
+</ion-content>
