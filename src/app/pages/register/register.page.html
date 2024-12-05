@@ -1,13 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Crear cuenta</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true" scrollY="true">
-  <div class="register-container">
+  <div class="container">
+  <div class="login-form">
     
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
       <ion-grid>
         <ion-row>
           <ion-col style="display:flex" class="ion-justify-content-center">
@@ -15,28 +12,21 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <ion-grid>
-        <ion-row>
-          <ion-col style="display:flex" class="ion-justify-content-center ion-align-items-center">
-            ¿Tienes una cuenta?<ion-button style="text-transform:none" (click)="onLogin()" fill="clear">Inicia sesión</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-item>
-        <ion-input labelPlacement="floating" label="Nombre" type="text" formControlName="name" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input labelPlacement="floating" label="Apellidos" type="text" formControlName="surname" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email" autocomplete="off" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input labelPlacement="floating" label="Contraseña" type="password" formControlName="password" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input labelPlacement="floating" label="Repita contraseña" type="password" formControlName="confirmPassword" required></ion-input>
-      </ion-item>
+      
+        <ion-input label-placement="floating" fill="outline" label="Nombre" type="text" formControlName="name" required></ion-input>
+      
+      
+        <ion-input label-placement="floating" fill="outline" label="Apellidos" type="text" formControlName="surname" required></ion-input>
+      
+      
+        <ion-input label-placement="floating" fill="outline" label="Email" type="email" formControlName="email" autocomplete="off" required></ion-input>
+      
+      
+        <ion-input label-placement="floating" fill="outline" label="Contraseña" type="password" formControlName="password" required></ion-input>
+      
+      
+        <ion-input label-placement="floating" fill="outline" label="Repita contraseña" type="password" formControlName="confirmPassword" required></ion-input>
+      
       <ion-text class="input-error" color="danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
         <p *ngIf="name?.errors?.['required']">*Debe introducir su nombre</p>
         <p *ngIf="name?.errors?.['minlength']">*El nombre debe tener al menos dos caracteres</p>
@@ -59,6 +49,8 @@
       <ion-button style="text-transform:none" expand="block" type="submit" [disabled]="registerForm.invalid">
         Crear cuenta
       </ion-button>
+      <ion-button style="text-transform:none" expand="block" (click)="onLogin()" fill="clear">Inicia sesión</ion-button>
     </form>
   </div>
+</div>
 </ion-content>

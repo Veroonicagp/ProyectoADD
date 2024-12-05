@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, Platform } from '@ionic/angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { Activity } from 'src/app/core/models/activity.model';
 import { Adven } from 'src/app/core/models/adven.model';
+import { AdvenService } from 'src/app/core/services/impl/adven.service';
+import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
 
 @Component({
   selector: 'app-activity-modal',
@@ -12,6 +14,7 @@ import { Adven } from 'src/app/core/models/adven.model';
 })
 export class ActivityModalComponent  implements OnInit {
   formGroup:FormGroup;
+  person?: Adven | null;
   mode:'new'|'edit' = 'new';
   isMobile: boolean = false;
 
@@ -30,23 +33,34 @@ export class ActivityModalComponent  implements OnInit {
     this.formGroup.controls['location'].setValue(_activities.location);
     this.formGroup.controls['price'].setValue(_activities.price);
     this.formGroup.controls['description'].setValue(_activities.description);
-    
   }
 
+  
   constructor(
     private fb:FormBuilder,
     private modalCtrl:ModalController,
+    private authSvc:BaseAuthenticationService,
+    private advSvc:AdvenService,
+    
     private platform: Platform) {
       this.isMobile = this.platform.is('ios') || this.platform.is('android');
       this.formGroup = this.fb.group({
-      title:['', [Validators.required, Validators.minLength(2)]],
-      location:['', [Validators.required, Validators.minLength(2)]],
-      price:['', [Validators.required,Validators.minLength(2)]],
-      description:['', [Validators.required,Validators.minLength(2)]],
-    });
+        title:['', [Validators.required, Validators.minLength(2)]],
+        location:['', [Validators.required, Validators.minLength(2)]],
+        price:['', [Validators.required,Validators.minLength(2)]],
+        description:['', [Validators.required,Validators.minLength(2)]],
+        advenId: [null]
+      });
+      
+      
      }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    const user = await this.authSvc.getCurrentUser();
+    const id = lastValueFrom(this.advSvc.getByUserId(user.id))
+    
+
+  }
 
   
   get title(){
@@ -64,6 +78,7 @@ export class ActivityModalComponent  implements OnInit {
   get description(){
     return this.formGroup.controls['description'];
   }
+
 
   getDirtyValues(formGroup: FormGroup): any {
     const dirtyValues: any = {};

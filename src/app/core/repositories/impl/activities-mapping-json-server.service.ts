@@ -10,6 +10,7 @@ export interface ActivityRaw {
     description:string
     location:string
     price:string
+    advenId:string
 }
 @Injectable({
     providedIn: 'root'
@@ -33,6 +34,7 @@ export interface ActivityRaw {
             description:data.description,
             location:data.location,
             price:data.price,
+            //advenId:data.advenId
             
         };
     }
