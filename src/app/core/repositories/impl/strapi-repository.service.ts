@@ -87,8 +87,10 @@ export class StrapiRepositoryService<T extends Model> extends BaseRepositoryHttp
   }
 
   override update(id: string, entity: T): Observable<T> {
+    //formateamos a entidad para poder introducirla en strapi
+    const formattedEntity = { data: { ...entity } }
     return this.http.put<T>(
-      `${this.apiUrl}/${this.resource}/${id}`, this.mapping.setUpdate(entity), 
+      `${this.apiUrl}/${this.resource}/${id}`, formattedEntity, 
       this.getHeaders()).pipe(map(res=>{
         return this.mapping.getUpdated(res);
       }));

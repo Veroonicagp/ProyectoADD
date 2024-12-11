@@ -1,40 +1,47 @@
-<ion-content [fullscreen]="true" scrollY="true" >
+<ion-content [fullscreen]="true" scrollY="true">
   <div class="container">
-  <div class="login-form">
-    
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
-      <ion-grid>
-        <ion-row>
-          <ion-col style="display:flex" class="ion-justify-content-center">
-            <ion-text><h1>Iniciar sesión</h1></ion-text>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      
-      
-      
+    <div class="login-form">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+        <ion-grid>
+          <ion-row>
+            <ion-col style="display:flex" class="ion-justify-content-center">
+              <ion-text><h1>Iniciar sesión</h1></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
         <ion-input label-placement="floating" label="Email" fill="outline" type="email" formControlName="email" required></ion-input>
-      
-      
         <ion-input labelPlacement="floating" label="Contraseña" fill="outline" type="password" formControlName="password" required></ion-input>
-      
-      <ion-text class="input-error" color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-        <p *ngIf="email?.errors?.['required']">*Debe introducir un email</p>
-        <p *ngIf="email?.errors?.['email']">*Debe introducir un email correcto</p>
-      </ion-text>
-      <ion-text class="input-error" color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
-        <p *ngIf="password?.errors?.['required']">*Debe introducir una contraseña</p>
-      </ion-text>
-      <ion-button style="text-transform:none" expand="block" type="submit" [disabled]="loginForm.invalid">
-        Iniciar sesión
-      </ion-button>
-      <ion-button style="text-transform:none" expand="block" (click)="onRegister()" fill="clear">Regístrate</ion-button>
-    </form>
-  </div>
-  <div class="image-section">
-    <img src="https://via.placeholder.com/300" alt="Imagen descriptiva">
-  </div>
+
+        <ion-text class="input-error" color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+          <p *ngIf="email?.errors?.['required']">*Debe introducir un email</p>
+          <p *ngIf="email?.errors?.['email']">*Debe introducir un email correcto</p>
+        </ion-text>
+
+        <ion-text class="input-error" color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+          <p *ngIf="password?.errors?.['required']">*Debe introducir una contraseña</p>
+        </ion-text>
+
+        <!-- Botón de inicio de sesión con clase para el color púrpura -->
+        <ion-button class="login-button" expand="block" type="submit" [disabled]="loginForm.invalid">
+          Iniciar sesión
+        </ion-button>
+
+        <!-- Botón de registro -->
+        <ion-button class="register-button" expand="block" (click)="onRegister()" fill="clear">Regístrate</ion-button>
+      </form>
+    </div>
+
+    <ion-grid class="contenedor">
+      <ion-col size="6">
+        <!-- Imagen más grande -->
+        <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png"></ion-img>
+      </ion-col>
+    </ion-grid>
   </div>
 </ion-content>
+
+
+
+
 

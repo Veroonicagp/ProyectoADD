@@ -1,22 +1,19 @@
-
+<ion-content class="activities-page" >
 <ion-header>
   <ion-toolbar>
     <ion-icon slot="start" title="person-outline"></ion-icon>
     <ion-title>
-      modal
+      @if (mode=='edit') {
+        Info
+      }
+      @else {
+        Nueva Aventura
+      }
     </ion-title>
-    @if (isMobile) {
-      <ion-buttons slot="end">
-        <ion-button (click)="dismiss()">
-          <ion-icon slot="icon-only" name="close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    }
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    
       <ion-input label-placement="floating" label="title" fill="outline"  type="text" formControlName="title"></ion-input>
     
     
@@ -26,10 +23,12 @@
       <ion-input label-placement="floating" fill="outline" label="price"  type="text" formControlName="price"></ion-input>
     
     
+      
       <ion-input label-placement="floating" fill="outline"label="description"  type="text" formControlName="description" class="large-textarea"></ion-input>
     
     
-    <ion-button expand="full" type="submit" >crear</ion-button>
+    <ion-button class="bttn" expand="full" type="submit" >crear</ion-button>
   </form>
 
+</ion-content>
 </ion-content>

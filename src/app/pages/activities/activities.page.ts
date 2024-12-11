@@ -14,6 +14,15 @@ export class ActivitiesPage implements OnInit {
 
   _activities:BehaviorSubject<Activity[]> = new BehaviorSubject<Activity[]>([]);
   activities$:Observable<Activity[]>= this._activities.asObservable();
+  filteredActivities: Observable<Activity[]> = this.activities$;
+  searchTerm: string = '';
+  
+  filterActivities() {
+    const filtered = this._activities.value.filter(activity =>
+      activity.location.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    this.filteredActivities = new BehaviorSubject<Activity[]>(filtered).asObservable();
+  }
 
   constructor(
     private actSvc: ActivitiesService

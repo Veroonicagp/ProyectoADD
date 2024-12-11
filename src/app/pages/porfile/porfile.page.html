@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Porfile</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +15,11 @@
       <ion-card-title><h3>{{ (authSvc.user$ | async)?.username}}</h3></ion-card-title>
       <ion-card-subtitle>{{ (authSvc.user$ | async)?.email}}</ion-card-subtitle>
     </ion-card-header>
-  </div>
+    </div>
+    <div class="btn">
+      <ion-button class="bttn" (click)="logout()"  >cerrar sesion</ion-button>
+    </div>
+  
   </ion-card>
 
 </ion-content>

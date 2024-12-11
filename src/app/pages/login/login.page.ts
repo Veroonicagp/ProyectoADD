@@ -43,11 +43,13 @@ export class LoginPage implements OnInit {
 
   onRegister(){
     this.loginForm.reset();
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
     this.router.navigate(['/register'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
   }
 
   ngOnInit() {
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
+    this.router.navigateByUrl(returnUrl);
   }
 
   get email(){

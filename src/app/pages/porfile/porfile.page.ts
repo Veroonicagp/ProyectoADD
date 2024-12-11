@@ -17,4 +17,10 @@ export class PorfilePage implements OnInit {
   ngOnInit() {
   }
 
+  logout() {
+    this.authSvc.signOut().subscribe(()=>{
+      this.router.navigate(['/login']);
+    });
+  }
+
 }

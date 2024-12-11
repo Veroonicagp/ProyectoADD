@@ -47,7 +47,7 @@ interface StrapiSignUp{
     password:string,
     username:string
 }
-export interface GroupRaw {
+export interface ActivityRaw {
     id: string
     nombre: string
 }

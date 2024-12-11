@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BaseAuthenticationService } from '../services/impl/base-authentication.service';
 import { filter, map, switchMap, take } from 'rxjs';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const AuthGuard: CanActivateFn = (route, state) => {
     const authService = inject(BaseAuthenticationService);
     const router = inject(Router);
   

@@ -16,10 +16,13 @@ export interface PaginatedRaw<T> {
 
   export interface ActivityRaw {
     id: string
-    title: string
-    location:string
-    price:string
-    description:string
+    attributes: {
+        title: string;
+        location: string;
+        price: string;
+        description: string;
+        advenId: string;
+    };
     
 
 }
@@ -37,7 +40,25 @@ export class MyActivitiesService{
 
     }
 
-    getAll(userId:string){
+    /**getAll(userId:string){
         return this.http.get<PaginatedRaw<ActivityRaw>>(`${this.apiUrl}?filters[persona][id][$eq]=${userId}&populate=*`);
+    }**/
+
+    getByAdvenId(advenId:string, page:number, pageSize:number): Observable<Paginated<Activity>> {
+        return this.http.get<PaginatedRaw<ActivityRaw>>(`${this.apiUrl}?filters[advenId][id][$eq]=${advenId}&populate=*/?_page=${page}&_per_page=${pageSize}`).pipe(map(res=>{
+            console.log('Datos recibidos de la API:', res);
+            return {page:page, pageSize:pageSize, pages:res.pages, data:res.data.map<Activity>((d:ActivityRaw)=>{
+                console.log('Dato mapeadod:', d);
+                return {
+                    id:d.id,
+                    title:d.attributes.title,
+                    location:d.attributes.location,
+                    price:d.attributes.price,
+                    description:d.attributes.description,
+                    advenId:d.attributes.advenId
+                    
+                };
+            })};
+        }))
     }
 }

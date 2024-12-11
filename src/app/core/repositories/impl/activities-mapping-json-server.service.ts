@@ -34,7 +34,7 @@ export interface ActivityRaw {
             description:data.description,
             location:data.location,
             price:data.price,
-            //advenId:data.advenId
+            advenId:data.advenId
             
         };
     }

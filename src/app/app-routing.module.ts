@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    
   },
   {
     path: 'register',
@@ -17,23 +19,27 @@ const routes: Routes = [
   },
   {
     path: 'porfile',
-    loadChildren: () => import('./pages/porfile/porfile.module').then( m => m.PorfilePageModule)
+    loadChildren: () => import('./pages/porfile/porfile.module').then( m => m.PorfilePageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'activities',
-    loadChildren: () => import('./pages/activities/activities.module').then( m => m.ActivitiesPageModule)
+    loadChildren: () => import('./pages/activities/activities.module').then( m => m.ActivitiesPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'mi-activities',
-    loadChildren: () => import('./pages/mi-activities/mi-activities.module').then( m => m.MiActivitiesPageModule)
+    loadChildren: () => import('./pages/mi-activities/mi-activities.module').then( m => m.MiActivitiesPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'splash',
-    loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
+    loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule),
   },
   {
     path: 'adventurous',
-    loadChildren: () => import('./pages/adventurous/adventurous.module').then( m => m.AdventurousPageModule)
+    loadChildren: () => import('./pages/adventurous/adventurous.module').then( m => m.AdventurousPageModule),
+    canActivate:[AuthGuard]
   },
 
 ];

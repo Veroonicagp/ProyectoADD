@@ -1,27 +1,42 @@
+<ion-content [fullscreen]="true" class="activities-page">
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Activities</ion-title>
-    
+    <ion-title>Actividades</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Grupos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" >
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="filterActivities()"  
+    placeholder="Busca por localidad de actividad..."
+    debounce="300"
+    showClearButton="focus"
+  ></ion-searchbar>
+
   <ion-list>
-    <ion-item *ngFor="let activity of _activities | async; let i = index" >
-      <ion-label>
-        {{activity.title}}
-      </ion-label>
-    </ion-item>
+    <ion-card *ngFor="let activity of filteredActivities | async; let i = index" class="animated-entry">
+      <ion-card-header>
+        <ion-card-title>{{activity.title}}</ion-card-title>
+        <ion-card-subtitle>
+          <ion-icon name="location-outline"></ion-icon> {{activity.location}}
+        </ion-card-subtitle>
+        <ion-card-subtitle>
+          <ion-icon name="pricetag-outline"></ion-icon>{{activity.price}}
+        </ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+       {{activity.description}}
+      </ion-card-content>
+    </ion-card>
   </ion-list>
+
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+</ion-content>
 </ion-content>

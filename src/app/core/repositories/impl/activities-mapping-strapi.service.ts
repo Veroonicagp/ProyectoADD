@@ -21,7 +21,7 @@ export interface ActivityAttributes {
     description:string
     location:string
     price:string
-    //advenId:string
+    advenId:string
     createdAt?: string
     updatedAt?: string
     publishedAt?: string
@@ -42,7 +42,7 @@ export interface Meta {}
                 description:data.description,
                 location:data.location,
                 price:data.price,
-                //advenId:data.advenId
+                advenId:data.advenId
                 
             }
         };
@@ -54,7 +54,7 @@ export interface Meta {}
                 description:"",
                 location:"",
                 price:"",
-                //advenId:""
+                advenId:""
             }
         };  
         Object.keys(data).forEach(key=>{
@@ -83,7 +83,7 @@ export interface Meta {}
             description:attributes.description,
             location:attributes.location,
             price:attributes.price,
-            //advenId:attributes.advenId
+            advenId: attributes.advenId
         };
     }
     getAdded(data: ActivityRaw):Activity {

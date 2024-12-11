@@ -5,7 +5,27 @@ ion-input {
     margin: 20px; /* Cambia a top, bottom, left o right si necesitas */
   }
 
-  .large-textarea {
-    height: 100px; /* Ajusta la altura según sea necesario */
-    width: 100%; /* Asegúrate de que ocupe todo el ancho deseado */
+.large-textarea {
+  height: 100px; /* Ajusta la altura según sea necesario */
+  width: 100%; /* Asegúrate de que ocupe todo el ancho deseado */
+}
+
+ion-toolbar {
+  --background: transparent;
+    background: linear-gradient(135deg, white, purple);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+    ion-title {
+      font-weight: 600;
+      text-align: center;
+      color: white;
+      font-size: 1.2em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+  }
+
+  .bttn{
+    --background: purple;
+    color: white;
+    box-shadow: 0 4px 6px rgba(253, 230, 230, 0.275);
   }
