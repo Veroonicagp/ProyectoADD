@@ -14,6 +14,12 @@ import { ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL
 import { ActivitiesMappingFactory, AdvenMappingFactory, AuthMappingFactory, AdvenRepositoryFactory, AuthenticationServiceFactory, MediaServiceFactory, ActivitiesRepositoryFactory } from './core/repositories/repository.factory';
 import { AdvenService } from './core/services/impl/adven.service';
 import { ActivitiesService } from './core/services/impl/activities.service';
+import { environment } from 'src/environments/environment';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +31,7 @@ import { ActivitiesService } from './core/services/impl/activities.service';
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: TranslateLoader,
+        useFactory: createTranslateLoader,
         deps: [HttpClient]
       },
     }),
@@ -37,12 +43,12 @@ import { ActivitiesService } from './core/services/impl/activities.service';
     { provide: BACKEND_TOKEN, useValue: 'strapi' },
     {provide: ADVEN_RESOURCE_NAME_TOKEN,useValue: 'adventurers'},
     {provide: ACTIVITIES_RESOURCE_NAME_TOKEN,useValue: 'activities'},
-    {provide: ADVEN_API_URL_TOKEN,useValue: 'http://localhost:1337/api'},
-    { provide: ACTIVITIES_API_URL_TOKEN, useValue: 'http://localhost:1337/api' },
-    { provide: AUTH_SIGN_IN_API_URL_TOKEN, useValue: 'http://localhost:1337/api/auth/local' },
-    { provide: AUTH_SIGN_UP_API_URL_TOKEN, useValue: 'http://localhost:1337/api/auth/local/register' },
-    { provide: AUTH_ME_API_URL_TOKEN, useValue: 'http://localhost:1337/api/users/me' },
-    { provide: UPLOAD_API_URL_TOKEN, useValue: 'http://localhost:1337/api/upload' },
+    {provide: ADVEN_API_URL_TOKEN,useValue: environment.apiUrl+'/api'},
+    { provide: ACTIVITIES_API_URL_TOKEN, useValue: environment.apiUrl+'/api' },
+    { provide: AUTH_SIGN_IN_API_URL_TOKEN, useValue: environment.apiUrl+'/api/auth/local' },
+    { provide: AUTH_SIGN_UP_API_URL_TOKEN, useValue: environment.apiUrl+'/api/auth/local/register' },
+    { provide: AUTH_ME_API_URL_TOKEN, useValue: environment.apiUrl+'/api/users/me' },
+    { provide: UPLOAD_API_URL_TOKEN, useValue: environment.apiUrl+'/api/upload' },
     
     AdvenMappingFactory,
     ActivitiesMappingFactory,
