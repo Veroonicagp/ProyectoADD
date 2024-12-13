@@ -13,13 +13,6 @@ ion-content {
     height: 100vh;
     margin: 0;
 }
-ion-card {
-    margin-left:45vh ;
-    width: 1000px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 800px; /* Ajusta la altura según sea necesario */
-    background-color: rgb(244, 244, 244);
-}
 
 ion-toolbar {
     --background: transparent;
@@ -41,3 +34,47 @@ ion-toolbar {
         
         box-shadow: 0 4px 6px rgba(253, 230, 230, 0.275);
       }
+      
+/* Estilos generales para el perfil */
+
+.profile-card {
+  width: 80%; /* Ajusta el tamaño de la carta */
+  margin-left: 200px ; /* Centra la carta en su columna */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Añade sombra para darle profundidad */
+}
+
+
+
+
+.profile-card ion-card-title {
+  font-size: 1.2rem; /* Tamaño de título pequeño */
+  margin-bottom: 5px; /* Espaciado debajo del título */
+}
+
+.profile-card ion-card-subtitle {
+  font-size: 1rem; /* Tamaño de subtítulo pequeño */
+  color: #666; /* Color más suave para el texto */
+}
+
+.bttn {
+  width: 100%; /* Asegura que el botón ocupe el 100% del ancho de la columna */
+  max-width: 200px;
+  margin-bottom: 20px; /* Máximo ancho del botón */
+}
+
+.imagen-responsiva {
+  max-width: 70%;
+  height: auto;
+  border-radius: 8px;
+  margin-left: 200px; /* Bordes redondeados en la imagen */
+}
+
+@media (max-width: 767px) {
+  .profile-card {
+    width: 100%; /* En pantallas pequeñas, la carta ocupa todo el ancho */
+  }
+
+  .imagen-responsiva {
+    max-height: 100px; /* Limita la altura de la imagen en pantallas pequeñas */
+  }
+}

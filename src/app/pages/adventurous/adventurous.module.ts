@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { AdventurousPageRoutingModule } from './adventurous-routing.module';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { AdventurousPage } from './adventurous.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { AdventurousPage } from './adventurous.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AdventurousPageRoutingModule
+    AdventurousPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [AdventurousPage]
 })

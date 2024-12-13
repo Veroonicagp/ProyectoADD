@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PorfilePageRoutingModule } from './porfile-routing.module';
 
 import { PorfilePage } from './porfile.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { PorfilePage } from './porfile.page';
     FormsModule,
     IonicModule,
     PorfilePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forChild()
   ],
   declarations: [PorfilePage]
 })

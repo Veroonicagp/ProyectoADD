@@ -1,34 +1,40 @@
 <ion-content [fullscreen]="true" scrollY="true">
   <div class="container">
     <div class="login-form">
+      <ion-buttons slot="end">
+        <ion-button (click)="changeLanguage()">
+          {{'LOGIN.IDIOMA'| translate}}
+        </ion-button>
+      </ion-buttons>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
         <ion-grid>
           <ion-row>
             <ion-col style="display:flex" class="ion-justify-content-center">
-              <ion-text><h1>Iniciar sesión</h1></ion-text>
+              <ion-text><h1>{{'LOGIN.TITLE' | translate}}</h1></ion-text>
             </ion-col>
           </ion-row>
+
         </ion-grid>
 
-        <ion-input label-placement="floating" label="Email" fill="outline" type="email" formControlName="email" required></ion-input>
-        <ion-input labelPlacement="floating" label="Contraseña" fill="outline" type="password" formControlName="password" required></ion-input>
-
+        <ion-input label-placement="floating" label="{{'LOGIN.EMAIL' | translate}}" fill="outline" type="email" formControlName="email" required></ion-input>
+        <ion-input labelPlacement="floating" label="{{'LOGIN.CONTRASEÑA' | translate}}" fill="outline" type="password" formControlName="password" required></ion-input>
+        
         <ion-text class="input-error" color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-          <p *ngIf="email?.errors?.['required']">*Debe introducir un email</p>
-          <p *ngIf="email?.errors?.['email']">*Debe introducir un email correcto</p>
+          <p *ngIf="email?.errors?.['required']">{{'LOGIN.ERRORS.EMAIL_REQUIRED' | translate}}</p>
+          <p *ngIf="email?.errors?.['email']">{{'LOGIN.ERRORS.EMAIL_INVALID' | translate}}</p>
         </ion-text>
 
         <ion-text class="input-error" color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
-          <p *ngIf="password?.errors?.['required']">*Debe introducir una contraseña</p>
+          <p *ngIf="password?.errors?.['required']">{{'LOGIN.ERRORS.PASSWORD_REQUIRED' | translate}}</p>
         </ion-text>
 
         <!-- Botón de inicio de sesión con clase para el color púrpura -->
         <ion-button class="login-button" expand="block" type="submit" [disabled]="loginForm.invalid">
-          Iniciar sesión
+          {{'LOGIN.TITLE' | translate}}
         </ion-button>
 
         <!-- Botón de registro -->
-        <ion-button class="register-button" expand="block" (click)="onRegister()" fill="clear">Regístrate</ion-button>
+        <ion-button class="register-button" expand="block" (click)="onRegister()" fill="clear">{{'LOGIN.REGISTRO' | translate}}</ion-button>
       </form>
     </div>
 

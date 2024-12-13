@@ -22,9 +22,13 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
+  .y{
+    --background: purple;
+  }
+
   .bttn{
-    --background: white;
-    color: purple;
+    --background: purple;
+    color: white;
     box-shadow: 0 4px 6px rgba(253, 230, 230, 0.275);
   }
 

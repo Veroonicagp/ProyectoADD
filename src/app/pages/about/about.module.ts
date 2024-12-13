@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MiActivitiesPageRoutingModule } from './mi-activities-routing.module';
+import { AboutPageRoutingModule } from './about-routing.module';
 
-import { MiActivitiesPage } from './mi-activities.page';
+import { AboutPage } from './about.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -14,9 +15,10 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     IonicModule,
-    MiActivitiesPageRoutingModule,
+    AboutPageRoutingModule,
+    SharedModule,
     TranslateModule.forChild()
   ],
-  declarations: [MiActivitiesPage]
+  declarations: [AboutPage]
 })
-export class MiActivitiesPageModule {}
+export class AboutPageModule {}

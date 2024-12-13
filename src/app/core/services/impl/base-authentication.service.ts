@@ -26,4 +26,5 @@ export abstract class BaseAuthenticationService implements IAuthentication{
     abstract signUp(registerPayload: any): Observable<any>;
     abstract signOut(): Observable<any>;
     abstract me():Observable<any>;
+    
 }

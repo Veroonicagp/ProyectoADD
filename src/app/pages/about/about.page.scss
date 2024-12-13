@@ -1,0 +1,117 @@
+/* Layout Container */
+.profile-image-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+  
+  #profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+.about-container {
+    margin-left: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+  }
+  
+  .content-section {
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+  .image-section {
+    flex: 0 0 auto;
+    margin-right: 300px;
+  }
+  
+  .ready-to-enjoy-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ready-to-enjoy-image img {
+    max-width: 400px;
+    height: auto;
+  }
+  
+  /* Card Styling */
+  .about-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Typography */
+  .creator-name {
+    text-align: left;
+    color: #333;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 15px;
+  }
+  
+  .creator-role {
+    text-align: left;
+    color: #666;
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+  
+  .app-description {
+    text-align: left;
+    color: #444;
+    line-height: 1.6;
+    padding: 0 15px;
+  }
+  
+  .app-description p {
+    margin-bottom: 15px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .about-container {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .content-section {
+      padding-right: 0;
+      margin-bottom: 20px;
+    }
+  
+    .creator-name,
+    .creator-role,
+    .app-description {
+      text-align: center;
+    }
+  
+    .ready-to-enjoy-image img {
+      max-width: 300px;
+    }
+  }
+  
+  /* Toolbar Styling */
+  ion-toolbar {
+    --background: linear-gradient(135deg, white, purple);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+      
+  ion-title {
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }

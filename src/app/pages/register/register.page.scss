@@ -1,43 +1,96 @@
-div.login-container {
-  display: flex;
-  flex-direction: column; 
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-  padding: 16px; /* Espaciado para evitar bordes ajustados */
-  overflow-y: auto; /* Permitir scroll vertical si el contenido crece */
-}
+/* Contenedor principal */
 .container {
   display: flex;
-  height: 100vh;
-  }
-  .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: purple;
+  background: rgb(241, 222, 241);
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.ion-card{
+  margin-left: 200px;
+}
+
+/* Formulario con fondo violeta claro */
+.login-form {
+  background: white; /* Violeta claro */
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%; /* Ajusta el ancho al 100% dentro de su contenedor */
+  margin-left: 200px; /* Aumentar margen de separación de la izquierda */
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+/* Título dentro del formulario */
+h1 {
+  color: purple;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+
+/* Errores de validación */
+.input-error p {
+  margin: 0;
+  font-size: 12px;
+}
+ion-input {
+  margin-bottom: 15px; /* Color del texto del placeholder */
+}
+
+ion-input:focus {
+  --border-color: #9b4dca; /* Color púrpura cuando está enfocado */
+}
+
+.ion-button {
+  margin-top: 10px;
+}
+
+
+/* Botón de inicio de sesión en púrpura */
+.bttnL {
+  --background: purple; /* Púrpura */
+  --color: white; /* Color del texto en blanco */
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  text-transform: none;
+}
+
+/* Botón de registro en texto púrpura */
+.bttnR {
+  --color: purple; /* Púrpura */
+  --background: transparent; /* Fondo transparente */
+  text-transform: none;
+}
+
+
+/* Imagen a la derecha, más grande */
+.imagen-responsiva {
+  width: 100%;
+  max-width: 650px; /* Ajusta el tamaño de la imagen */
+  display: block;
+  margin: 20px auto; /* Centra la imagen */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    justify-content: center; /* Centra todo el contenido */
   }
 
-  .form {
-    width: 100%;
-    max-width: 400px;
-    height:100%;
-    margin-top: 10vh;
-    margin-left: 65vh;
+  .login-form {
+    margin-left: 0; /* El formulario ocupa todo el espacio disponible en pantallas pequeñas */
   }
 
-
-  ion-input{
-    margin-bottom:10px;
-    color: purple;
-  
+  .imagen-responsiva {
+    display: block;
+    margin: 0 auto;
+    max-width: 90%; /* Ajusta la imagen en pantallas pequeñas */
   }
-
-  .custom-margin {
-    margin-left: 450px;
-    margin-right: 450px;
-    margin-top: 50px; /* Cambia a top, bottom, left o right si necesitas */
-  }
-  ion-button {
-    --background: purple;
-    --color: white;
-    }
+}

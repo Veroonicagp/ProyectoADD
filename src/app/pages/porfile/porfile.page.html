@@ -3,23 +3,31 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Profile</ion-title>
+    <ion-title>{{'PROFILE.TITLE'|translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true"class="porfile">
-  <ion-card >
-    <div class="info">
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-    <ion-card-header>
-      <ion-card-title><h3>{{ (authSvc.user$ | async)?.username}}</h3></ion-card-title>
-      <ion-card-subtitle>{{ (authSvc.user$ | async)?.email}}</ion-card-subtitle>
-    </ion-card-header>
-    </div>
-    <div class="btn">
-      <ion-button class="bttn" (click)="logout()"  >cerrar sesion</ion-button>
-    </div>
-  
-  </ion-card>
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <!-- Carta a la izquierda (pequeña) -->
+      <ion-col size="12" size-md="4" >
+        <ion-card class="profile-card">
+          <ion-card-header>
+            <ion-card-title>{{'PROFILE.TITLE2'|translate}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle><h3>{{'PROFILE.NAME'|translate}}{{ (authSvc.user$ | async)?.username}}</h3></ion-card-subtitle>
+            <ion-card-subtitle>{{'PROFILE.EMAIL'|translate}}{{ (authSvc.user$ | async)?.email}}</ion-card-subtitle>
+          </ion-card-content>
+          <ion-button class="bttn" (click)="logout()">{{'PROFILE.CLOSE'|translate}}</ion-button>
+        </ion-card>
+      </ion-col>
 
+      <!-- Imagen a la derecha -->
+      <ion-col size="12" size-md="8">
+        <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png" alt="Imagen" style="width: 100%; height: auto;"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

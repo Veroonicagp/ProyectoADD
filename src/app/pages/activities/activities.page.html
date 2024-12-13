@@ -1,18 +1,18 @@
-<ion-content [fullscreen]="true" class="activities-page">
-<ion-header [translucent]="true">
+<ion-content  class="activities-page">
+<ion-header >
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Actividades</ion-title>
+    <ion-title>{{'ACTIVIDADES.NOMBRE' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" >
+<ion-content>
   <ion-searchbar
     [(ngModel)]="searchTerm"
     (ionInput)="filterActivities()"  
-    placeholder="Busca por localidad de actividad..."
+    placeholder="{{'ACTIVIDADES.SEARCH_PLACEHOLDER' | translate}}"
     debounce="300"
     showClearButton="focus"
   ></ion-searchbar>

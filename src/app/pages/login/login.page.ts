@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +13,22 @@ import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authe
 export class LoginPage implements OnInit {
   //buscar
   loginForm: FormGroup;
+  currentLang: string;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route:ActivatedRoute,
-    private authSvc:BaseAuthenticationService
+    private authSvc:BaseAuthenticationService,
+    private translate: TranslateService,
+    private languageService: LanguageService,
   ) { 
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
+
+    this.currentLang = this.languageService.getStoredLanguage();
   }
 
   onSubmit() {
@@ -52,6 +59,12 @@ export class LoginPage implements OnInit {
     this.router.navigateByUrl(returnUrl);
   }
 
+  changeLanguage() {
+    const currentLang = this.translate.currentLang;
+    const newLang = currentLang === 'en' ? 'es' : 'en';
+    this.translate.use(newLang);
+  }
+
   get email(){
     return this.loginForm.controls['email'];
   }
@@ -59,6 +72,8 @@ export class LoginPage implements OnInit {
   get password(){
     return this.loginForm.controls['password'];
   }
+
+  
 
   
 

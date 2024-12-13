@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -41,12 +42,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/adventurous/adventurous.module').then( m => m.AdventurousPageModule),
     canActivate:[AuthGuard]
   },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule),
+    canActivate:[AuthGuard]
+  },
 
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    
   ],
   exports: [RouterModule]
 })

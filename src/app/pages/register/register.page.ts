@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/core/models/auth.model';
 import { AdvenService } from 'src/app/core/services/impl/adven.service';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
@@ -21,6 +22,7 @@ export class RegisterPage {
     private router: Router,
     private route:ActivatedRoute,
     private authSvc:BaseAuthenticationService,
+    private translate: TranslateService,
     private advenSvc:AdvenService
   ) {
     this.registerForm = this.fb.group({
@@ -61,6 +63,12 @@ export class RegisterPage {
 
 
    }
+
+   changeLanguage() {
+    const currentLang = this.translate.currentLang;
+    const newLang = currentLang === 'en' ? 'es' : 'en';
+    this.translate.use(newLang);
+  }
 
    onLogin(){
     this.registerForm.reset();

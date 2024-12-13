@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Activity } from 'src/app/core/models/activity.model';
 import { Paginated } from 'src/app/core/models/paginated.model';
@@ -25,7 +26,8 @@ export class ActivitiesPage implements OnInit {
   }
 
   constructor(
-    private actSvc: ActivitiesService
+    private actSvc: ActivitiesService,
+    private translate: TranslateService,
   ) { }
 
   ngOnInit() {

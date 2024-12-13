@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ActivitiesPageRoutingModule } from './activities-routing.module';
 
 import { ActivitiesPage } from './activities.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ActivitiesPageRoutingModule
+    ActivitiesPageRoutingModule,
+    TranslateModule.forChild()
   ],
   declarations: [ActivitiesPage]
 })

@@ -41,8 +41,8 @@ export class ActivityModalComponent  implements OnInit {
       this.formGroup = this.fb.group({
       title:['', [Validators.required, Validators.minLength(2)]],
       location:['', [Validators.required, Validators.minLength(2)]],
-      price:['', [Validators.required,Validators.minLength(2)]],
-      description:['', [Validators.required,Validators.minLength(2)]],
+      price:['', [Validators.required]],
+      description:['', [Validators.required,Validators.minLength(10)]],
     });
      }
 

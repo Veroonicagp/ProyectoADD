@@ -1,79 +1,97 @@
 {
-    "COMMON": {
-      "LANGUAGE": "Idioma",
-      "SPANISH": "Español",
-      "ENGLISH": "Inglés",
-      "ERROR": {
-        "LOAD": "Error al cargar los datos",
-        "SAVE": "Error al guardar los cambios"
-      },
-      "SUCCESS": {
-        "SAVE": "Cambios guardados correctamente"
-      }
-    },
-    "PEOPLE": {
-      "TITLE": "Personas",
-      "ADD_BUTTON": "Añadir",
-      "SEARCH_PLACEHOLDER": "Buscar personas...",
-      "NO_RESULTS": "No se encontraron personas",
-      "COLUMNS": {
-        "NAME": "Nombre",
-        "EMAIL": "Correo electrónico",
-        "PHONE": "Teléfono",
-        "ACTIONS": "Acciones"
-      },
-      "ACTIONS": {
-        "EDIT": "Editar",
-        "DELETE": "Eliminar",
-        "VIEW": "Ver detalles"
-      },
-      "MESSAGES": {
-        "DELETE_CONFIRM": "¿Está seguro que desea eliminar esta persona?",
-        "DELETE_SUCCESS": "Persona eliminada correctamente",
-        "DELETE_ERROR": "Error al eliminar la persona",
-        "SAVE_SUCCESS": "Persona guardada correctamente",
-        "SAVE_ERROR": "Error al guardar la persona"
-      }
-    },
-    "PERSON": {
-      "EDIT": "Editar persona",
-      "NEW": "Nueva persona",
-      "NAME": "Nombre",
-      "SURNAME": "Apellidos",
-      "EMAIL": "Email",
-      "AGE": "Edad",
-      "GENDER": "Género",
-      "GROUP": "Grupo",
-      "SUBMIT": "Registrar",
-      "UPDATE": "Actualizar",
-      "ERRORS": {
-        "NAME_REQUIRED": "El nombre es obligatorio",
-        "NAME_MIN_LENGTH": "El nombre debe tener al menos 2 caracteres",
-        "SURNAME_REQUIRED": "Los apellidos son obligatorios",
-        "SURNAME_MIN_LENGTH": "Los apellidos deben tener al menos 2 caracteres",
-        "EMAIL_REQUIRED": "El email es obligatorio",
-        "EMAIL_INVALID": "Por favor, introduce un email válido",
-        "AGE_PATTERN": "La edad debe ser un número positivo",
-        "GENDER_REQUIRED": "El género es obligatorio"
-      },
-      "GENDER_PLACEHOLDER": "Selecciona un género"
-    },
-    "GROUP_SELECTABLE": {
-      "SELECT_GROUP": "Seleccione un grupo",
-      "NONE": "Ninguno",
-      "SEARCH": "Buscar"
-    },
-    "MENU": {
-      "TITLE": "Menú",
-      "HOME": "Inicio",
-      "PEOPLE": "Personas",
-      "GROUPS": "Grupos",
-      "LOGOUT": "Cerrar sesión",
-      "PROFILE": "Perfil"
-    },
-    "PROFILE": {
-      "TITLE": "Perfil",
-      "SUBTITLE": "Tu información personal",
-      "UPDATE": "Actualizar"
+  "ABOUT": {
+    "TITLE": "Sobre ReadyToEnjoy",
+    "CREADORA": "Creadora de ReadyToEnjoy",
+    "INFO1": "¡Bienvenido a ReadyToEnjoy! Un proyecto diseñado para inspirarte en hacer nuevas aventuras tanto solo como en compañia, haciendo recuerdos de experiencias divertidas, nuevas y emocionantes. ",
+    "INFO2": "ReadyToEnjoy es una plataforma/herramienta en la cual te registras y podras acceder a las diferentes actividades subidas, tanto por ti como por los diferentes aventureros(usuraios registrados), la intención de la app es crear un foro, donde los usuarios puedan subir ideas de actividades que pudes realizar por tu zona donde pondran el lugar separado por provincias de andalucia(de momento), el precio aproximado de la actividad, y una breve descripción de donde poder conseguir informacion o reservar si es necesario y su experiencia."
+  },
+  "ACTIVIDADES": {
+    "NOMBRE": "Actividades",
+    "NUEVA": "Nueva aventura",
+    "EDITAR": "Editar aventura","UBI": "Ubicación",
+    "PRECIO": "Precio",
+    "TITULO": "Titulo",
+    "DESCIPCION": "Descripcion",
+    "CREAR": "Crear aventura",
+    "EDITAR2": "Editar aventura",
+    "ADD_BUTTON": "Añadir",
+    "SEARCH_PLACEHOLDER": "Buscar por localización...",
+    "NO_RESULTS": "No se encontraron aventureros",
+    "ERRORS": {
+      "TITLE_REQUIRED": "*Debe introducir un titulo",
+      "PRICE_REQUIRED": "*Debe introducir su precio",
+      "UBI_REQUIRED": "*Debe introducir la ubicación",
+      "DESCRIPTION_REQUIRED": "*Debe introducir una descripcion de minimo 10 letras",
+      "TITLE_INVALID": "*Por favor, introduce un titulo con mas de 2 caracteres",
+      "UBI_INVALID": "*La ubicación debe tener al menos dos caracteres",
+      "DESCRIPTION_INVALID": "*Al menos 10 caracteres para la descripción"
     }
-  } 
+  },
+  "AVENTUREROS": {
+    "NOMBRE": "Aventureros",
+    "SEARCH_PLACEHOLDER": "Buscar aventureros...",
+    "NO_RESULTS": "No se encontraron aventureros"
+  },
+  "LOGIN": {
+    "TITLE": "Inicio sesion",
+    "REGISTRO": "Registro",
+    "EMAIL": "Correo electrónico",
+    "CONTRASEÑA": "Contraseña",
+    "IDIOMA":"EN",
+    "ERRORS": {
+      "EMAIL_REQUIRED": "*Debe introducir un email",
+      "PASSWORD_REQUIRED": "*Debe introducir una contraseña",
+      "EMAIL_INVALID": "*Por favor, introduce un email válido",
+      "CONTRASEÑA_INVALID": "Contraseña incorrecta"
+    }
+  },
+  "MI_AVENTURAS": {
+    "TITLE": "Mis Aventuras",
+    "SUBTITLE": "Tu información aventurero",
+    "UPDATE": "Actualizar"
+  },
+  "PROFILE": {
+    "TITLE": "Perfil",
+    "TITLE2": "Tus datos AVENTURERO",
+    "UPDATE": "Actualizar",
+    "NAME": "Nombre:",
+    "EMAIL": "Correo:",
+    "CLOSE": "Cerrar Sesion"
+  },
+  "REGISTRO": {
+    "TITLE": "Registo",
+    "SUBTITLE": "Crear un cuenta",
+    "NAME": "Nombre:",
+    "SURNAME": "Apellido",
+    "EMAIL": "Correo electrónico",
+    "CONTRASENA": "Contraseña",
+    "CONTRASENA2": "Repita la Contraseña",
+    "IDIOMA":"EN",
+    "CREAR":"Crear cuenta",
+    "INICIO":"Iniciar sesión",
+    "ERRORS": {
+      "EMAIL_REQUIRED": "*Debe introducir un email",
+      "SAME": "*Las contraseñas no coinciden",
+      "NAME_REQUIRED": "*Debe introducir su nombre",
+      "SURNAME_REQUIRED": "*Debe introducir sus apellidos",
+      "PASSWORD_REQUIRED": "*Debe introducir una contraseña",
+      "EMAIL_INVALID": "*Por favor, introduce un email válido",
+      "NAME_INVALID": "*El nombre debe tener al menos dos caracteres",
+      "SURNAME_INVALID": "*Su/s apellido/s debe/n tener al menos dos caracteres",
+      "CONTRASEÑA_INVALID": "*Al menos 8 caracteres, una mayúscula, una minúscula, un dígito y un caracter especial (&#64;$!%*?&.)"
+    }
+  },
+  "MENU": {
+    "TITLE": "Menú",
+    "ACTIVIDADES": "Actividades",
+    "AVENTUREROS": "Aventureros",
+    "PERFIL": "Perfil",
+    "MI_ACTIVIDADES": "My Actividades",
+    "ABOUT": "Información"
+  }
+
+
+
+  
+  
+} 

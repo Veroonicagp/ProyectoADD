@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{'ABOUT.TITLE'| translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="about-container">
+    <div class="content-section">
+      <ion-card class="about-card">
+        <div class="profile-image-container">
+          <ion-img 
+            src="assets/imgs/veronicagp.jpeg" 
+            alt="Verónica González Pons"
+            id="profile-photo"
+          ></ion-img>
+        </div>
+        <ion-card-header>
+          <ion-card-title class="creator-name">Verónica González Pons</ion-card-title>
+          <ion-card-subtitle class="creator-role">{{'ABOUT.CREADORA'| translate}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content class="app-description">
+          <p>
+            {{'ABOUT.INFO1'| translate}}
+          </p>
+          
+          <p>
+            {{'ABOUT.INFO2'| translate}}
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div class="image-section">
+      <div class="ready-to-enjoy-image">
+        <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png"></ion-img>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+
+
+

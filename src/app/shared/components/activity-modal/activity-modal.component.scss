@@ -10,6 +10,10 @@ ion-input {
   width: 100%; /* Asegúrate de que ocupe todo el ancho deseado */
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Para Chrome, Safari y Edge */
+}
+
 ion-toolbar {
   --background: transparent;
     background: linear-gradient(135deg, white, purple);
