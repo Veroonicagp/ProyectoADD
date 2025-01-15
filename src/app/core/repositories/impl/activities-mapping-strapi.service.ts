@@ -21,7 +21,7 @@ export interface ActivityAttributes {
     description:string
     location:string
     price:string
-    advenId:string
+    advenId?:string
     createdAt?: string
     updatedAt?: string
     publishedAt?: string

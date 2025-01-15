@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseRepositoryHttpService } from './impl/base-repository-http.service';
 import { IBaseRepository } from './intefaces/base-repository.interface';
 import { Adven } from '../models/adven.model';
-import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN, ACTIVITIES_REPOSITORY_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN, ADVEN_REPOSITORY_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN } from './repository.tokens';
+import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN, ACTIVITIES_REPOSITORY_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN, ADVEN_REPOSITORY_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN, FIREBASE_CONFIG_TOKEN } from './repository.tokens';
 import { BaseRespositoryLocalStorageService } from './impl/base-repository-local-storage.service';
 import { Model } from '../models/base.model';
 import { IBaseMapping } from './intefaces/base-mapping.interface';
@@ -26,6 +26,8 @@ import { BaseMediaService } from '../services/impl/base-media.service';
 import { BaseRepositoryFirebaseService } from './impl/base-repository-firebase.service';
 import { FirebaseAuthMappingService } from '../services/impl/firebase-auth-mapping.service';
 import { FirebaseAuthenticationService } from '../services/impl/firebase-authentication.service';
+import { AdvenMappingFirebaseService } from './impl/adven-mapping-firebase.service';
+import { ActivitiesMappingFirebaseService } from './impl/activities-mapping-firebase.service';
 
 export function createBaseRepositoryFactory<T extends Model>(
   token: InjectionToken<IBaseRepository<T>>,
@@ -75,7 +77,7 @@ export function createBaseMappingFactory<T extends Model>(
             : new ActivitiesMappingStrapi();
         case 'firebase':
           return modelType === 'adven'
-            ? new AdvensMappingFirebaseService(firebaseConfig)
+            ? new AdvenMappingFirebaseService(firebaseConfig)
             : new ActivitiesMappingFirebaseService(firebaseConfig);
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
@@ -111,13 +113,13 @@ export function createBaseAuthMappingFactory(token: InjectionToken<IAuthMapping>
 
 export const AdvenMappingFactory = createBaseMappingFactory<Adven>(
   ADVEN_REPOSITORY_MAPPING_TOKEN, 
-  [BACKEND_TOKEN],
+  [BACKEND_TOKEN, FIREBASE_CONFIG_TOKEN],
   'adven'
 );
 
 export const ActivitiesMappingFactory = createBaseMappingFactory<Activity>(
   ACTIVITIES_REPOSITORY_MAPPING_TOKEN, 
-  [BACKEND_TOKEN],
+  [BACKEND_TOKEN, FIREBASE_CONFIG_TOKEN],
   'activity'
 );
 
@@ -142,12 +144,12 @@ export const AuthenticationServiceFactory:FactoryProvider = {
     }
     
   },
-  deps: [BACKEND_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_MAPPING_TOKEN, HttpClient]
+  deps: [BACKEND_TOKEN,FIREBASE_CONFIG_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_MAPPING_TOKEN, HttpClient]
 };
 
 export const MediaServiceFactory:FactoryProvider = {
   provide: BaseMediaService,
-  useFactory: (backend:string, upload:string, auth:IStrapiAuthentication, http:HttpClient) => {
+  useFactory: (backend:string,firebaseConfig:any, upload:string, auth:IStrapiAuthentication, http:HttpClient) => {
     switch(backend){
       case 'http':
         throw new Error("BACKEND NOT IMPLEMENTED");
@@ -163,12 +165,12 @@ export const MediaServiceFactory:FactoryProvider = {
     }
     
   },
-  deps: [BACKEND_TOKEN, UPLOAD_API_URL_TOKEN, BaseAuthenticationService, HttpClient]
+  deps: [BACKEND_TOKEN, FIREBASE_CONFIG_TOKEN, UPLOAD_API_URL_TOKEN, BaseAuthenticationService, HttpClient]
 };
 
 export const AdvenRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Adven>(ADVEN_REPOSITORY_TOKEN,
-  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, ADVEN_API_URL_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN]
+  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService,FIREBASE_CONFIG_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN]
 );
 export const ActivitiesRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Activity>(ACTIVITIES_REPOSITORY_TOKEN,
-  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN]
+  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService,FIREBASE_CONFIG_TOKEN, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN]
 );

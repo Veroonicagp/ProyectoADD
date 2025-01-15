@@ -51,11 +51,11 @@ export function createTranslateLoader(http: HttpClient) {
     { provide: UPLOAD_API_URL_TOKEN, useValue: environment.apiUrl+'/api/upload' },
     { provide: FIREBASE_CONFIG_TOKEN, useValue: 
       {
-        apiKey: "AIzaSyACYKe4h2-pAh4rW2ENDmGLB3EYsvT8WLg",
-        authDomain: "nueva-e5fd9.firebaseapp.com",
-        projectId: "nueva-e5fd9",
-        storageBucket: "nueva-e5fd9.appspot.com",
-        messagingSenderId: "721493712641",
+        apiKey: "AIzaSyBbtUPNed22rwit8mAu9ByodZ5fLIcmS_k",
+        authDomain: "readytooenjoy.firebaseapp.com",
+        projectId: "readytooenjoy",
+        storageBucket: "readytooenjoy.firebasestorage.app",
+        messagingSenderId: "377843416377",
       } 
     },
     
