@@ -169,7 +169,12 @@ export const MediaServiceFactory:FactoryProvider = {
 };
 
 export const AdvenRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Adven>(ADVEN_REPOSITORY_TOKEN,
-  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService,FIREBASE_CONFIG_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN]
+  [BACKEND_TOKEN, 
+    HttpClient, BaseAuthenticationService,
+    FIREBASE_CONFIG_TOKEN, 
+    ADVEN_API_URL_TOKEN, 
+    ADVEN_RESOURCE_NAME_TOKEN, 
+    ADVEN_REPOSITORY_MAPPING_TOKEN]
 );
 export const ActivitiesRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Activity>(ACTIVITIES_REPOSITORY_TOKEN,
   [BACKEND_TOKEN, HttpClient, BaseAuthenticationService,FIREBASE_CONFIG_TOKEN, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN]

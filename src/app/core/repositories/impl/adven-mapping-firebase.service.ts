@@ -33,8 +33,7 @@ export class AdvenMappingFirebaseService implements IBaseMapping<Adven> {
     const result: any = {};
     if (data.name) result.name = data.name;
     if (data.surname) result.surname = data.surname;
-    if (data.email) result.email = data.email || '';
-    if (data.userId) result.user = data.userId || '';
+    if (data.email) result.email = data.email;
     if (data.media) result.media = data.media.url;
 
     return result;
