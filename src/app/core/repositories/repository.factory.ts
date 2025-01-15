@@ -23,13 +23,16 @@ import { ActivitiesMappingStrapi } from './impl/activities-mapping-strapi.servic
 import { IStrapiAuthentication } from '../services/interfaces/strapi-authentication.interface';
 import { StrapiMediaService } from '../services/impl/strapi-media.service';
 import { BaseMediaService } from '../services/impl/base-media.service';
+import { BaseRepositoryFirebaseService } from './impl/base-repository-firebase.service';
+import { FirebaseAuthMappingService } from '../services/impl/firebase-auth-mapping.service';
+import { FirebaseAuthenticationService } from '../services/impl/firebase-authentication.service';
 
 export function createBaseRepositoryFactory<T extends Model>(
   token: InjectionToken<IBaseRepository<T>>,
   dependencies:any[]): FactoryProvider {
   return {
     provide: token,
-    useFactory: (backend: string, http: HttpClient, auth:IStrapiAuthentication, apiURL: string, resource: string, mapping: IBaseMapping<T>) => {
+    useFactory: (backend: string, http: HttpClient, auth:IStrapiAuthentication, apiURL: string, resource: string, mapping: IBaseMapping<T>,firebaseConfig?: any) => {
       switch (backend) {
         case 'http':
           return new BaseRepositoryHttpService<T>(http, auth, apiURL, resource, mapping);
@@ -39,6 +42,8 @@ export function createBaseRepositoryFactory<T extends Model>(
           return new JsonServerRepositoryService<T>(http, auth,apiURL, resource, mapping);
         case 'strapi':
           return new StrapiRepositoryService<T>(http, auth, apiURL, resource, mapping);
+        case 'firebase':
+          return new BaseRepositoryFirebaseService<T>(firebaseConfig, resource, mapping);  
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
       }
@@ -54,7 +59,7 @@ export function createBaseMappingFactory<T extends Model>(
 ): FactoryProvider {
   return {
     provide: token,
-    useFactory: (backend: string) => {
+    useFactory: (backend: string,firebaseConfig?: any) => {
       switch (backend) {
         case 'local-storage':
           return modelType === 'adven' 
@@ -68,6 +73,10 @@ export function createBaseMappingFactory<T extends Model>(
           return modelType === 'adven'
             ? new AdvenMappingStrapi()
             : new ActivitiesMappingStrapi();
+        case 'firebase':
+          return modelType === 'adven'
+            ? new AdvensMappingFirebaseService(firebaseConfig)
+            : new ActivitiesMappingFirebaseService(firebaseConfig);
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
       }
@@ -89,6 +98,8 @@ export function createBaseAuthMappingFactory(token: InjectionToken<IAuthMapping>
           throw new Error("BACKEND NOT IMPLEMENTED");
         case 'strapi':
           return new StrapiAuthMappingService();
+        case 'firebase':
+          return new FirebaseAuthMappingService();
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
       }
@@ -114,7 +125,7 @@ export const AuthMappingFactory: FactoryProvider = createBaseAuthMappingFactory(
 
 export const AuthenticationServiceFactory:FactoryProvider = {
   provide: BaseAuthenticationService,
-  useFactory: (backend:string, signIn:string, signUp:string, meUrl:string, mapping:IAuthMapping, http:HttpClient) => {
+  useFactory: (backend:string,firebaseConfig:any, signIn:string, signUp:string, meUrl:string, mapping:IAuthMapping, http:HttpClient) => {
     switch(backend){
       case 'http':
         throw new Error("BACKEND NOT IMPLEMENTED");
@@ -124,6 +135,8 @@ export const AuthenticationServiceFactory:FactoryProvider = {
         throw new Error("BACKEND NOT IMPLEMENTED");
       case 'strapi':
         return new StrapiAuthenticationService(signIn, signUp, meUrl, mapping, http);
+      case 'firebase':
+        return new FirebaseAuthenticationService(firebaseConfig, mapping);
       default:
         throw new Error("BACKEND NOT IMPLEMENTED");
     }
@@ -144,6 +157,7 @@ export const MediaServiceFactory:FactoryProvider = {
         throw new Error("BACKEND NOT IMPLEMENTED");
       case 'strapi':
         return new StrapiMediaService(upload, auth, http);
+      case 'firebase':
       default:
         throw new Error("BACKEND NOT IMPLEMENTED");
     }
