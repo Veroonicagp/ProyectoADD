@@ -54,7 +54,6 @@ export class ActivitiesMappingFirebaseService implements IBaseMapping<Activity> 
         location: data.location,
         price: data.price,
         description:data.description,
-        advenId: data.advenId || ''
     };
   }
 

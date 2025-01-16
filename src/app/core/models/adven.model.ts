@@ -4,7 +4,7 @@ import { Model } from "./base.model";
 export interface Adven extends Model{
     name:string,
     surname:string,
-    email?:string, //TODO: Quitar interrogación más adelante
+    email?:string, //
     media?:{
         url:string | undefined,
         large:string | undefined,

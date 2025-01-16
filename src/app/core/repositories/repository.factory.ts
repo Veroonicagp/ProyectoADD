@@ -45,7 +45,7 @@ export function createBaseRepositoryFactory<T extends Model>(
         case 'strapi':
           return new StrapiRepositoryService<T>(http, auth, apiURL, resource, mapping);
         case 'firebase':
-          return new BaseRepositoryFirebaseService<T>(firebaseConfig, resource, mapping);  
+          return new BaseRepositoryFirebaseService<T>(firebaseConfig, resource, mapping);
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
       }
