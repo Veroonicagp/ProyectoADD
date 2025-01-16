@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
-import { ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, UPLOAD_API_URL_TOKEN } from './core/repositories/repository.tokens';
+import { ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, FIREBASE_CONFIG_TOKEN, UPLOAD_API_URL_TOKEN } from './core/repositories/repository.tokens';
 import { ActivitiesMappingFactory, AdvenMappingFactory, AuthMappingFactory, AdvenRepositoryFactory, AuthenticationServiceFactory, MediaServiceFactory, ActivitiesRepositoryFactory } from './core/repositories/repository.factory';
 import { AdvenService } from './core/services/impl/adven.service';
 import { ActivitiesService } from './core/services/impl/activities.service';
@@ -40,7 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideHttpClient(),
-    { provide: BACKEND_TOKEN, useValue: 'strapi' },
+    { provide: BACKEND_TOKEN, useValue: 'firebase' },
     {provide: ADVEN_RESOURCE_NAME_TOKEN,useValue: 'adventurers'},
     {provide: ACTIVITIES_RESOURCE_NAME_TOKEN,useValue: 'activities'},
     {provide: ADVEN_API_URL_TOKEN,useValue: environment.apiUrl+'/api'},
@@ -49,7 +49,17 @@ export function createTranslateLoader(http: HttpClient) {
     { provide: AUTH_SIGN_UP_API_URL_TOKEN, useValue: environment.apiUrl+'/api/auth/local/register' },
     { provide: AUTH_ME_API_URL_TOKEN, useValue: environment.apiUrl+'/api/users/me' },
     { provide: UPLOAD_API_URL_TOKEN, useValue: environment.apiUrl+'/api/upload' },
-    
+    { provide: FIREBASE_CONFIG_TOKEN, useValue: 
+      {
+        apiKey: "AIzaSyACYKe4h2-pAh4rW2ENDmGLB3EYsvT8WLg",
+        authDomain: "nueva-e5fd9.firebaseapp.com",
+        projectId: "nueva-e5fd9",
+        storageBucket: "nueva-e5fd9.firebasestorage.app",
+        messagingSenderId: "721493712641",
+        appId: "1:721493712641:web:4c4c65c60a28040f230500",
+        measurementId: "G-C3N8HVJK7Q"
+      } 
+    },
     AdvenMappingFactory,
     ActivitiesMappingFactory,
     AuthMappingFactory,
