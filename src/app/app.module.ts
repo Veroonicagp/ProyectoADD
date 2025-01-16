@@ -51,13 +51,12 @@ export function createTranslateLoader(http: HttpClient) {
     { provide: UPLOAD_API_URL_TOKEN, useValue: environment.apiUrl+'/api/upload' },
     { provide: FIREBASE_CONFIG_TOKEN, useValue: 
       {
-        apiKey: "AIzaSyACYKe4h2-pAh4rW2ENDmGLB3EYsvT8WLg",
-        authDomain: "nueva-e5fd9.firebaseapp.com",
-        projectId: "nueva-e5fd9",
-        storageBucket: "nueva-e5fd9.firebasestorage.app",
-        messagingSenderId: "721493712641",
-        appId: "1:721493712641:web:4c4c65c60a28040f230500",
-        measurementId: "G-C3N8HVJK7Q"
+        apiKey: "AIzaSyBbtUPNed22rwit8mAu9ByodZ5fLIcmS_k",
+        authDomain: "readytooenjoy.firebaseapp.com",
+        projectId: "readytooenjoy",
+        storageBucket: "readytooenjoy.firebasestorage.app",
+        messagingSenderId: "377843416377",
+        appId: "1:377843416377:web:1bffc7a00cfab1e5523ce8"
       } 
     },
     AdvenMappingFactory,
