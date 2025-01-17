@@ -28,6 +28,7 @@ import { AdvenMappingFirebaseService } from './impl/adven-mapping-firebase.servi
 import { ActivitiesMappingFirebaseService } from './impl/activities-mapping-firebase.service';
 import { FirebaseAuthMappingService } from '../services/impl/firebase-auth-mapping.service';
 import { FirebaseAuthenticationService } from '../services/impl/firebase-authentication.service';
+import { IAuthentication } from '../services/interfaces/authentication.interface';
 
 export function createBaseRepositoryFactory<T extends Model>(
   token: InjectionToken<IBaseRepository<T>>,
@@ -149,7 +150,7 @@ export const AuthenticationServiceFactory:FactoryProvider = {
 
 export const MediaServiceFactory:FactoryProvider = {
   provide: BaseMediaService,
-  useFactory: (backend:string,firebaseConfig:any, upload:string, auth:IStrapiAuthentication, http:HttpClient) => {
+  useFactory: (backend:string,firebaseConfig:any, upload:string, auth:IAuthentication, http:HttpClient) => {
     switch(backend){
       case 'http':
         throw new Error("BACKEND NOT IMPLEMENTED");

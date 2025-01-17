@@ -30,7 +30,7 @@ export class AdvenMappingFirebaseService implements IBaseMapping<Adven> {
     if (data.surname) result.surname = data.surname;
     if (data.email) result.email = data.email;
     if (data.userId) result.user = data.userId || '';
-    if (data.media) result.media = data.media.url;
+    if (data.media) result.media = data.media;
     return result;
   }
   getOne(data: { id: string } & FirebaseAdven): Adven {
