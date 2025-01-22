@@ -8,6 +8,7 @@ import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, 
 import { BaseRespositoryLocalStorageService } from './impl/base-repository-local-storage.service';
 import { Model } from '../models/base.model';
 import { IBaseMapping } from './intefaces/base-mapping.interface';
+import { FirebaseMediaService } from '../services/impl/firebase-media.service';
 import { JsonServerRepositoryService } from './impl/json-server-repository.service';
 import { Activity } from '../models/activity.model';
 import { StrapiRepositoryService } from './impl/strapi-repository.service';
@@ -159,8 +160,9 @@ export const MediaServiceFactory:FactoryProvider = {
       case 'json-server':
         throw new Error("BACKEND NOT IMPLEMENTED");
       case 'strapi':
-        return new StrapiMediaService(upload, auth, http);
+        return new StrapiMediaService(upload, auth as IStrapiAuthentication, http);
       case 'firebase':
+        return new FirebaseMediaService(firebaseConfig, auth);
       default:
         throw new Error("BACKEND NOT IMPLEMENTED");
     }
