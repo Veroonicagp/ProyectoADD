@@ -6,6 +6,9 @@ import { IBaseMapping } from './intefaces/base-mapping.interface';
 import { Adven } from '../models/adven.model';
 import { IStrapiAuthentication } from '../services/interfaces/strapi-authentication.interface';
 import { IAuthentication } from '../services/interfaces/authentication.interface';
+import { ICollectionSubscription } from '../services/interfaces/collection-subcription.interface';
+import { Model } from '../models/base.model';
+import { Activity } from '../models/activity.model';
 
 export const RESOURCE_NAME_TOKEN = new InjectionToken<string>('ResourceName');
 export const ADVEN_RESOURCE_NAME_TOKEN = new InjectionToken<string>('AdvenResourceName');
@@ -25,10 +28,13 @@ export const UPLOAD_API_URL_TOKEN = new InjectionToken<string>('UploadApiUrl');
 
 export const REPOSITORY_MAPPING_TOKEN = new InjectionToken<IBaseMapping<any>>('IBaseRepositoryMapping');
 export const ADVEN_REPOSITORY_MAPPING_TOKEN = new InjectionToken<IBaseMapping<Adven>>('IAdvenRepositoryMapping');
-export const ACTIVITIES_REPOSITORY_MAPPING_TOKEN = new InjectionToken<IBaseMapping<Adven>>('IActivitiesRepositoryMapping');
+export const ACTIVITIES_REPOSITORY_MAPPING_TOKEN = new InjectionToken<IBaseMapping<Activity>>('IActivitiesRepositoryMapping');
 export const AUTH_TOKEN = new InjectionToken<IAuthentication>('IAuthentication');
 export const STRAPI_AUTH_TOKEN = new InjectionToken<IStrapiAuthentication>('IStrapiAuthentication');
 export const AUTH_MAPPING_TOKEN = new InjectionToken<IBaseMapping<Adven>>('IAuthMapping');
 export const BACKEND_TOKEN = new InjectionToken<string>('Backend');
 export const FIREBASE_CONFIG_TOKEN = new InjectionToken<any>('FIREBASE_CONFIG_TOKEN');
 export const FIREBASE_COLLECTION_TOKEN = new InjectionToken<string>('FIREBASE_COLLECTION_TOKEN');
+export const COLLECTION_SUBSCRIPTION_TOKEN = new InjectionToken<ICollectionSubscription<Model>>('CollectionSubscriptionToken');
+export const ADVEN_COLLECTION_SUBSCRIPTION_TOKEN = new InjectionToken<ICollectionSubscription<Adven>>('AdvenCollectionSubscriptionToken');
+export const ACTIVITIES_COLLECTION_SUBSCRIPTION_TOKEN = new InjectionToken<ICollectionSubscription<Activity>>('ActivitiesCollectionSubscriptionToken');

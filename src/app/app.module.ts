@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { AdvensCollectionSubscriptionFactory, ActivitiesCollectionSubscriptionFactory } from './core/repositories/repository.factory';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -73,7 +73,10 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: ActivitiesService
     },
     AuthenticationServiceFactory,
-    MediaServiceFactory
+    MediaServiceFactory,
+    AdvensCollectionSubscriptionFactory,
+    ActivitiesCollectionSubscriptionFactory
+
   ],
   bootstrap: [AppComponent],
 })

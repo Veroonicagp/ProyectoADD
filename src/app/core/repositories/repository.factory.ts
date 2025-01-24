@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseRepositoryHttpService } from './impl/base-repository-http.service';
 import { IBaseRepository } from './intefaces/base-repository.interface';
 import { Adven } from '../models/adven.model';
-import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN, ACTIVITIES_REPOSITORY_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN, ADVEN_REPOSITORY_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN, FIREBASE_CONFIG_TOKEN } from './repository.tokens';
+import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN, ACTIVITIES_REPOSITORY_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL_TOKEN, ADVEN_REPOSITORY_MAPPING_TOKEN, ADVEN_REPOSITORY_TOKEN, ADVEN_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN, FIREBASE_CONFIG_TOKEN, ADVEN_COLLECTION_SUBSCRIPTION_TOKEN, ACTIVITIES_COLLECTION_SUBSCRIPTION_TOKEN } from './repository.tokens';
 import { BaseRespositoryLocalStorageService } from './impl/base-repository-local-storage.service';
 import { Model } from '../models/base.model';
 import { IBaseMapping } from './intefaces/base-mapping.interface';
@@ -30,6 +30,8 @@ import { ActivitiesMappingFirebaseService } from './impl/activities-mapping-fire
 import { FirebaseAuthMappingService } from '../services/impl/firebase-auth-mapping.service';
 import { FirebaseAuthenticationService } from '../services/impl/firebase-authentication.service';
 import { IAuthentication } from '../services/interfaces/authentication.interface';
+import { ICollectionSubscription } from '../services/interfaces/collection-subcription.interface';
+import { FirebaseCollectionSubscriptionService } from '../services/impl/firebase-collection-subcription.service';
 
 export function createBaseRepositoryFactory<T extends Model>(
   token: InjectionToken<IBaseRepository<T>>,
@@ -176,4 +178,34 @@ export const AdvenRepositoryFactory: FactoryProvider = createBaseRepositoryFacto
 );
 export const ActivitiesRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Activity>(ACTIVITIES_REPOSITORY_TOKEN,
   [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ACTIVITIES_REPOSITORY_MAPPING_TOKEN,FIREBASE_CONFIG_TOKEN]
+);
+
+export function createCollectionSubscriptionFactory<T extends Model>(
+  collectionName: string,
+  mappingToken: InjectionToken<IBaseMapping<T>>,
+  collectionSubscriptionToken: InjectionToken<ICollectionSubscription<T>>
+): FactoryProvider {
+  return {
+    provide: collectionSubscriptionToken,
+    useFactory: (backend: string, firebaseConfig: any, mapping: IBaseMapping<T>) => {
+      switch (backend) {
+        case 'firebase':
+          return new FirebaseCollectionSubscriptionService<T>(firebaseConfig, mapping);
+        default:
+          throw new Error("BACKEND NOT IMPLEMENTED");
+      }
+    },
+    deps: [BACKEND_TOKEN, FIREBASE_CONFIG_TOKEN, mappingToken]
+  };
+}
+// Factorías específicas para cada tipo
+export const AdvensCollectionSubscriptionFactory = createCollectionSubscriptionFactory<Adven>(
+  'advens',
+  ADVEN_REPOSITORY_MAPPING_TOKEN,
+  ADVEN_COLLECTION_SUBSCRIPTION_TOKEN
+);
+export const ActivitiesCollectionSubscriptionFactory = createCollectionSubscriptionFactory<Activity>(
+  'activities',
+  ACTIVITIES_REPOSITORY_MAPPING_TOKEN,
+  ACTIVITIES_COLLECTION_SUBSCRIPTION_TOKEN
 );
