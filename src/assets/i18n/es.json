@@ -61,7 +61,7 @@
   "REGISTRO": {
     "TITLE": "Registo",
     "SUBTITLE": "Crear un cuenta",
-    "NAME": "Nombre:",
+    "NAME": "Nombre",
     "SURNAME": "Apellido",
     "EMAIL": "Correo electrónico",
     "CONTRASENA": "Contraseña",

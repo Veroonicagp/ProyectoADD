@@ -23,6 +23,4 @@ export class AdvenService extends BaseService<Adven> implements IAdvenService {
       map(res => Array.isArray(res) ? res[0] || null : res.data[0] || null)
     );
   }
-
-  
 }

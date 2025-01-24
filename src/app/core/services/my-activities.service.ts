@@ -56,7 +56,6 @@ export class MyActivitiesService{
                     price:d.attributes.price,
                     description:d.attributes.description,
                     advenId:d.attributes.advenId
-                    
                 };
             })};
         }))

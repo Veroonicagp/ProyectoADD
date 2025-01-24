@@ -13,6 +13,9 @@ ion-content {
     height: 100vh;
     margin: 0;
 }
+ion-input {
+  margin-bottom: 15px; /* Color del texto del placeholder */
+}
 
 ion-toolbar {
     --background: transparent;
