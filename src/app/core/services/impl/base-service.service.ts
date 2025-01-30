@@ -21,6 +21,13 @@ export class BaseService<T extends Model> implements IBaseService<T> {
       return this.repository.getAll(page, pageSize, filters);
   }
 
+  //llamada a todas las actividades obteniendo el advenId de la actividades
+  getAllByAdvenId(advenID:String): Observable<T[]>;
+  getAllByAdvenId(advenID:String,page:number, pageSize:number,):Observable<Paginated<T>>;
+  getAllByAdvenId(advenID:String,page:number=-1, pageSize:number=25, filters:SearchParams={}): Observable<T[]| Paginated<T>> {    
+      return this.repository.getAllByAdvenId(advenID,page, pageSize, filters);
+  }
+
   getById(id: string): Observable<T | null> {
     return this.repository.getById(id);
   }

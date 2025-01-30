@@ -15,7 +15,8 @@ import {
   startAfter,
   QueryConstraint,
   orderBy,
-  or
+  or,
+  where
 } from 'firebase/firestore';
 import { from, map, Observable, mergeMap } from 'rxjs';
 import { IBaseRepository, SearchParams } from '../intefaces/base-repository.interface';
@@ -38,6 +39,7 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
     this.db = getFirestore(app);
     this.collectionRef = collection(this.db, this.collectionName);
   }
+
   private async getLastDocumentOfPreviousPage(page: number, pageSize: number) {
     if (page <= 1) return null;
     
@@ -49,6 +51,38 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
     const snapshot = await getDocs(previousPageQuery);
     const docs = snapshot.docs;
     return docs[docs.length - 1];
+  }
+  getAllByAdvenId( advenId: string,page: number, pageSize: number, filters: SearchParams
+  ): Observable<Paginated<T>> {
+  return from(this.getLastDocumentOfPreviousPage(page, pageSize)).pipe(
+    map(lastDoc => {
+      const constraints: QueryConstraint[] = [
+        where('advenId', '==', advenId),
+        limit(pageSize)
+      ];
+
+      if (lastDoc) {
+        constraints.push(startAfter(lastDoc));
+      }
+      // Agregar filtros adicionales si existen
+      if (filters) {
+        Object.entries(filters).forEach(([key, value]) => {
+          if (key !== 'advenId' && value !== undefined) { // Evitar duplicar el filtro de advenId
+            constraints.push(where(key, '==', value));
+          }
+        });
+      }
+      return query(this.collectionRef, ...constraints);
+    }),
+    mergeMap(q => getDocs(q)),
+    map(snapshot => {
+      const items = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      return this.mapping.getPaginated(page, pageSize, snapshot.size, items as T[]);
+    })
+  );
   }
   getAll(page: number, pageSize: number, filters: SearchParams): Observable<T[] | Paginated<T>> {
     return from(this.getLastDocumentOfPreviousPage(page, pageSize)).pipe(

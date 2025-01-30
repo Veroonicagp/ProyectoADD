@@ -9,6 +9,7 @@ import { Paginated } from 'src/app/core/models/paginated.model';
 import { ActivitiesService } from 'src/app/core/services/impl/activities.service';
 import { AdvenService } from 'src/app/core/services/impl/adven.service';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
+import { MyActivitiesFirebaseService } from 'src/app/core/services/my-activities-firebase.service';
 import { MyActivitiesService } from 'src/app/core/services/my-activities.service';
 import { ActivityModalComponent } from 'src/app/shared/components/activity-modal/activity-modal.component';
 
@@ -24,17 +25,16 @@ export class MiActivitiesPage implements OnInit {
 
   _myActivities:BehaviorSubject<Activity[]> = new BehaviorSubject<Activity[]>([]);
   myActivities$:Observable<Activity[]> = this._myActivities.asObservable();
+  filteredActivities: Observable<Activity[]> = this.myActivities$;
+  searchTerm: string = '';
+
 
   
   constructor(
     private formBuilder: FormBuilder,
-    private myActSvc: MyActivitiesService,
     private actSvc: ActivitiesService,
     private modalCtrl:ModalController,
     private alertCtrl: AlertController,
-    private authSvc:BaseAuthenticationService,
-    private toastController: ToastController,
-    private advenSvc:AdvenService,
     //private translateService: TranslateService,
     private loadingController: LoadingController,
 
@@ -56,38 +56,24 @@ export class MiActivitiesPage implements OnInit {
   
 
   async ngOnInit() {
-    
     const loading = await this.loadingController.create();
     await loading.present();
 
-    try {
-      const user = await this.authSvc.getCurrentUser();
-      if(user){
-          this.adven = await lastValueFrom(this.advenSvc.getByUserId(user.id));
-          console.log(this.adven);
-          if (this.adven) {
-            const updatedAdven: any = {
-              ...this.adven,
-              email:user.email,
-              advenId:user.id ,
-            };
-            this.formGroup.patchValue(updatedAdven);
-            this.refresh() // Carga actividades del usuario autenticado
-          }
+    this.getMoreActivities();
+
+
+  }
+
+  getMoreActivities(notify:HTMLIonInfiniteScrollElement | null = null) {
+    if (this.adven?.id) {
+    this.actSvc.getAllByAdvenId(this.adven.id,this.page, this.pageSize,).subscribe({
+      next:(response:Paginated<Activity>)=>{
+        this._myActivities.next([...this._myActivities.value, ...response.data]);
+        this.page++;
+        notify?.complete();
       }
-    } catch (error) {
-      console.error(error);
-      const toast = await this.toastController.create({
-        //message: await lastValueFrom(this.translateService.get('COMMON.ERROR.LOAD')),
-        duration: 3000,
-        position: 'bottom'
-      });
-      await toast.present();
-    } finally {
-      await loading.dismiss();
-    }
-
-
+    });
+  }
   }
 
 
@@ -99,26 +85,14 @@ export class MiActivitiesPage implements OnInit {
     console.log('Adven ID:', this.adven?.id); 
     if (this.adven?.id) {
       this.page = 1; // Reinicia la paginación
-      this.myActSvc.getByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Paginated<Activity>) => {
+      this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Paginated<Activity>) => {
         console.log(response.data); 
         this._myActivities.next(response.data); // Actualiza las actividades mostradas
       });
     }
   }
 
-  getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
-    if (this.adven?.id) {
-    this.myActSvc.getByAdvenId(this.adven.id, this.page, this.pageSize).subscribe({
-      next: (response: Paginated<Activity>) => {
-        console.log('Actividades recibidas:', response.data); 
-        this._myActivities.next([...this._myActivities.value, ...response.data]);
-        this.page++;
-        notify?.complete(); 
-      },
-      error: (err) => console.error(err)
-    });
-  }
-  }
+
 
   async openActivityDetail(activity: any, index: number) {
     await this.presentModalActivity('edit', activity);
@@ -126,8 +100,7 @@ export class MiActivitiesPage implements OnInit {
   }
 
   onIonInfinite(ev:InfiniteScrollCustomEvent) {
-    this.getMoreActivity(ev.target);
-    
+    this.getMoreActivities(ev.target);
   }
 
   private async presentModalActivity(mode:'new'|'edit', activity:Activity|undefined=undefined){
