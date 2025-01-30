@@ -35,6 +35,7 @@ export class MiActivitiesPage implements OnInit {
     private actSvc: ActivitiesService,
     private modalCtrl:ModalController,
     private alertCtrl: AlertController,
+
     //private translateService: TranslateService,
     private loadingController: LoadingController,
 

@@ -7,6 +7,10 @@ export interface IBaseService<T> {
   getAll():Observable<T[]>;
   getAll(page:number, pageSize:number): Observable<Paginated<T>>;
   getAll(page:number, pageSize:number, filters:SearchParams): Observable<T[]| Paginated<T>>;
+  //prueba
+  //getAllByAdvenId(advenId:String):Observable<T[]>;
+  //getAllByAdvenId(advenId:String,page:number, pageSize:number): Observable<Paginated<T>>;
+  //getAllByAdvenId(advenId:String,page:number, pageSize:number, filters:SearchParams): Observable<T[]| Paginated<T>>;
   getById(id: string): Observable<T | null>;
   add(entity: T): Observable<T>;
   update(id: string, entity: T): Observable<T>;

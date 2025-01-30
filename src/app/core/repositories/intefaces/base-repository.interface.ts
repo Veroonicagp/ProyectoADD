@@ -8,7 +8,7 @@ export interface SearchParams {
 export interface IBaseRepository<T extends Model> {
   getAll(page:number, pageSize:number, filters:SearchParams): Observable< T[]| Paginated<T>>;
   //prueba de para recoger myActivities
-  getAllByAdvenId(advenId:String,page:number, pageSize:number,filters:SearchParams ): Observable< T[]| Paginated<T>>;
+  //getAllByAdvenId(advenId:String,page:number, pageSize:number,filters:SearchParams ): Observable< T[]| Paginated<T>>;
   getById(id: string): Observable<T | null>;
   add(entity: T): Observable<T>; // Retorna el ID generado
   update(id: string, entity: T): Observable<T>;

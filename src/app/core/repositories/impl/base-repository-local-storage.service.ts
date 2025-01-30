@@ -33,9 +33,9 @@ export class BaseRespositoryLocalStorageService<T extends Model> implements IBas
     for(let i = 0; i<100;i++){
       let mockup = {
         name:{
-          title:'Mr',
-          first:"Juan Antonio",
-          last:"García Gómez"
+          title:'VGP',
+          first:"Verónica",
+          last:"González Pons"
         },
         age:47,
         media:{
@@ -51,7 +51,21 @@ export class BaseRespositoryLocalStorageService<T extends Model> implements IBas
     localStorage.setItem(this.resource, JSON.stringify(this._items));
   }
   getAllByAdvenId(advenId: String, page: number, pageSize: number, filters: SearchParams): Observable<T[] | Paginated<T>> {
-    throw new Error('Method not implemented.');
+    //const filteredItems = this._items.filter(item => item.advenId === advenId);
+    return of(
+      this.mapping.getPaginated(
+        page,
+        pageSize,
+        Math.ceil(this._items.length / pageSize),
+        this._items.slice(
+          page * pageSize,
+          Math.min(
+            (page + 1) * pageSize,
+
+          )
+        )
+      )
+    );
   }
 
   getAll(page:number, pageSize:number, filters:SearchParams = {}): Observable<Paginated<T>> {
