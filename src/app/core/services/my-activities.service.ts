@@ -13,7 +13,6 @@ export interface PaginatedRaw<T> {
     items: number
     data: T[]
   };
-
   export interface ActivityRaw {
     id: string
     attributes: {
