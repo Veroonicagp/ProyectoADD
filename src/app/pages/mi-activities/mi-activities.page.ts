@@ -48,47 +48,64 @@ export class MiActivitiesPage implements OnInit {
     advenId:['',[Validators.required]]
   }); }
 
-  selectedActivity: any = null;
-  isAnimating = false;
-  page:number = 1;
-  pageSize:number = 25;
 
   
   
 
   async ngOnInit() {
-    const loading = await this.loadingController.create();
-    await loading.present();
 
     this.getMoreActivities();
 
 
   }
+  selectedActivity: any = null;
+  isAnimating = false;
+  page:number = 1;
+  pageSize:number = 25;
 
-  getMoreActivities(notify:HTMLIonInfiniteScrollElement | null = null) {
+    onIonInfinite(ev:InfiniteScrollCustomEvent) {
+    this.getMoreActivities(ev.target);
+  }
+
+  getMoreActivities(notify: HTMLIonInfiniteScrollElement | null = null) {
+    console.log('Adven ID:', this.adven?.id); 
     if (this.adven?.id) {
-    this.actSvc.getAllByAdvenId(this.adven.id,this.page, this.pageSize,).subscribe({
-      next:(response:Paginated<Activity>)=>{
-        this._myActivities.next([...this._myActivities.value, ...response.data]);
-        this.page++;
-        notify?.complete();
-      }
-    });
+      this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe({
+        next: (activity: Activity | null) => {
+          if (activity) {
+            this._myActivities.next([...this._myActivities.value, activity]); // Agrega el activity recibido
+            this.page++; // Avanza la paginación
+          }
+          notify?.complete(); // Completa el evento de scroll
+        },
+        error: (err) => {
+          console.error('Error al obtener actividades:', err);
+          notify?.complete(); // Asegura que el scroll se complete incluso en caso de error
+        }
+      });
+    }
   }
-  }
+  
+
+
 
 
   @ViewChildren('avatar') avatars!: QueryList<ElementRef>;
   @ViewChild('animatedAvatar') animatedAvatar!: ElementRef;
   @ViewChild('animatedAvatarContainer') animatedAvatarContainer!: ElementRef;
 
-  refresh(){
+  refresh() {
     console.log('Adven ID:', this.adven?.id); 
     if (this.adven?.id) {
       this.page = 1; // Reinicia la paginación
-      this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Paginated<Activity>) => {
-        console.log(response.data); 
-        this._myActivities.next(response.data); // Actualiza las actividades mostradas
+      this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Activity | null) => {
+        if (response) {
+          console.log(response); 
+          this._myActivities.next([response]); // Actualiza las actividades mostradas con el único activity recibido
+        } else {
+          console.log('No se encontró la actividad');
+          this._myActivities.next([]); // Si no se encuentra la actividad, limpia la lista
+        }
       });
     }
   }
@@ -100,9 +117,7 @@ export class MiActivitiesPage implements OnInit {
     this.selectedActivity = activity;
   }
 
-  onIonInfinite(ev:InfiniteScrollCustomEvent) {
-    this.getMoreActivities(ev.target);
-  }
+
 
   private async presentModalActivity(mode:'new'|'edit', activity:Activity|undefined=undefined){
     const modal = await this.modalCtrl.create({

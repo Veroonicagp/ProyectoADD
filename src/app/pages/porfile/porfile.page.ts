@@ -51,7 +51,6 @@ export class PorfilePage implements OnInit {
           if (this.adven) {
             const updatedAdven: any = {
               ...this.adven,
-              email:user.email,
               userId:user.id,
               media: typeof this.adven.media === 'object' ? 
                            this.adven.media.url : 

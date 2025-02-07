@@ -6,5 +6,5 @@ import { Paginated } from '../../models/paginated.model';
 
 export interface IActivitiesService extends IBaseService<Activity> {
   // Métodos específicos si los hay
-  getAllByAdvenId(advenId: string,page: number, pageSize: number): Observable<Paginated<Activity>>;
+  getAllByAdvenId(advenId: string, page: number, pageSize: number): Observable<Activity | null>;
 }
