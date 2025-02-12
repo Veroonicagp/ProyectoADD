@@ -19,6 +19,7 @@
 
   <ion-list>
     <ion-card *ngFor="let activity of filteredActivities | async; let i = index" class="animated-entry">
+      <img [src]="activity.media?.thumbnail || ''" />
       <ion-card-header>
         <ion-card-title>{{activity.title}}</ion-card-title>
         <ion-card-subtitle>

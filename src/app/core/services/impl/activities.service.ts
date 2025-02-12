@@ -17,11 +17,8 @@ export class ActivitiesService extends BaseService<Activity> implements IActivit
   }
 
   getAllByAdvenId(advenId: string, page: number, pageSize: number): Observable<Activity | null> {
-    return this.repository.getAll(page, pageSize, { user: advenId }).pipe(
-      map(res => {
-        const data = Array.isArray(res) ? res : res.data;
-        return data.length > 0 ? data[0] : null;
-      })
+    return this.repository.getAll(page, pageSize, {adven: advenId}).pipe(
+      map(res => Array.isArray(res) ? res[0] || null : res.data[0] || null)
     );
   }
 }

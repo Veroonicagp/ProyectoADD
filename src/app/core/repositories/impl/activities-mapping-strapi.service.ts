@@ -21,7 +21,7 @@ export interface ActivityAttributes {
     description:string
     location:string
     price:string
-    advenId:string
+    advenId?:string
     createdAt?: string
     updatedAt?: string
     publishedAt?: string
@@ -42,7 +42,7 @@ export interface Meta {}
                 description:data.description,
                 location:data.location,
                 price:data.price,
-                advenId:data.advenId
+                advenId:data.advenId,
                 
             }
         };

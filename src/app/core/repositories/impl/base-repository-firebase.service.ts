@@ -44,12 +44,12 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
 
   private async getLastDocumentOfPreviousPage(page: number, pageSize: number) {
     if (page <= 1) return null;
-
+    
     const previousPageQuery = query(
       this.collectionRef,
       limit((page - 1) * pageSize)
     );
-
+    
     const snapshot = await getDocs(previousPageQuery);
     const docs = snapshot.docs;
     return docs[docs.length - 1];
@@ -61,6 +61,7 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
         let constraints: QueryConstraint[] = [
           limit(pageSize)
         ];
+
         if (lastDoc) {
           constraints.push(startAfter(lastDoc));
         }
@@ -101,7 +102,7 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
 
   update(id: string, entity: T): Observable<T> {
     const docRef = doc(this.db, this.collectionName, id);
-
+    
     return from(updateDoc(docRef, this.mapping.setUpdate(entity))).pipe(
       map(() => this.mapping.getUpdated({ ...entity, id } as T))
     );
@@ -117,4 +118,4 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
       })
     );
   }
-}
+} 

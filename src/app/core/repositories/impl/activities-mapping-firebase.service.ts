@@ -21,7 +21,14 @@ export class ActivitiesMappingFirebaseService implements IBaseMapping<Activity> 
       location:data.location,
       price:data.price,
       description:data.description,
-      advenId:data.advenId
+      advenId:data.advenId,
+      media:data.media ? {
+        url: data.media,
+        large: data.media,
+        medium: data.media,
+        small: data.media,
+        thumbnail: data.media
+      } : undefined
     };
   }
   getPaginated(page: number, pageSize: number, pages: number, data: ({ id: string } & FirebaseActivity)[]): Paginated<Activity> {
@@ -33,22 +40,30 @@ export class ActivitiesMappingFirebaseService implements IBaseMapping<Activity> 
     };
   }
   setAdd(data: Activity): FirebaseActivity {
-    return {
+    let dataMapping:FirebaseActivity = {
       title: data.title,
       location:data.location,
       price:data.price,
       description:data.description,
-      advenId:data.advenId
+      advenId:data.advenId||'',
+      media:data.media ? data.media.url : ''
     };
+    return dataMapping;
   }
+
   setUpdate(data: Activity): FirebaseActivity {
-    return {
-      title: data.title,
-      location:data.location,
-      price:data.price,
-      description:data.description,
-      advenId:data.advenId
-    };
+
+    const result: any = {};
+
+    if(data.title) result.title = data.title;
+    if(data.location) result.location = data.location;
+    if(data.price) result.price = data.price;
+    if(data.description) result.description = data.description;
+    if(data.advenId) result.adven = data.advenId || '';
+    if(data.media) result.media = data.media ;
+
+    return result;
+
   }
   getAdded(data:{id:string} & FirebaseActivity): Activity {
     return this.getOne(data);

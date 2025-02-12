@@ -3,5 +3,6 @@ export interface FirebaseActivity{
     location:string,
     price:string
     description:string,
-    advenId:string
+    advenId?:string,
+    media?: string
 }
