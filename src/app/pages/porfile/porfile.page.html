@@ -11,21 +11,20 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <ion-grid>
     <ion-row class="ion-align-items-center">
-      <!-- Carta a la izquierda (pequeña) -->
       <ion-col size="12" size-md="4" >
         <ion-card class="profile-card">
           <ion-card-header>
             <ion-card-title>{{'PROFILE.TITLE2'|translate}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            
-                    <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.NAME'|translate}}" type="text" formControlName="name" required></ion-input>
+          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.MEDIA'|translate}}" type="file" formControlName="media"></ion-input>
+          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.NAME'|translate}}" type="text" formControlName="name" required></ion-input>
       
       
-        <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.SURNAME'|translate}}" type="text" formControlName="surname" required></ion-input>
+          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.SURNAME'|translate}}" type="text" formControlName="surname" required></ion-input>
       
       
-        <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.EMAIL'|translate}}" type="email" formControlName="email" autocomplete="off" required></ion-input>
+          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.EMAIL'|translate}}" type="email" formControlName="email" autocomplete="off" required></ion-input>
         </ion-card-content>
         <div class="ion-padding">
           <ion-button class="bttn" [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit">

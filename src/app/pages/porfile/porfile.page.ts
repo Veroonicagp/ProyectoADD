@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '@firebase/auth';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
@@ -19,8 +18,7 @@ export class PorfilePage implements OnInit {
 
   formGroup: FormGroup;
   adven?: Adven | null;
-
-
+  
   constructor(
     private formBuilder: FormBuilder,
     public authSvc: BaseAuthenticationService,
@@ -45,12 +43,14 @@ export class PorfilePage implements OnInit {
 
     try {
       const user = await this.authSvc.getCurrentUser();
+      console.log(user)
       if(user){
           this.adven = await lastValueFrom(this.advenService.getByUserId(user.id));
           console.log(this.adven);
           if (this.adven) {
             const updatedAdven: any = {
               ...this.adven,
+              email:user.email,
               userId:user.id,
               media: typeof this.adven.media === 'object' ? 
                            this.adven.media.url : 
@@ -114,7 +114,7 @@ export class PorfilePage implements OnInit {
       }
     }
   }
-
+                                                                        
   get name(){
     return this.formGroup.controls['name'];
   }

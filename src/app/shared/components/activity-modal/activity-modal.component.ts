@@ -25,7 +25,7 @@ export class ActivityModalComponent  implements OnInit {
   @Input() set activity(_activities:Activity){
     if(_activities && _activities.id)
       this.mode = 'edit';
-    
+    this.formGroup.controls['media'].setValue(_activities.media);
     this.formGroup.controls['title'].setValue(_activities.title);
     this.formGroup.controls['location'].setValue(_activities.location);
     this.formGroup.controls['price'].setValue(_activities.price);
@@ -39,6 +39,7 @@ export class ActivityModalComponent  implements OnInit {
     private platform: Platform) {
       this.isMobile = this.platform.is('ios') || this.platform.is('android');
       this.formGroup = this.fb.group({
+      media:[''],
       title:['', [Validators.required, Validators.minLength(2)]],
       location:['', [Validators.required, Validators.minLength(2)]],
       price:['', [Validators.required]],
@@ -48,19 +49,15 @@ export class ActivityModalComponent  implements OnInit {
 
   ngOnInit() {}
 
-  
   get title(){
     return this.formGroup.controls['title'];
   }
-
   get location(){
     return this.formGroup.controls['location'];
   }
-
   get price(){
     return this.formGroup.controls['price'];
   }
-
   get description(){
     return this.formGroup.controls['description'];
   }

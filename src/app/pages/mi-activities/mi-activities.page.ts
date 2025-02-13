@@ -41,6 +41,7 @@ export class MiActivitiesPage implements OnInit {
 
   ) {
     this.formGroup = this.formBuilder.group({
+    media:[''],
     title:['', [Validators.required, Validators.minLength(2)]],
     location:['', [Validators.required, Validators.minLength(2)]],
     price:['', [Validators.required,Validators.minLength(2)]],

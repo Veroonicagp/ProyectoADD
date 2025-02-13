@@ -20,6 +20,8 @@
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <ion-input label-placement="floating" label="{{'ACTIVIDADES.MEDIA'|translate}}" fill="outline"  type="file" formControlName="media"></ion-input>
+
       <ion-input label-placement="floating" label="{{'ACTIVIDADES.TITULO'|translate}}" fill="outline"  type="text" formControlName="title"></ion-input>
     
       <ion-input label-placement="floating" fill="outline" label="{{'ACTIVIDADES.UBI'|translate}}"  type="text" formControlName="location"></ion-input>

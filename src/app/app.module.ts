@@ -58,6 +58,7 @@ export function createTranslateLoader(http: HttpClient) {
         messagingSenderId: "377843416377",
         appId: "1:377843416377:web:1bffc7a00cfab1e5523ce8"
       } 
+      
     },
     AdvenMappingFactory,
     ActivitiesMappingFactory,
@@ -68,6 +69,7 @@ export function createTranslateLoader(http: HttpClient) {
       provide: 'AdvenService',
       useClass: AdvenService
     },
+
     {
       provide: 'ActivitiesService',
       useClass: ActivitiesService
