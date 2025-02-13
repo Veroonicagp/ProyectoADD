@@ -1,4 +1,3 @@
-// src/app/repositories/repository.factory.ts
 import { FactoryProvider, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseRepositoryHttpService } from './impl/base-repository-http.service';

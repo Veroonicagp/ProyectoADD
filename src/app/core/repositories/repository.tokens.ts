@@ -9,13 +9,14 @@ import { IAuthentication } from '../services/interfaces/authentication.interface
 import { ICollectionSubscription } from '../services/interfaces/collection-subcription.interface';
 import { Model } from '../models/base.model';
 import { Activity } from '../models/activity.model';
+import { IActivitiesRepository } from './intefaces/activities-repository.interface';
 
 export const RESOURCE_NAME_TOKEN = new InjectionToken<string>('ResourceName');
 export const ADVEN_RESOURCE_NAME_TOKEN = new InjectionToken<string>('AdvenResourceName');
 export const ACTIVITIES_RESOURCE_NAME_TOKEN = new InjectionToken<string>('ActivitiesResourceName');
 export const REPOSITORY_TOKEN = new InjectionToken<IBaseRepository<any>>('REPOSITORY_TOKEN');
 export const ADVEN_REPOSITORY_TOKEN = new InjectionToken<IAdvenRepository>('IAdvenRepository');
-export const ACTIVITIES_REPOSITORY_TOKEN = new InjectionToken<IAdvenRepository>('IActivitiesRepository');
+export const ACTIVITIES_REPOSITORY_TOKEN = new InjectionToken<IActivitiesRepository>('IActivitiesRepository');
 
 export const API_URL_TOKEN = new InjectionToken<string>('ApiUrl');
 export const ADVEN_API_URL_TOKEN = new InjectionToken<string>('AdvenApiUrl');

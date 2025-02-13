@@ -13,6 +13,7 @@ export interface PaginatedRaw<T> {
     items: number
     data: T[]
   };
+
   export interface ActivityRaw {
     id: string
     attributes: {
@@ -55,6 +56,7 @@ export class MyActivitiesService{
                     price:d.attributes.price,
                     description:d.attributes.description,
                     advenId:d.attributes.advenId
+                    
                 };
             })};
         }))

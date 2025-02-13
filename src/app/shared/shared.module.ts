@@ -5,7 +5,8 @@ import { LocationSelectableComponent } from './components/location-selectable/lo
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { MapComponent } from './components/map/map.component';
+import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
+import { PictureOptionsComponent } from './components/picture-options/picture-options.component';
 
 
 
@@ -13,7 +14,8 @@ import { MapComponent } from './components/map/map.component';
   declarations: [
     ActivityModalComponent,
     LocationSelectableComponent,
-    MapComponent
+    PictureSelectableComponent,
+    PictureOptionsComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,9 @@ import { MapComponent } from './components/map/map.component';
   exports:[
     ActivityModalComponent,
     LocationSelectableComponent,
-    MapComponent
+    PictureSelectableComponent,
+    PictureOptionsComponent
+
   ]
 })
 export class SharedModule { }

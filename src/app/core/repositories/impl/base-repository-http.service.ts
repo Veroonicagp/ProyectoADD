@@ -26,9 +26,6 @@ export class BaseRepositoryHttpService<T extends Model> implements IBaseReposito
   ) {
     this.apiUrl = apiUrl;
   }
-  getAllByAdvenId(advenId: String, page: number, pageSize: number, filters: SearchParams): Observable<T[] | Paginated<T>> {
-    throw new Error('Method not implemented.');
-  }
 
 
   getAll(page:number, pageSize:number, filters:SearchParams): Observable<T[] | Paginated<T>> {

@@ -9,7 +9,6 @@ import { Paginated } from 'src/app/core/models/paginated.model';
 import { ActivitiesService } from 'src/app/core/services/impl/activities.service';
 import { AdvenService } from 'src/app/core/services/impl/adven.service';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
-import { MyActivitiesFirebaseService } from 'src/app/core/services/my-activities-firebase.service';
 import { MyActivitiesService } from 'src/app/core/services/my-activities.service';
 import { ActivityModalComponent } from 'src/app/shared/components/activity-modal/activity-modal.component';
 
@@ -25,23 +24,22 @@ export class MiActivitiesPage implements OnInit {
 
   _myActivities:BehaviorSubject<Activity[]> = new BehaviorSubject<Activity[]>([]);
   myActivities$:Observable<Activity[]> = this._myActivities.asObservable();
-  filteredActivities: Observable<Activity[]> = this.myActivities$;
-  searchTerm: string = '';
-
 
   
   constructor(
     private formBuilder: FormBuilder,
+    private myActSvc: MyActivitiesService,
     private actSvc: ActivitiesService,
     private modalCtrl:ModalController,
     private alertCtrl: AlertController,
-
+    private authSvc:BaseAuthenticationService,
+    private toastController: ToastController,
+    private advenSvc:AdvenService,
     //private translateService: TranslateService,
     private loadingController: LoadingController,
 
   ) {
     this.formGroup = this.formBuilder.group({
-    media:[''],
     title:['', [Validators.required, Validators.minLength(2)]],
     location:['', [Validators.required, Validators.minLength(2)]],
     price:['', [Validators.required,Validators.minLength(2)]],
@@ -49,76 +47,88 @@ export class MiActivitiesPage implements OnInit {
     advenId:['',[Validators.required]]
   }); }
 
-
-  
-  
-
-  async ngOnInit() {
-
-    this.getMoreActivities();
-
-
-  }
   selectedActivity: any = null;
   isAnimating = false;
   page:number = 1;
   pageSize:number = 25;
 
-    onIonInfinite(ev:InfiniteScrollCustomEvent) {
-    this.getMoreActivities(ev.target);
-  }
-
-  getMoreActivities(notify: HTMLIonInfiniteScrollElement | null = null) {
-    console.log('Adven ID:', this.adven?.id); 
-    if (this.adven?.id) {
-      this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe({
-        next: (activity: Activity | null) => {
-          if (activity) {
-            this._myActivities.next([...this._myActivities.value, activity]); // Agrega el activity recibido
-            this.page++; // Avanza la paginación
-          }
-          notify?.complete(); // Completa el evento de scroll
-        },
-        error: (err) => {
-          console.error('Error al obtener actividades:', err);
-          notify?.complete(); // Asegura que el scroll se complete incluso en caso de error
-        }
-      });
-    }
-  }
+  
   
 
+  async ngOnInit() {
+    
+    const loading = await this.loadingController.create();
+    await loading.present();
 
+    try {
+      const user = await this.authSvc.getCurrentUser();
+      if(user){
+          this.adven = await lastValueFrom(this.advenSvc.getByUserId(user.id));
+          console.log(this.adven);
+          if (this.adven) {
+            const updatedAdven: any = {
+              ...this.adven,
+              email:user.email,
+              advenId:user.id ,
+            };
+            this.formGroup.patchValue(updatedAdven);
+            this.refresh() // Carga actividades del usuario autenticado
+          }
+      }
+    } catch (error) {
+      console.error(error);
+      const toast = await this.toastController.create({
+        //message: await lastValueFrom(this.translateService.get('COMMON.ERROR.LOAD')),
+        duration: 3000,
+        position: 'bottom'
+      });
+      await toast.present();
+    } finally {
+      await loading.dismiss();
+    }
+
+
+  }
 
 
   @ViewChildren('avatar') avatars!: QueryList<ElementRef>;
   @ViewChild('animatedAvatar') animatedAvatar!: ElementRef;
   @ViewChild('animatedAvatarContainer') animatedAvatarContainer!: ElementRef;
 
-  refresh() {
+  refresh(){
     console.log('Adven ID:', this.adven?.id); 
     if (this.adven?.id) {
       this.page = 1; // Reinicia la paginación
-      this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Activity | null) => {
-        if (response) {
-          console.log(response); 
-          this._myActivities.next([response]); // Actualiza las actividades mostradas con el único activity recibido
-        } else {
-          console.log('No se encontró la actividad');
-          this._myActivities.next([]); // Si no se encuentra la actividad, limpia la lista
-        }
+      this.myActSvc.getByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Paginated<Activity>) => {
+        console.log(response.data); 
+        this._myActivities.next(response.data); // Actualiza las actividades mostradas
       });
     }
   }
 
-
+  getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
+    if (this.adven?.id) {
+    this.myActSvc.getByAdvenId(this.adven.id, this.page, this.pageSize).subscribe({
+      next: (response: Paginated<Activity>) => {
+        console.log('Actividades recibidas:', response.data); 
+        this._myActivities.next([...this._myActivities.value, ...response.data]);
+        this.page++;
+        notify?.complete(); 
+      },
+      error: (err) => console.error(err)
+    });
+  }
+  }
 
   async openActivityDetail(activity: any, index: number) {
     await this.presentModalActivity('edit', activity);
     this.selectedActivity = activity;
   }
 
-
+  onIonInfinite(ev:InfiniteScrollCustomEvent) {
+    this.getMoreActivity(ev.target);
+    
+  }
 
   private async presentModalActivity(mode:'new'|'edit', activity:Activity|undefined=undefined){
     const modal = await this.modalCtrl.create({

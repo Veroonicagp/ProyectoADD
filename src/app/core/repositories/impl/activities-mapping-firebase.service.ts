@@ -50,9 +50,7 @@ export class ActivitiesMappingFirebaseService implements IBaseMapping<Activity> 
     };
     return dataMapping;
   }
-
   setUpdate(data: Activity): FirebaseActivity {
-
     const result: any = {};
 
     if(data.title) result.title = data.title;
@@ -63,7 +61,6 @@ export class ActivitiesMappingFirebaseService implements IBaseMapping<Activity> 
     if(data.media) result.media = data.media ;
 
     return result;
-
   }
   getAdded(data:{id:string} & FirebaseActivity): Activity {
     return this.getOne(data);

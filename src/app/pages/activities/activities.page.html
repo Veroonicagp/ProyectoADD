@@ -1,40 +1,40 @@
 <ion-content  class="activities-page">
-<ion-header >
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{'ACTIVIDADES.NOMBRE' | translate}}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-searchbar
-    [(ngModel)]="searchTerm"
-    (ionInput)="filterActivities()"  
-    placeholder="{{'ACTIVIDADES.SEARCH_PLACEHOLDER' | translate}}"
-    debounce="300"
-    showClearButton="focus"
-  ></ion-searchbar>
-
-  <ion-list>
-    <ion-card *ngFor="let activity of filteredActivities | async; let i = index" class="animated-entry">
-      <img [src]="activity.media?.thumbnail || ''" />
-      <ion-card-header>
-        <ion-card-title>{{activity.title}}</ion-card-title>
-        <ion-card-subtitle>
-          <ion-icon name="location-outline"></ion-icon> {{activity.location}}
-        </ion-card-subtitle>
-        <ion-card-subtitle>
-          <ion-icon name="pricetag-outline"></ion-icon>{{activity.price}}
-        </ion-card-subtitle>
-      </ion-card-header>
-    
-      <ion-card-content>
-       {{activity.description}}
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
-
-</ion-content>
-</ion-content>
+  <ion-header >
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{'ACTIVIDADES.NOMBRE' | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionInput)="filterActivities()"  
+      placeholder="{{'ACTIVIDADES.SEARCH_PLACEHOLDER' | translate}}"
+      debounce="300"
+      showClearButton="focus"
+    ></ion-searchbar>
+  
+    <ion-list>
+      <ion-card *ngFor="let activity of filteredActivities | async; let i = index" class="animated-entry">
+        <img [src]="activity.media?.thumbnail || ''" />
+        <ion-card-header>
+          <ion-card-title>{{activity.title}}</ion-card-title>
+          <ion-card-subtitle>
+            <ion-icon name="location-outline"></ion-icon> {{activity.location}}
+          </ion-card-subtitle>
+          <ion-card-subtitle>
+            <ion-icon name="pricetag-outline"></ion-icon>{{activity.price}}
+          </ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+         {{activity.description}}
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  
+  </ion-content>
+  </ion-content>

@@ -96,7 +96,7 @@ export interface ProviderMetadata {
   resource_type: string
 }
 
-export class StrapiMediaService extends BaseMediaService<number>{
+export class StrapiMediaService extends BaseMediaService{
 
     constructor(
         @Inject(UPLOAD_API_URL_TOKEN) private uploadUrl: string,

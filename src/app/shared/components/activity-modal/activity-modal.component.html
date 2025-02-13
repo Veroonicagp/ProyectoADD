@@ -19,9 +19,15 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <ion-input label-placement="floating" label="{{'ACTIVIDADES.MEDIA'|translate}}" fill="outline"  type="file" formControlName="media"></ion-input>
 
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <ion-col size="12" size-md="4" class="ion-text-center">
+        <ion-card class="ion-no-margin">
+          <ion-card-content>
+            <app-picture-selectable formControlName="media"></app-picture-selectable>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
       <ion-input label-placement="floating" label="{{'ACTIVIDADES.TITULO'|translate}}" fill="outline"  type="text" formControlName="title"></ion-input>
     
       <ion-input label-placement="floating" fill="outline" label="{{'ACTIVIDADES.UBI'|translate}}"  type="text" formControlName="location"></ion-input>

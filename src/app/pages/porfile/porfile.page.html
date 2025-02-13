@@ -17,7 +17,6 @@
             <ion-card-title>{{'PROFILE.TITLE2'|translate}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.MEDIA'|translate}}" type="file" formControlName="media"></ion-input>
           <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.NAME'|translate}}" type="text" formControlName="name" required></ion-input>
       
       
@@ -30,7 +29,7 @@
           <ion-button class="bttn" [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit">
             {{ 'PROFILE.UPDATE' | translate }}
           </ion-button>
-          <ion-button class="bttn" (click)="logout()">{{'PROFILE.CLOSE'|translate}}</ion-button>
+          <ion-button class="bttn" >{{'PROFILE.CLOSE'|translate}}</ion-button>
         </div>
         
           
