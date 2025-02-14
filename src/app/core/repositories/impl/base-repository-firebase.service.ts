@@ -59,13 +59,11 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
     return from(this.getLastDocumentOfPreviousPage(page, pageSize)).pipe(
       map(lastDoc => {
         let constraints: QueryConstraint[] = [];
-  
-        // 🔹 Primero aplicamos los filtros
+        
         Object.entries(filters).forEach(([key, value]) => {
           constraints.push(where(key, "==", value));
         });
   
-        // 🔹 Luego agregamos paginación
         constraints.push(limit(pageSize));
         if (lastDoc) {
           constraints.push(startAfter(lastDoc));
