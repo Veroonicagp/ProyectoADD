@@ -28,7 +28,6 @@ export class MiActivitiesPage implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
-    private myActSvc: MyActivitiesService,
     private actSvc: ActivitiesService,
     private modalCtrl:ModalController,
     private alertCtrl: AlertController,
@@ -99,22 +98,22 @@ export class MiActivitiesPage implements OnInit {
     console.log('Adven ID:', this.adven?.id); 
     if (this.adven?.id) {
       this.page = 1; // Reinicia la paginación
-      this.myActSvc.getByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Paginated<Activity>) => {
+      /**this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe((response: Paginated<Activity>) => {
         console.log(response.data); 
         this._myActivities.next(response.data); // Actualiza las actividades mostradas
-      });
+      });**/
     }
   }
 
   getMoreActivity(notify:HTMLIonInfiniteScrollElement | null = null) {
     if (this.adven?.id) {
-    this.myActSvc.getByAdvenId(this.adven.id, this.page, this.pageSize).subscribe({
-      next: (response: Paginated<Activity>) => {
+    this.actSvc.getAllByAdvenId(this.adven.id, this.page, this.pageSize).subscribe({
+      /**next: (response: Paginated<Activity>) => {
         console.log('Actividades recibidas:', response.data); 
         this._myActivities.next([...this._myActivities.value, ...response.data]);
         this.page++;
         notify?.complete(); 
-      },
+      },**/
       error: (err) => console.error(err)
     });
   }

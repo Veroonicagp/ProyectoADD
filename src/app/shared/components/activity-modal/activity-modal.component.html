@@ -19,10 +19,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <ion-col size="12" size-md="4" class="ion-text-center">
-        <ion-card class="ion-no-margin">
+        <ion-card >
           <ion-card-content>
             <app-picture-selectable formControlName="media"></app-picture-selectable>
           </ion-card-content>

@@ -9,21 +9,28 @@
 
 <ion-content [fullscreen]="true">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col size="12" size-md="4" >
-        <ion-card class="profile-card">
+
+        <ion-card>
           <ion-card-header>
             <ion-card-title>{{'PROFILE.TITLE2'|translate}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.NAME'|translate}}" type="text" formControlName="name" required></ion-input>
+            <ion-col size="12" size-md="4" class="ion-text-center">
+              <ion-card >
+                <ion-card-content>
+                  <app-picture-selectable formControlName="media"></app-picture-selectable>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          <ion-input class="p" label-placement="floating" fill="outline" label="{{'REGISTRO.NAME'|translate}}" type="text" formControlName="name" required></ion-input>
       
       
-          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.SURNAME'|translate}}" type="text" formControlName="surname" required></ion-input>
+          <ion-input class="p" label-placement="floating" fill="outline" label="{{'REGISTRO.SURNAME'|translate}}" type="text" formControlName="surname" required></ion-input>
       
       
-          <ion-input label-placement="floating" fill="outline" label="{{'REGISTRO.EMAIL'|translate}}" type="email" formControlName="email" autocomplete="off" required></ion-input>
+          <ion-input class="p" label-placement="floating" fill="outline" label="{{'REGISTRO.EMAIL'|translate}}" type="email" formControlName="email" autocomplete="off" required></ion-input>
         </ion-card-content>
         <div class="ion-padding">
           <ion-button class="bttn" [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit">
@@ -41,6 +48,5 @@
         <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png" alt="Imagen" style="width: 100%; height: auto;"></ion-img>
       </ion-col>
     </ion-row>
-  </ion-grid>
 </form>
 </ion-content>

@@ -8,12 +8,14 @@ import { PorfilePageRoutingModule } from './porfile-routing.module';
 
 import { PorfilePage } from './porfile.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     PorfilePageRoutingModule,
     ReactiveFormsModule,
     TranslateModule.forChild()
