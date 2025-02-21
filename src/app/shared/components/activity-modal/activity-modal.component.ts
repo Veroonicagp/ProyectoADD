@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, Platform } from '@ionic/angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { ModalController, Platform, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { Activity } from 'src/app/core/models/activity.model';
 import { Adven } from 'src/app/core/models/adven.model';
+import { BaseMediaService } from 'src/app/core/services/impl/base-media.service';
 
 @Component({
   selector: 'app-activity-modal',
@@ -30,20 +32,23 @@ export class ActivityModalComponent  implements OnInit {
     this.formGroup.controls['location'].setValue(_activities.location);
     this.formGroup.controls['price'].setValue(_activities.price);
     this.formGroup.controls['description'].setValue(_activities.description);
-    
+    this.formGroup.controls['media'].setValue(_activities.media?.url || _activities.media);
   }
 
   constructor(
     private fb:FormBuilder,
     private modalCtrl:ModalController,
+    private mediaService:BaseMediaService,
+    private toastController: ToastController,
+    private translateService: TranslateService,
     private platform: Platform) {
       this.isMobile = this.platform.is('ios') || this.platform.is('android');
       this.formGroup = this.fb.group({
-      media:[''],
       title:['', [Validators.required, Validators.minLength(2)]],
       location:['', [Validators.required, Validators.minLength(2)]],
       price:['', [Validators.required]],
       description:['', [Validators.required,Validators.minLength(10)]],
+      media:[''],
     });
      }
 
@@ -66,25 +71,42 @@ export class ActivityModalComponent  implements OnInit {
     return this.formGroup.controls['description'];
   }
 
-  getDirtyValues(formGroup: FormGroup): any {
+  async getDirtyValues(formGroup: FormGroup): Promise<any> {
     const dirtyValues: any = {};
-  
+    try {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);
       if (control?.dirty) {
         dirtyValues[key] = control.value;
       }
     });
+
+    if(dirtyValues.media){
+      // Convertir base64 a Blob
+      const base64Response = await fetch(dirtyValues.media);
+      const blob = await base64Response.blob();
+      const uploadedBlob = await lastValueFrom(this.mediaService.upload(blob));
+      dirtyValues.media = uploadedBlob[0];
+    } 
   
     return dirtyValues;
+  }catch (error) {
+    console.error(error);
+    const toast = await this.toastController.create({
+      message: await this.translateService.get('No se a podido actualizar').toPromise(),
+      duration: 3000,
+      position: 'bottom'
+    });
+    await toast.present();
+  } 
   }
 
-  onSubmit(){
+  async onSubmit(){
     if (this.formGroup.valid) {
       this.modalCtrl.dismiss(
           (this.mode=='new'?
             this.formGroup.value:
-            this.getDirtyValues(this.formGroup)), this.mode
+            await this.getDirtyValues(this.formGroup)), this.mode
       );
     } else {
       console.log('Formulario inválido');

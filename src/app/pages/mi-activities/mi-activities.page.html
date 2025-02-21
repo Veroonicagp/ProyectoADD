@@ -15,6 +15,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-card *ngFor="let activity of myActivities$ | async let i = index" (click)="openActivityDetail(activity,i)" class="animated-entry" button detail="false">
+    <img [src]="activity.media?.thumbnail || ''" />
     <ion-card-header  >
       <ion-card-title>{{activity.title}}</ion-card-title>
       <ion-card-subtitle><ion-icon name="location-outline"></ion-icon> {{activity.location}}</ion-card-subtitle>
