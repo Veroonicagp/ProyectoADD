@@ -16,6 +16,18 @@
       </ng-template>
     </ion-modal>
     <ion-img id="picture"  [src]="picture$ | async"></ion-img>
+    <ion-button *ngIf="!isDisabled"
+    class="change-picture-btn"
+    expand="full" 
+    (click)="onChangePicture($event, fileLoader)">
+      <ion-icon slot="icon-only" name="image"></ion-icon>
+  </ion-button>
+  <ion-button *ngIf="!isDisabled"
+    class="delete-picture-btn"
+    expand="full" 
+    (click)="onDeletePicture($event)">
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
+  </ion-button>
   </ng-container>
   
   <ion-button 

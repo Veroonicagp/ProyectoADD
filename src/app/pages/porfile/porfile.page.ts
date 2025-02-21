@@ -45,9 +45,7 @@ export class PorfilePage implements OnInit {
       const user = await this.authSvc.getCurrentUser();
       console.log(user)
       if(user){
-        const i = this.advenService.getByUserId(user.id)
-        console.log(i)
-          this.adven = await lastValueFrom(i);
+          this.adven = await lastValueFrom(this.advenService.getByUserId(user.id));
           console.log(this.adven);
           if (this.adven) {
             const updatedAdven: any = {
