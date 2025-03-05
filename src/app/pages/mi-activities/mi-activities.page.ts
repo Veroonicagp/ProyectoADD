@@ -116,17 +116,27 @@ export class MiActivitiesPage implements OnInit {
         advenId: this.advenId
       }
     });
-
+    
     modal.onDidDismiss().then((response) => {
       if (response.role === 'new' && response.data) {
         const newActivity = { ...response.data, advenId: this.advenId };
+        
+        if (newActivity.media && typeof newActivity.media !== 'object') {
+          newActivity.media = {
+            url: newActivity.media,
+            large: newActivity.media,
+            medium: newActivity.media,
+            small: newActivity.media,
+            thumbnail: newActivity.media
+          };
+        }
+        
         this.actSvc.add(newActivity).subscribe({
           next: () => this.refresh(),
           error: (err) => console.error('Error adding activity:', err)
         });
       }
     });
-
     await modal.present();
   }
 
