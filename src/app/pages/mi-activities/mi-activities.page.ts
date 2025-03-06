@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AlertController, InfiniteScrollCustomEvent, LoadingController, ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { Activity } from 'src/app/core/models/activity.model';
+import { ACTIVITIES_COLLECTION_SUBSCRIPTION_TOKEN } from 'src/app/core/repositories/repository.tokens';
 import { ActivitiesService } from 'src/app/core/services/impl/activities.service';
 import { AdvenService } from 'src/app/core/services/impl/adven.service';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
+import { CollectionChange, ICollectionSubscription } from 'src/app/core/services/interfaces/collection-subcription.interface';
 import { ActivityModalComponent } from 'src/app/shared/components/activity-modal/activity-modal.component';
 
 @Component({
@@ -15,6 +17,7 @@ import { ActivityModalComponent } from 'src/app/shared/components/activity-modal
 export class MiActivitiesPage implements OnInit {
   private _myActivities = new BehaviorSubject<Activity[]>([]);
   myActivities$ = this._myActivities.asObservable();
+  private loadedIds: Set<string> = new Set(); 
   
   page = 1;
   pageSize = 25;
@@ -26,7 +29,10 @@ export class MiActivitiesPage implements OnInit {
     private advenSvc: AdvenService,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+
+    @Inject(ACTIVITIES_COLLECTION_SUBSCRIPTION_TOKEN)
+    private activitySubcrition: ICollectionSubscription<Activity>
   ) { }
 
   async ngOnInit() {
@@ -47,12 +53,42 @@ export class MiActivitiesPage implements OnInit {
     } finally {
       await loading.dismiss();
     }
+
+    this.activitySubcrition.subscribe('activities').subscribe((change: CollectionChange<Activity>) => {
+      const currentActivities = [...this._myActivities.value];
+      
+      // Solo procesar cambios de documentos que ya tenemos cargados
+      if (!this.loadedIds.has(change.id) && change.type !== 'added') {
+        return;
+      }
+
+      switch(change.type) {
+        case 'added':
+        
+        case 'modified':
+          const index = currentActivities.findIndex(p => p.id === change.id);
+          if (index >= 0) {
+            currentActivities[index] = change.data!;
+          }
+          break;
+        case 'removed':
+          const removeIndex = currentActivities.findIndex(p => p.id === change.id);
+          if (removeIndex >= 0) {
+            currentActivities.splice(removeIndex, 1);
+            this.loadedIds.delete(change.id);
+          }
+          break;
+      }
+      
+      this._myActivities.next(currentActivities);
+    });
   }
 
   refresh() {
     if (this.advenId) {
       this.actSvc.getAllActivitiesByAdvenId(this.advenId).subscribe(activities => {
         if (activities) {
+          activities.forEach(activity => this.loadedIds.add(activity.id));
           this._myActivities.next(activities);
         }
       });
@@ -63,6 +99,8 @@ export class MiActivitiesPage implements OnInit {
     if (this.advenId) {
       this.actSvc.getAllActivitiesByAdvenId(this.advenId).subscribe({
         next: (activities) => {
+          console.log(activities);
+          activities.forEach(activity => this.loadedIds.add(activity.id));
           if (activities) {
             const currentActivities = this._myActivities.value;
             const newActivities = activities.filter(

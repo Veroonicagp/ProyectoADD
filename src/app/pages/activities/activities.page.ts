@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Activity } from 'src/app/core/models/activity.model';
 import { Paginated } from 'src/app/core/models/paginated.model';
+import { ACTIVITIES_COLLECTION_SUBSCRIPTION_TOKEN } from 'src/app/core/repositories/repository.tokens';
 import { ActivitiesService } from 'src/app/core/services/impl/activities.service';
+import { ICollectionSubscription } from 'src/app/core/services/interfaces/collection-subcription.interface';
 
 @Component({
   selector: 'app-activities',
@@ -28,6 +30,8 @@ export class ActivitiesPage implements OnInit {
   constructor(
     private actSvc: ActivitiesService,
     private translate: TranslateService,
+
+
   ) { }
 
   ngOnInit() {
