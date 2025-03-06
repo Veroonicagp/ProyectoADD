@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { LocationSelectableComponent } from './location-selectable.component';
+import { ActivityInfoComponent } from './activity-info.component';
 
-describe('LocationSelectableComponent', () => {
-  let component: LocationSelectableComponent;
-  let fixture: ComponentFixture<LocationSelectableComponent>;
+describe('ActivityInfoComponent', () => {
+  let component: ActivityInfoComponent;
+  let fixture: ComponentFixture<ActivityInfoComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LocationSelectableComponent ],
+      declarations: [ ActivityInfoComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LocationSelectableComponent);
+    fixture = TestBed.createComponent(ActivityInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

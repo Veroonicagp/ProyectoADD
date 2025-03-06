@@ -18,7 +18,7 @@
   
   <div class="activities-grid">
     <div *ngFor="let activity of filteredActivities | async; let i = index" class="activity-card animated-entry">
-      <ion-card>
+      <ion-card (click)="openActivityInfo(activity,i)">
         <img [src]="activity.media?.thumbnail || ''" />
         <ion-card-header>
           <ion-card-title>{{activity.title}}</ion-card-title>

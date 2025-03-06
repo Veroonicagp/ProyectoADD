@@ -1,0 +1,67 @@
+<ion-content class="activity-detail-page no-scrollbar">
+  <!-- Header fijo en la parte superior -->
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-title>
+        {{'ACTIVIDADES.DETALLES' | translate}}
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Contenedor principal con desplazamiento -->
+  <div class="detail-container">
+    <!-- Imagen de portada grande -->
+
+
+    <!-- Sección de información principal -->
+    <ion-card class="main-info-card">
+      <!-- Tarjeta de detalles principales -->
+      <ion-card-header>
+        <div class="cover-image-container">
+          <img [src]="activity.media?.thumbnail || ''" />
+        </div>
+        <ion-card-title>{{activity?.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="info-row">
+          <div class="info-item">
+            <div class="info-text">
+              <span class="info-value"><ion-icon name="location-outline" color="primary"></ion-icon>{{activity?.location}}</span>
+            </div>
+            <div class="info-text">
+              <span class="info-value"><ion-icon name="pricetag-outline" color="success"></ion-icon>{{activity?.price}}</span>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+      <ion-card-header>
+        <ion-card-title>{{'ACTIVIDADES.DESCIPCION' | translate}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="description-text">{{activity?.description}}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Descripción extendida -->
+    <ion-card class="description-card">
+
+    </ion-card>
+
+
+    <!-- Sección de ubicación con mapa -->
+   
+  </div>
+
+  <!-- Botones de acción flotantes -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+    <ion-fab-button (click)="shareActivity()">
+      <ion-icon name="share-social-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
