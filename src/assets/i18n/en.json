@@ -12,6 +12,7 @@
     "EDITAR": "Edit adventure",
     "UBI": "Location",
     "PRECIO": "Price",
+    "MEDIA":"Media",
     "TITULO": "Title",
     "DESCIPCION": "Description",
     "CREAR": "Create Adventure",
@@ -56,7 +57,7 @@
     "TITLE": "Profile",
     "TITLE2": "Your info adventurous",
     "UPDATE": "Update",
-    "NAME": "Name:",
+    "NAME": "Name",
     "EMAIL": "Email:",
     "CLOSE": "Log out"
   },

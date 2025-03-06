@@ -17,16 +17,16 @@
       <ion-item (click)="menu.close()"  routerLink="/activities" routerDirection="root">{{'MENU.ACTIVIDADES'| translate}}</ion-item>
       <ion-item (click)="menu.close()"  routerLink="/mi-activities" routerDirection="root">{{'MENU.MI_ACTIVIDADES'| translate}}</ion-item>
       <ion-item (click)="menu.close()"  routerLink="/about" routerDirection="root">{{'MENU.ABOUT'| translate}}</ion-item>
+      <ion-item (click)="menu.close()"  routerLink="/porfile" routerDirection="root">{{'MENU.PERFIL'| translate}}</ion-item>
     </ion-list>
   </ion-content>
   <ion-footer>
-      <ion-item >
+    <ion-item >
 
-          <h3>{{ (authSvc.user$ | async)?.username}}</h3>
-          <ion-button class="bttn2" slot="end" (click)="logout()">{{'PROFILE.CLOSE'|translate}}</ion-button>
+        <ion-button class="bttn2" slot="end" (click)="logout()">{{'PROFILE.CLOSE'|translate}}</ion-button>
 
-      </ion-item>
-  </ion-footer>
+    </ion-item>
+</ion-footer>
  </ion-menu>
  <ion-router-outlet id="mainContent"></ion-router-outlet>
 </ion-app>

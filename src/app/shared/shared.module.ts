@@ -5,13 +5,17 @@ import { LocationSelectableComponent } from './components/location-selectable/lo
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
+import { PictureOptionsComponent } from './components/picture-options/picture-options.component';
 
 
 
 @NgModule({
   declarations: [
     ActivityModalComponent,
-    LocationSelectableComponent
+    LocationSelectableComponent,
+    PictureSelectableComponent,
+    PictureOptionsComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +25,10 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   exports:[
     ActivityModalComponent,
-    LocationSelectableComponent
+    LocationSelectableComponent,
+    PictureSelectableComponent,
+    PictureOptionsComponent
+
   ]
 })
 export class SharedModule { }
