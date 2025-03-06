@@ -1,39 +1,41 @@
 <ion-content [fullscreen]="true" class="activities-page">
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{'MI_AVENTURAS.TITLE'|translate}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="onAddActivity()">
-        <ion-icon name="add-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-card *ngFor="let activity of myActivities$ | async let i = index" (click)="openActivityDetail(activity,i)" class="animated-entry" button detail="false">
-    <img [src]="activity.media?.thumbnail || ''" />
-    <ion-card-header  >
-      <ion-card-title>{{activity.title}}</ion-card-title>
-      <ion-card-subtitle><ion-icon name="location-outline"></ion-icon> {{activity.location}}</ion-card-subtitle>
-      <ion-card-subtitle><ion-icon name="pricetag-outline"></ion-icon>{{activity.price}}</ion-card-subtitle>
-    </ion-card-header>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{'MI_AVENTURAS.TITLE'|translate}}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="onAddActivity()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
   
-    <ion-card-content>
-     {{activity.description}}    
-    </ion-card-content>
-    <ion-card-content class="y">
-     <ion-button fill="clear" class="bttn" (click)="$event.stopPropagation()" (click)="presentAlert(activity)"><ion-icon name="trash"></ion-icon> </ion-button>
-
-    </ion-card-content>
-  </ion-card>
-
+  <div class="activities-grid">
+    <div *ngFor="let activity of myActivities$ | async; let i = index" class="activity-card animated-entry">
+      <ion-card (click)="openActivityDetail(activity,i)" button detail="false">
+        <img [src]="activity.media?.thumbnail || ''" />
+        <ion-card-header>
+          <ion-card-title>{{activity.title}}</ion-card-title>
+          <ion-card-subtitle><ion-icon name="location-outline"></ion-icon> {{activity.location}}</ion-card-subtitle>
+          <ion-card-subtitle><ion-icon name="pricetag-outline"></ion-icon>{{activity.price}}</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          {{activity.description}}
+        </ion-card-content>
+        <ion-card-content class="y">
+          <ion-button fill="clear" class="bttn" (click)="$event.stopPropagation()" (click)="presentAlert(activity)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
   
-<ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-  <ion-infinite-scroll-content></ion-infinite-scroll-content>
-</ion-infinite-scroll>
-</ion-content>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

@@ -1,120 +1,124 @@
 // Color Variables
 :root {
-    --ion-color-primary: purple;       // Deep purple
-    --ion-color-primary-rgb: 126,87,194;
-    --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255,255,255;
-    --ion-color-primary-shade: #6F4BAD;
-    --ion-color-primary-tint: #8B66CA;
+  --ion-color-primary: purple;       // Deep purple
+  --ion-color-primary-rgb: 126,87,194;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255,255,255;
+  --ion-color-primary-shade: #6F4BAD;
+  --ion-color-primary-tint: #8B66CA;
+
+  --background-light: #F5F5F5;        // Light gray background
+  --text-color-dark: #333333;         // Dark text for contrast
+}
+
+// Global Styles for the Page
+.activities-page {
+  --ion-background-color: white;
   
-    --background-light: #F5F5F5;        // Light gray background
-    --text-color-dark: #333333;         // Dark text for contrast
-  }
-  
-  // Global Styles for the Page
-  .activities-page {
-    --ion-background-color: white;
-    
-    // Toolbar Styling
-    ion-header {
+  // Toolbar Styling
+  ion-header {
     --background: transparent;
-      background: linear-gradient(135deg, white, purple);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, white, purple);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999; // Para mantener el título fijo durante el scroll
+  }
+
+  ion-toolbar {
+    --background: transparent;
+    --color: var(--ion-color-primary-contrast);
+    
+    ion-title {
+      font-weight: 600;
+      text-align: center;
+      color: white;
+      font-size: 1.2em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
-  
-    ion-toolbar {
-      --background: transparent;
-      --color: var(--ion-color-primary-contrast);
+
+    ion-menu-button {
+      color: purple;
+    }
+  }
+
+  // Searchbar Styling
+  ion-searchbar {
+    --background: white;
+    --border-radius: 10px;
+    --box-shadow: 0 2px 5px rgba(126,87,194,0.2);
+    margin: 10px;
+    padding: 5px;
+  }
+
+  // Card Styling
+  ion-card {
+    margin: 15px;
+    border-radius: 20px; // Increased border radius for more rounded corners
+    overflow: hidden; // Ensures content doesn't overflow rounded corners
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.275);
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 16px rgba(126,87,194,0.2);
+    }
+
+    ion-item {
+      --padding-start: 16px;
+      --inner-padding-end: 16px;
       
-      ion-title {
-        font-weight: 600;
-        text-align: center;
-        color: white;
-        font-size: 1.2em;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-      }
-  
-      ion-menu-button {
-        color: purple;
+      ion-avatar {
+        width: 50px;
+        height: 50px;
+        margin: 10px 0;
       }
     }
-  
-    // Searchbar Styling
-    ion-searchbar {
-      --background: white;
-      --border-radius: 10px;
-      --box-shadow: 0 2px 5px rgba(126,87,194,0.2);
-      margin: 10px;
-      padding: 5px;
+
+    ion-card-header {
+      background-color: white;
+      color: white;
+      padding: 15px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
     }
-  
-    // Card Styling
-    ion-card {
-      margin: 15px;
-      border-radius: 20px; // Increased border radius for more rounded corners
-      overflow: hidden; // Ensures content doesn't overflow rounded corners
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.275);
-      background: white;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-      &:hover {
-        transform: scale(1.02);
-        box-shadow: 0 8px 16px rgba(126,87,194,0.2);
-      }
-  
-      ion-card-header {
-        background-color:  white;
-        color: white;
-        padding: 15px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-      }
-  
-      ion-card-title {
-        color: rgba(0, 0, 0, 0.716);
-        font-weight: 600;
-        font-size: 1.2em;
-      }
-  
-      ion-card-subtitle {
-        color: rgba(0, 0, 0, 0.716);
-        display: flex;
-        align-items: center;
-        margin-top: 5px;
-  
-        ion-icon {
-          margin-right: 8px;
-          font-size: 1.1em;
-        }
-      }
-  
-      ion-card-content {
-        background-color: rgba(128, 0, 128, 0.636);
-        color: white;
-        padding: 15px;
-      }
+
+    ion-card-title {
+      color: rgba(0, 0, 0, 0.716);
+      font-weight: 600;
+      font-size: 1.2em;
     }
-  
-    // Infinite Scroll Styling
-    ion-infinite-scroll-content {
-      color: var(--ion-color-primary);
+
+    ion-card-subtitle {
+      color: rgba(0, 0, 0, 0.716);
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+      font-weight: normal;
     }
   }
-  
-  // Responsive Adjustments
-  @media (max-width: 600px) {
-    ion-card {
-      margin: 10px;
-    }
+
+  // Infinite Scroll Styling
+  ion-infinite-scroll-content {
+    color: var(--ion-color-primary);
   }
-  
-  // Animations
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+}
+
+// Responsive Adjustments
+@media (max-width: 600px) {
+  ion-card {
+    margin: 10px;
   }
-  
-  // Additional Utility Classes
-  .animated-entry {
-    animation: fadeIn 0.5s ease-out;
-  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Additional Utility Classes
+.animated-entry {
+  animation: fadeIn 0.5s ease-out;
+}

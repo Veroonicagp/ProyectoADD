@@ -1,5 +1,5 @@
-<ion-content  class="activities-page">
-  <ion-header >
+<ion-content class="activities-page">
+  <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
@@ -8,17 +8,17 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
-    <ion-searchbar
-      [(ngModel)]="searchTerm"
-      (ionInput)="filterActivities()"  
-      placeholder="{{'ACTIVIDADES.SEARCH_PLACEHOLDER' | translate}}"
-      debounce="300"
-      showClearButton="focus"
-    ></ion-searchbar>
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="filterActivities()"
+    placeholder="{{'ACTIVIDADES.SEARCH_PLACEHOLDER' | translate}}"
+    debounce="300"
+    showClearButton="focus"
+  ></ion-searchbar>
   
-    <ion-list>
-      <ion-card *ngFor="let activity of filteredActivities | async; let i = index" class="animated-entry">
+  <div class="activities-grid">
+    <div *ngFor="let activity of filteredActivities | async; let i = index" class="activity-card animated-entry">
+      <ion-card>
         <img [src]="activity.media?.thumbnail || ''" />
         <ion-card-header>
           <ion-card-title>{{activity.title}}</ion-card-title>
@@ -29,12 +29,10 @@
             <ion-icon name="pricetag-outline"></ion-icon>{{activity.price}}
           </ion-card-subtitle>
         </ion-card-header>
-      
         <ion-card-content>
-         {{activity.description}}
+          {{activity.description}}
         </ion-card-content>
       </ion-card>
-    </ion-list>
-  
-  </ion-content>
-  </ion-content>
+    </div>
+  </div>
+</ion-content>
