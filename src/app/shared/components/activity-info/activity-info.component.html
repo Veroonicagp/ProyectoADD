@@ -1,9 +1,8 @@
 <ion-content class="activity-detail-page no-scrollbar">
-  <!-- Header fijo en la parte superior -->
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-title>
-        {{'ACTIVIDADES.DETALLES' | translate}}
+        {{activity?.title}}
       </ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="dismiss()">
@@ -13,19 +12,14 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Contenedor principal con desplazamiento -->
-  <div class="detail-container">
-    <!-- Imagen de portada grande -->
+  <div class="form-container">
 
-
-    <!-- Sección de información principal -->
     <ion-card class="main-info-card">
-      <!-- Tarjeta de detalles principales -->
+
       <ion-card-header>
         <div class="cover-image-container">
           <img [src]="activity.media?.thumbnail || ''" />
         </div>
-        <ion-card-title>{{activity?.title}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="info-row">
@@ -46,18 +40,9 @@
         <p class="description-text">{{activity?.description}}</p>
       </ion-card-content>
     </ion-card>
-
-    <!-- Descripción extendida -->
-    <ion-card class="description-card">
-
-    </ion-card>
-
-
-    <!-- Sección de ubicación con mapa -->
    
   </div>
 
-  <!-- Botones de acción flotantes -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
     <ion-fab-button (click)="shareActivity()">
       <ion-icon name="share-social-outline"></ion-icon>

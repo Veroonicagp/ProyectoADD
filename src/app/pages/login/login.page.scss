@@ -1,28 +1,33 @@
+/* Aplicar el fondo a toda la pantalla */
+ion-content {
+  --background: rgb(241, 222, 241);
+}
+
 /* Contenedor principal */
 .container {
   display: flex;
-  background: rgb(241, 222, 241);
-  justify-content: center;
+  justify-content: space-between; /* Espacio entre card e imagen */
   align-items: center;
   height: 100%;
   padding: 20px;
+  max-width: 1200px; /* Limitar ancho máximo */
+  margin: 0 auto; /* Centrar horizontalmente */
 }
 
-.ion-card{
+.ion-card {
   margin-left: 200px;
 }
 
-/* Formulario con fondo violeta claro */
+/* Formulario con fondo blanco */
 .login-form {
-  background: white; /* Violeta claro */
+  background: white;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%; /* Ajusta el ancho al 100% dentro de su contenedor */
-  margin-left: 200px; /* Aumentar margen de separación de la izquierda */
-  margin-top: 50px;
   margin-bottom: 10px;
+  flex: 0 0 auto; /* No crecer ni encogerse */
 }
 
 /* Título dentro del formulario */
@@ -32,15 +37,14 @@ h1 {
   margin-bottom: 20px;
 }
 
-
-
 /* Errores de validación */
 .input-error p {
   margin: 0;
   font-size: 12px;
 }
+
 ion-input {
-  margin-bottom: 15px; /* Color del texto del placeholder */
+  margin-bottom: 15px;
 }
 
 ion-input:focus {
@@ -51,11 +55,10 @@ ion-input:focus {
   margin-top: 10px;
 }
 
-
 /* Botón de inicio de sesión en púrpura */
 ion-button.login-button {
-  --background: purple; /* Púrpura */
-  --color: white; /* Color del texto en blanco */
+  --background: purple;
+  --color: white;
   --padding-top: 10px;
   --padding-bottom: 10px;
   text-transform: none;
@@ -63,35 +66,138 @@ ion-button.login-button {
 
 /* Botón de registro en texto púrpura */
 ion-button.register-button {
-  --color: purple; /* Púrpura */
-  --background: transparent; /* Fondo transparente */
+  --color: purple;
+  --background: transparent;
   text-transform: none;
 }
 
+/* Contenedor de la imagen - Fuera del card en desktop */
+.contenedor {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto; /* No crecer ni encogerse */
+  margin-left: 50px; /* Espacio entre card e imagen */
+}
 
 /* Imagen a la derecha, más grande */
 .imagen-responsiva {
   width: 100%;
-  max-width: 650px; /* Ajusta el tamaño de la imagen */
+  max-width: 500px; /* Ajusta el tamaño de la imagen */
   display: block;
-  margin: 20px auto; /* Centra la imagen */
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
+/* Fila superior para móvil - No visible en escritorio */
+.mobile-top-row {
+  display: none; /* Oculto por defecto en desktop */
+}
+
+/* Botones de escritorio */
+.desktop-buttons {
+  display: block;
+}
+
+/* Responsividad - Tablets */
+@media (max-width: 992px) {
   .container {
     flex-direction: column;
-    justify-content: center; /* Centra todo el contenido */
+    justify-content: flex-start;
+    align-items: center;
   }
 
   .login-form {
-    margin-left: 0; /* El formulario ocupa todo el espacio disponible en pantallas pequeñas */
+    margin-left: 0;
+    margin-top: 20px;
+    max-width: 90%;
+  }
+
+  .contenedor {
+    margin-left: 0;
+    margin-top: 30px;
   }
 
   .imagen-responsiva {
-    display: block;
-    margin: 0 auto;
-    max-width: 90%; /* Ajusta la imagen en pantallas pequeñas */
+    max-width: 300px;
   }
 }
 
+/* Responsividad - Móviles */
+@media (max-width: 576px) {
+  .container {
+    padding: 10px;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    min-height: 100%; /* Asegurar que ocupe toda la altura */
+  }
+
+  .login-form {
+    margin: 0 auto; /* Centrar horizontalmente con márgenes automáticos */
+    padding: 20px 15px;
+    max-width: 90%; /* Ancho ligeramente menor que la pantalla */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar el contenido verticalmente */
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  ion-input {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  ion-button {
+    font-size: 14px;
+  }
+
+  /* Mostrar la fila superior en móviles */
+  .mobile-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  /* Imagen pequeña para móviles */
+  .mobile-top-row .imagen-mini {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  /* Ocultar los botones de escritorio en móvil */
+  .desktop-buttons {
+    display: none;
+  }
+
+  /* Ocultar la imagen grande y el grid contenedor en móviles */
+  .contenedor {
+    display: none;
+  }
+}
+
+/* Responsividad - Móviles pequeños */
+@media (max-width: 360px) {
+  .container {
+    padding: 5px;
+  }
+
+  .login-form {
+    padding: 15px 10px;
+    max-width: 95%; /* Aumentar ligeramente el ancho en pantallas muy pequeñas */
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+  
+  /* Ajustar tamaño en pantallas muy pequeñas */
+  .mobile-top-row .imagen-mini {
+    width: 40px;
+    height: 40px;
+  }
+}

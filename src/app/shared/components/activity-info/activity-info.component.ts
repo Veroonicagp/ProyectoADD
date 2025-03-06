@@ -53,8 +53,8 @@ export class ActivityInfoComponent implements OnInit {
   async shareActivity() {
         await Share.share({
           title: this.activity.title,
-          text: 'Hola, he visto esta aventura en Ready To Enjoy y creo que te podria gustar '+this.activity.title+' si te gusta logeate https://readytoenjoy.netlify.app',
-          url: `https://readytoenjoy.app/activities/${this.activity.id}`,
+          text: 'Hola, he visto esta aventura en Ready To Enjoy y creo que te podria gustar '+this.activity.title+' si te gusta logeate ',
+          url: `https://readytoenjoy.netlify.app`,
           dialogTitle: this.translateService.instant('ACTIVIDADES.COMPARTIR')
         });
   }

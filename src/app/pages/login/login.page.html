@@ -1,11 +1,19 @@
 <ion-content [fullscreen]="true" scrollY="true">
   <div class="container">
     <div class="login-form">
-      <ion-buttons slot="end">
+      <div class="mobile-top-row">
+        <ion-button (click)="changeLanguage()">
+          {{'LOGIN.IDIOMA'| translate}}
+        </ion-button>
+        <ion-img class="imagen-mini" src="assets/imgs/RTE.png"></ion-img>
+      </div>
+      
+      <ion-buttons slot="end" class="desktop-buttons">
         <ion-button (click)="changeLanguage()">
           {{'LOGIN.IDIOMA'| translate}}
         </ion-button>
       </ion-buttons>
+      
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
         <ion-grid>
           <ion-row>
@@ -13,9 +21,8 @@
               <ion-text><h1>{{'LOGIN.TITLE' | translate}}</h1></ion-text>
             </ion-col>
           </ion-row>
-
         </ion-grid>
-
+        
         <ion-input label-placement="floating" label="{{'LOGIN.EMAIL' | translate}}" fill="outline" type="email" formControlName="email" required></ion-input>
         <ion-input labelPlacement="floating" label="{{'LOGIN.CONTRASEÑA' | translate}}" fill="outline" type="password" formControlName="password" required></ion-input>
         
@@ -23,31 +30,23 @@
           <p *ngIf="email?.errors?.['required']">{{'LOGIN.ERRORS.EMAIL_REQUIRED' | translate}}</p>
           <p *ngIf="email?.errors?.['email']">{{'LOGIN.ERRORS.EMAIL_INVALID' | translate}}</p>
         </ion-text>
-
+        
         <ion-text class="input-error" color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
           <p *ngIf="password?.errors?.['required']">{{'LOGIN.ERRORS.PASSWORD_REQUIRED' | translate}}</p>
         </ion-text>
-
-        <!-- Botón de inicio de sesión con clase para el color púrpura -->
+        
         <ion-button class="login-button" expand="block" type="submit" [disabled]="loginForm.invalid">
           {{'LOGIN.TITLE' | translate}}
         </ion-button>
-
-        <!-- Botón de registro -->
-        <ion-button class="register-button" expand="block" (click)="onRegister()" fill="clear">{{'LOGIN.REGISTRO' | translate}}</ion-button>
+        
+        <ion-button class="register-button" expand="block" (click)="onRegister()" fill="clear">
+          {{'LOGIN.REGISTRO' | translate}}
+        </ion-button>
       </form>
     </div>
-
-    <ion-grid class="contenedor">
-      <ion-col size="6">
-        <!-- Imagen más grande -->
-        <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png"></ion-img>
-      </ion-col>
-    </ion-grid>
+    
+    <div class="contenedor">
+      <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png"></ion-img>
+    </div>
   </div>
 </ion-content>
-
-
-
-
-
