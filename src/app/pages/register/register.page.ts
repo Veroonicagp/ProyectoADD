@@ -46,7 +46,7 @@ export class RegisterPage {
           
           this.advenSvc.add(userData).subscribe({
             next: resp => {
-              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
+              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
               this.router.navigateByUrl(returnUrl);
             },
             error: err => {}

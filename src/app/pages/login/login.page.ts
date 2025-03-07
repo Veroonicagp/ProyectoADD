@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
 
   onRegister(){
     this.loginForm.reset();
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
     this.router.navigate(['/register'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
   }
 

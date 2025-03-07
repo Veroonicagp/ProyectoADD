@@ -1,2 +1,12 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+:root {
+    --ion-color-primary: purple; // Tu color primario
+    --ion-color-primary-rgb: 255, 87, 51; // Mismo color en formato RGB
+    --ion-color-primary-contrast: #ffffff; // Color de contraste (texto)
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: rgb(70, 1, 70); // Versión más oscura (10% más oscuro)
+    --ion-color-primary-tint: rgb(202, 0, 202); // Versión más clara (10% más claro)
+    
+    // Haz lo mismo para los demás colores
+  }

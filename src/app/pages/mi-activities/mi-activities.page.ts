@@ -62,11 +62,11 @@ export class MiActivitiesPage implements OnInit {
 
       switch(change.type) {
         case 'added':
-          if (!this.loadedIds.has(change.id)) {
+          /**if (!this.loadedIds.has(change.id)) {
             currentActivities.push(change.data!);
             this.loadedIds.add(change.id);
           }
-          break;
+          break;**/
         
         case 'modified':
           const index = currentActivities.findIndex(p => p.id === change.id);
