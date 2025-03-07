@@ -1,4 +1,3 @@
-// src/app/repositories/impl/base-repository-http.service.ts
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IBaseRepository, SearchParams } from '../intefaces/base-repository.interface';

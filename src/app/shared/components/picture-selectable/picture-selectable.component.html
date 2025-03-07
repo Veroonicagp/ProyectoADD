@@ -17,16 +17,19 @@
     </ion-modal>
     <ion-img id="picture"  [src]="picture$ | async"></ion-img>
     <ion-button *ngIf="!isDisabled"
-      class="change-picture-btn"
-      expand="full" 
+      class="change-picture-btn picture-button"
+      expand="full"
+      shape="round"
       (click)="presentPictureOptions($event, fileLoader)">
-        <ion-icon slot="icon-only" name="image"></ion-icon>
+      <ion-icon slot="icon-only" name="camera"></ion-icon>
     </ion-button>
+    
     <ion-button *ngIf="!isDisabled"
-      class="delete-picture-btn"
-      expand="full" 
+      class="delete-picture-btn picture-button"
+      expand="full"
+      shape="round"
       (click)="onDeletePicture($event)">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
     </ion-button>
   </ng-container>
   

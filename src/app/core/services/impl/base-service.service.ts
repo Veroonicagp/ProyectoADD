@@ -1,4 +1,3 @@
-// src/app/services/impl/base-service.service.ts
 import { Injectable, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IBaseService } from '../interfaces/base-service.interface';

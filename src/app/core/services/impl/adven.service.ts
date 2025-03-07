@@ -16,8 +16,6 @@ export class AdvenService extends BaseService<Adven> implements IAdvenService {
   ) {
     super(repository);
   }
-  
-  // Implementa métodos específicos si los hay
   getByUserId(userId: string): Observable<Adven | null> {
     return this.repository.getAll(1, 1, {userId: userId}).pipe(
       map(res => Array.isArray(res) ? res[0] || null : res.data[0] || null)

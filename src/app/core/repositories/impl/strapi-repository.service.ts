@@ -1,4 +1,3 @@
-// src/app/repositories/impl/base-repository-http.service.ts
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
@@ -87,7 +86,6 @@ export class StrapiRepositoryService<T extends Model> extends BaseRepositoryHttp
   }
 
   override update(id: string, entity: T): Observable<T> {
-    //formateamos a entidad para poder introducirla en strapi
     const formattedEntity = { data: { ...entity } }
     return this.http.put<T>(
       `${this.apiUrl}/${this.resource}/${id}`, formattedEntity, 

@@ -11,7 +11,6 @@ import { LanguageService } from 'src/app/core/services/language.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  //buscar
   loginForm: FormGroup;
   currentLang: string;
 
@@ -36,7 +35,7 @@ export class LoginPage implements OnInit {
       this.authSvc.signIn(this.loginForm.value).subscribe({
         next: resp=>{
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
-          this.router.navigateByUrl(returnUrl); // Redirige a la página solicitada
+          this.router.navigateByUrl(returnUrl);
         },
         error: err=>{
           console.log(err);

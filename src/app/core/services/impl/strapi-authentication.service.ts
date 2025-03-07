@@ -34,11 +34,11 @@ export class StrapiAuthenticationService extends BaseAuthenticationService imple
           this._user.next(undefined);
         },
         complete:() => {
-          this._ready.next(true); // Completar inicialización
+          this._ready.next(true); 
         }
       });
     } else {
-      this._ready.next(true); // Completar inicialización
+      this._ready.next(true); 
     }
     
   }

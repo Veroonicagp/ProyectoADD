@@ -58,10 +58,6 @@ export class ActivityInfoComponent implements OnInit {
           dialogTitle: this.translateService.instant('ACTIVIDADES.COMPARTIR')
         });
   }
-
-  /**
-   * Mostrar mensaje toast
-   */
   async showToast(message: string) {
     const toast = await this.toastController.create({
       message,
@@ -69,22 +65,5 @@ export class ActivityInfoComponent implements OnInit {
       position: 'bottom'
     });
     await toast.present();
-  }
-  
-  /**
-   * Abrir mapa con la ubicación
-   */
-  openMap() {
-    if (!this.activity?.location) return;
-    
-    const query = encodeURIComponent(this.activity.location);
-    
-    if (this.isMobile) {
-      // Para dispositivos móviles, intentar abrir en app nativa de mapas
-      window.open(`geo:0,0?q=${query}`, '_system');
-    } else {
-      // Fallback a Google Maps
-      window.open(`https://maps.google.com/?q=${query}`, '_blank');
-    }
   }
 }

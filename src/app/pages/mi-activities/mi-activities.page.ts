@@ -56,19 +56,17 @@ export class MiActivitiesPage implements OnInit {
 
     this.activitySubcrition.subscribe('activities').subscribe((change: CollectionChange<Activity>) => {
       const currentActivities = [...this._myActivities.value];
-      
-      // Solo procesar cambios de documentos que ya tenemos cargados
       if (!this.loadedIds.has(change.id) && change.type !== 'added') {
         return;
       }
 
       switch(change.type) {
         case 'added':
-          if (!this.loadedIds.has(change.id)) {
+          /**if (!this.loadedIds.has(change.id)) {
             currentActivities.push(change.data!);
             this.loadedIds.add(change.id);
           }
-          break;
+          break;**/
         
         case 'modified':
           const index = currentActivities.findIndex(p => p.id === change.id);

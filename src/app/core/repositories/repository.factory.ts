@@ -197,7 +197,6 @@ export function createCollectionSubscriptionFactory<T extends Model>(
     deps: [BACKEND_TOKEN, FIREBASE_CONFIG_TOKEN, mappingToken]
   };
 }
-// Factorías específicas para cada tipo
 export const AdvensCollectionSubscriptionFactory = createCollectionSubscriptionFactory<Adven>(
   'advens',
   ADVEN_REPOSITORY_MAPPING_TOKEN,

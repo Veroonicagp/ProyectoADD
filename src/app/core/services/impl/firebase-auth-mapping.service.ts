@@ -16,7 +16,6 @@ export class FirebaseAuthMappingService implements IAuthMapping {
     return {
       email: payload.email,
       password: payload.password
-      // No necesitamos username ya que Firebase no lo maneja por defecto
     };
   }
   signIn(response: FirebaseUser): User {

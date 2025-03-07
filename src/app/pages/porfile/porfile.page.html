@@ -33,17 +33,15 @@
           <ion-input class="p" label-placement="floating" fill="outline" label="{{'REGISTRO.EMAIL'|translate}}" type="email" formControlName="email" autocomplete="off" required></ion-input>
         </ion-card-content>
         <div class="ion-padding">
-          <ion-button class="bttn" [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit">
+          <ion-button class="bttn" [disabled]="!formGroup.valid || !formGroup.dirty" type="submit">
             {{ 'PROFILE.UPDATE' | translate }}
           </ion-button>
-          <ion-button class="bttn" >{{'PROFILE.CLOSE'|translate}}</ion-button>
         </div>
         
           
         </ion-card>
       </ion-col>
 
-      <!-- Imagen a la derecha -->
       <ion-col size="12" size-md="8">
         <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png" alt="Imagen" style="width: 100%; height: auto;"></ion-img>
       </ion-col>

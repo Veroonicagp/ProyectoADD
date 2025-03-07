@@ -73,7 +73,6 @@ export class FirebaseCollectionSubscriptionService<T extends Model> implements I
     }
   }
   ngOnDestroy() {
-    // Limpiar todas las suscripciones al destruir el servicio
     this.unsubscribeFunctions.forEach(unsubscribe => unsubscribe());
     this.subscriptions.forEach(subject => subject.complete());
     this.unsubscribeFunctions.clear();

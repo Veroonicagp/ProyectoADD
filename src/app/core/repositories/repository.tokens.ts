@@ -1,4 +1,3 @@
-// src/app/repositories/repository.tokens.ts
 import { InjectionToken } from '@angular/core';
 import { IBaseRepository } from './intefaces/base-repository.interface';
 import { IAdvenRepository } from './intefaces/adven-repository.interface';
