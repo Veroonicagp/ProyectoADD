@@ -1,7 +1,8 @@
 # 🟣 ReadyToEnjoy 🟣
 
 ## 📱 Descripción 
-[VIDEO PRESENTACIÓN]([https://resplendent-pegasus-409be3.netlify.app/](https://youtu.be/qk9j1a6kMvs))
+[VIDEO PRESENTACIÓN](https://youtu.be/qk9j1a6kMvs)
+
 ReadyToEnjoy es una aplicación social para compartir y descubrir actividades. Los usuarios pueden registrarse, iniciar sesión, explorar actividades creadas por otros usuarios y publicar sus propias actividades para que la comunidad las disfrute.
 
 ## ✨ Características principales
