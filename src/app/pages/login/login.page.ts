@@ -13,12 +13,14 @@ import { LanguageService } from 'src/app/core/services/language.service';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
   currentLang: string;
+  loginError: string = '';
+  showPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private route:ActivatedRoute,
-    private authSvc:BaseAuthenticationService,
+    private route: ActivatedRoute,
+    private authSvc: BaseAuthenticationService,
     private translate: TranslateService,
     private languageService: LanguageService,
   ) { 
@@ -30,15 +32,23 @@ export class LoginPage implements OnInit {
     this.currentLang = this.languageService.getStoredLanguage();
   }
 
+  // Nueva función para alternar la visibilidad de la contraseña
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
+      this.loginError = '';
+      
       this.authSvc.signIn(this.loginForm.value).subscribe({
-        next: resp=>{
+        next: resp => {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
           this.router.navigateByUrl(returnUrl);
         },
-        error: err=>{
+        error: err => {
           console.log(err);
+          this.loginError = 'LOGIN.ERRORS.INVALID_CREDENTIALS';
         }
       });
       
@@ -47,10 +57,11 @@ export class LoginPage implements OnInit {
     }
   }
 
-  onRegister(){
+  onRegister() {
     this.loginForm.reset();
+    this.loginError = '';
     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
-    this.router.navigate(['/register'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
+    this.router.navigate(['/register'], {queryParams: { returnUrl: returnUrl}, replaceUrl: true});
   }
 
   ngOnInit() {
@@ -64,16 +75,11 @@ export class LoginPage implements OnInit {
     this.translate.use(newLang);
   }
 
-  get email(){
+  get email() {
     return this.loginForm.controls['email'];
   }
 
-  get password(){
+  get password() {
     return this.loginForm.controls['password'];
   }
-
-  
-
-  
-
 }

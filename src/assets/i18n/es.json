@@ -43,7 +43,8 @@
       "EMAIL_REQUIRED": "*Debe introducir un email",
       "PASSWORD_REQUIRED": "*Debe introducir una contraseña",
       "EMAIL_INVALID": "*Por favor, introduce un email válido",
-      "CONTRASEÑA_INVALID": "Contraseña incorrecta"
+      "CONTRASEÑA_INVALID": "Contraseña incorrecta",
+      "INVALID_CREDENTIALS": "*Usuario o contraseña incorrectos"
     }
   },
   "MI_AVENTURAS": {
@@ -87,7 +88,7 @@
     "ACTIVIDADES": "Actividades",
     "AVENTUREROS": "Aventureros",
     "PERFIL": "Perfil",
-    "MI_ACTIVIDADES": "My Actividades",
+    "MI_ACTIVIDADES": "Mis Actividades",
     "ABOUT": "Información"
   }
 

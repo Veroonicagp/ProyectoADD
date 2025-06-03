@@ -1,32 +1,32 @@
 {
-  
   "ABOUT": {
     "TITLE": "About ReadyToEnjoy",
-    "CREADORA": "Creator de ReadyToEnjoy",
+    "CREADORA": "Creator of ReadyToEnjoy",
     "INFO1": "Welcome to ReadyToEnjoy! A project designed to inspire you to make new adventures both alone and in company, making memories of fun, new and exciting experiences. ",
-    "INFO2": "ReadyToEnjoy is a platform/tool ​​in which you register and can access the different activities uploaded, both by you and by the different adventurers (registered users), the intention of the app is to create a forum, where users can upload ideas of activities that you can do in your area where they will put the place separated by provinces of Andalusia (for now), the approximate price of the activity, and a brief description of where you can get information or book if necessary and your experience."
+    "INFO2": "ReadyToEnjoy is a platform/tool in which you register and can access the different activities uploaded, both by you and by the different adventurers (registered users), the intention of the app is to create a forum, where users can upload ideas of activities that you can do in your area where they will put the place separated by provinces of Andalusia (for now), the approximate price of the activity, and a brief description of where you can get information or book if necessary and your experience."
   },
   "ACTIVIDADES": {
     "NOMBRE": "Activities",
-    "NUEVA": "Nueva aventura",
+    "NUEVA": "New adventure",
     "EDITAR": "Edit adventure",
     "UBI": "Location",
     "PRECIO": "Price",
-    "MEDIA":"Media",
+    "MEDIA": "Media",
     "TITULO": "Title",
     "DESCIPCION": "Description",
     "CREAR": "Create Adventure",
-    "EDITAR2": "Update aventura",
+    "EDITAR2": "Update adventure",
     "ADD_BUTTON": "Add",
     "SEARCH_PLACEHOLDER": "Search by location...",
-    "NO_RESULTS": "No adventurers found",
+    "NO_RESULTS": "No activities found",
+    "COMPARTIR": "Share activity",
     "ERRORS": {
       "TITLE_REQUIRED": "*You must enter a title",
-      "PRICE_REQUIRED": "*You must enter your price",
-      "LOCATION_REQUIRED": "*You must enter your location",
-      "DESCRIPTION_REQUIRED": "*You must enter a short description at least",
+      "PRICE_REQUIRED": "*You must enter the price",
+      "UBI_REQUIRED": "*You must enter the location",
+      "DESCRIPTION_REQUIRED": "*You must enter a description of at least 10 characters",
       "TITLE_INVALID": "*Please enter a title with more than 2 characters",
-      "LOCATION_INVALID": "*Location must be at least two characters",
+      "UBI_INVALID": "*Location must be at least two characters",
       "DESCRIPTION_INVALID": "*At least 10 characters for the description"
     }
   },
@@ -34,31 +34,32 @@
     "NOMBRE": "Adventurers",
     "SEARCH_PLACEHOLDER": "Search for adventurers...",
     "NO_RESULTS": "No adventurers found"
-  },  
+  },
   "LOGIN": {
     "TITLE": "Login",
     "REGISTRO": "Register",
     "EMAIL": "Email",
     "CONTRASEÑA": "Password",
-    "IDIOMA":"ES",
+    "IDIOMA": "ES",
     "ERRORS": {
       "EMAIL_REQUIRED": "*You must enter an email",
+      "PASSWORD_REQUIRED": "*You must enter a password",
+      "EMAIL_INVALID": "*Please enter a valid email",
       "CONTRASEÑA_INVALID": "*Incorrect password",
-      "PASSWORD_REQUIRED": "*You must enter an password",
-      "EMAIL_INVALID": "*Please, enter valid email"
+      "INVALID_CREDENTIALS": "*Invalid username or password"
     }
   },
   "MI_AVENTURAS": {
     "TITLE": "My Adventures",
-    "SUBTITLE": "Your info adventurous",
+    "SUBTITLE": "Your adventurer info",
     "UPDATE": "Update"
-  },  
+  },
   "PROFILE": {
     "TITLE": "Profile",
-    "TITLE2": "Your info adventurous",
+    "TITLE2": "Your adventurer data",
     "UPDATE": "Update",
     "NAME": "Name",
-    "EMAIL": "Email:",
+    "EMAIL": "Email",
     "CLOSE": "Log out"
   },
   "REGISTRO": {
@@ -69,18 +70,18 @@
     "EMAIL": "Email",
     "CONTRASENA": "Password",
     "CONTRASENA2": "Repeat password",
-    "IDIOMA":"EN",
-    "CREAR":"Create",
-    "INICIO":"Login",
+    "IDIOMA": "ES",
+    "CREAR": "Create account",
+    "INICIO": "Login",
     "ERRORS": {
       "EMAIL_REQUIRED": "*You must enter an email",
-      "SAME": "*Las contraseñas no coinciden",
+      "SAME": "*Passwords do not match",
       "NAME_REQUIRED": "*You must enter your name",
-      "SURNAME_REQUIRED": "*You must enter your last name",
-      "PASSWORD_REQUIRED": "*You must enter an password",
+      "SURNAME_REQUIRED": "*You must enter your surname",
+      "PASSWORD_REQUIRED": "*You must enter a password",
       "EMAIL_INVALID": "*Please enter a valid email",
-      "NAME_INVALID": "*The name must be Please enter a valid email at least two characters",
-      "SURNAME_INVALID": "*Your last name(s) must be at least two characters",
+      "NAME_INVALID": "*The name must be at least two characters",
+      "SURNAME_INVALID": "*Your surname must be at least two characters",
       "CONTRASEÑA_INVALID": "*At least 8 characters, one uppercase letter, one lowercase letter, one digit and one special character (&#64;$!%*?&.)"
     }
   },
@@ -92,6 +93,4 @@
     "MI_ACTIVIDADES": "My Activities",
     "ABOUT": "About"
   }
-
-
-} 
+}

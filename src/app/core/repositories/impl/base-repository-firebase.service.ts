@@ -18,7 +18,7 @@ import {
   or,
   where
 } from 'firebase/firestore';
-import { from, map, Observable, mergeMap } from 'rxjs';
+import { from, map, Observable, mergeMap, catchError } from 'rxjs';
 import { IBaseRepository, SearchParams } from '../intefaces/base-repository.interface';
 import { FIREBASE_CONFIG_TOKEN, FIREBASE_COLLECTION_TOKEN, REPOSITORY_MAPPING_TOKEN } from '../repository.tokens';
 import { Model } from '../../models/base.model';
@@ -102,9 +102,21 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
 
   update(id: string, entity: T): Observable<T> {
     const docRef = doc(this.db, this.collectionName, id);
+    const updateData = this.mapping.setUpdate(entity);
     
-    return from(updateDoc(docRef, this.mapping.setUpdate(entity))).pipe(
-      map(() => this.mapping.getUpdated({ ...entity, id } as T))
+    console.log('🔥 Actualizando en Firebase - ID:', id);
+    console.log('🔥 Datos a actualizar:', updateData);
+    console.log('🔥 Colección:', this.collectionName);
+    
+    return from(updateDoc(docRef, updateData)).pipe(
+      map(() => {
+        console.log('✅ Actualización exitosa en Firebase');
+        return this.mapping.getUpdated({ ...entity, id } as T);
+      }),
+      catchError(error => {
+        console.error('❌ Error actualizando Firebase:', error);
+        throw error;
+      })
     );
   }
 
@@ -118,4 +130,4 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
       })
     );
   }
-} 
+}

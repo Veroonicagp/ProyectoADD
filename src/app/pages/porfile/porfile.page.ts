@@ -24,7 +24,7 @@ export class PorfilePage implements OnInit {
     public authSvc: BaseAuthenticationService,
     private router: Router,
     private advenService: AdvenService,
-    private mediaService:BaseMediaService,
+    private mediaService: BaseMediaService,
     private loadingController: LoadingController,
     private toastController: ToastController,
     private translateService: TranslateService
@@ -35,9 +35,9 @@ export class PorfilePage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       media: ['']
     });
-   }
+  }
 
-   async ngOnInit() {
+  async ngOnInit() {
     const loading = await this.loadingController.create();
     await loading.present();
 
@@ -50,13 +50,14 @@ export class PorfilePage implements OnInit {
           if (this.adven) {
             const updatedAdven: any = {
               ...this.adven,
-              email:user.email,
-              userId:user.id,
+              email: user.email,
+              userId: user.id,
               media: typeof this.adven.media === 'object' ? 
                            this.adven.media.url : 
                            undefined
             };
             this.formGroup.patchValue(updatedAdven);
+            this.formGroup.markAsPristine();
           }
       }
     } catch (error) {
@@ -78,21 +79,99 @@ export class PorfilePage implements OnInit {
       await loading.present();
 
       try {
-        const changedValues = {} as Record<keyof Adven, any>;
+        console.log('🚀 Iniciando proceso de actualización');
+        
+        // Obtener valores del formulario
+        const formValues = this.formGroup.value;
+        console.log('📝 Valores del formulario:', formValues);
+        
+        // Obtener valores originales
+        const originalValues = {
+          name: this.adven.name,
+          surname: this.adven.surname,
+          email: this.adven.email,
+          media: this.adven.media?.url || this.adven.media || ''
+        };
+        console.log('📋 Valores originales:', originalValues);
+
+        // Verificar el estado dirty de cada control
+        console.log('🔍 Estado dirty de controles:');
         Object.keys(this.formGroup.controls).forEach(key => {
-          if (this.formGroup.get(key)?.dirty) {
-            changedValues[key as keyof Adven] = this.formGroup.get(key)?.value;
-          }
+          const control = this.formGroup.get(key);
+          console.log(`  ${key}: dirty=${control?.dirty}, value=${control?.value}`);
         });
 
-        if(changedValues.media){
-          // Convertir base64 a Blob
-          const base64Response = await fetch(changedValues.media);
-          const blob = await base64Response.blob();
-          const uploadedBlob = await lastValueFrom(this.mediaService.upload(blob));
-          changedValues.media = uploadedBlob[0];
-        } 
+        const changedValues = {} as any;
+
+        // Verificar cambios campo por campo
+        if (formValues.name !== originalValues.name) {
+          changedValues.name = formValues.name;
+          console.log('✅ Nombre cambió');
+        }
         
+        if (formValues.surname !== originalValues.surname) {
+          changedValues.surname = formValues.surname;
+          console.log('✅ Apellido cambió');
+        }
+        
+        if (formValues.email !== originalValues.email) {
+          changedValues.email = formValues.email;
+          console.log('✅ Email cambió');
+        }
+
+        // Verificar media específicamente
+        const currentMedia = formValues.media || '';
+        const originalMedia = originalValues.media || '';
+        
+        console.log('🖼️ Comparación de media:');
+        console.log('  Current:', `"${currentMedia}"`);
+        console.log('  Original:', `"${originalMedia}"`);
+        console.log('  Son iguales:', currentMedia === originalMedia);
+
+        if (currentMedia !== originalMedia) {
+          changedValues.media = currentMedia;
+          console.log('✅ Media cambió, incluyendo en actualización');
+        } else {
+          console.log('❌ Media NO cambió');
+        }
+
+        console.log('🔄 Valores que cambiaron:', changedValues);
+
+        // Si no hay cambios, mostrar mensaje
+        if (Object.keys(changedValues).length === 0) {
+          console.log('⚠️ No hay cambios para actualizar');
+          const toast = await this.toastController.create({
+            message: 'No hay cambios para actualizar',
+            duration: 2000,
+            position: 'bottom'
+          });
+          await toast.present();
+          await loading.dismiss();
+          return;
+        }
+
+        // Procesar el campo media
+        if ('media' in changedValues) {
+          const mediaValue = changedValues.media;
+          console.log('🔧 Procesando media:', mediaValue);
+          
+          if (!mediaValue || mediaValue === '') {
+            console.log('🗑️ Eliminando imagen del backend');
+            changedValues.media = null;
+          } else if (mediaValue.startsWith('data:')) {
+            console.log('📤 Subiendo nueva imagen');
+            const base64Response = await fetch(mediaValue);
+            const blob = await base64Response.blob();
+            const uploadedBlob = await lastValueFrom(this.mediaService.upload(blob));
+            changedValues.media = uploadedBlob[0];
+          } else {
+            console.log('🔗 Manteniendo URL existente');
+          }
+        }
+        
+        console.log('📡 Enviando al backend:', changedValues);
+        
+        // Actualizar en el backend
         await lastValueFrom(this.advenService.update(this.adven.id, changedValues));
         
         const toast = await this.toastController.create({
@@ -101,8 +180,12 @@ export class PorfilePage implements OnInit {
           position: 'bottom'
         });
         await toast.present();
+
+        // Recargar los datos
+        await this.reloadUserData();
+        
       } catch (error) {
-        console.error(error);
+        console.error('❌ Error al actualizar:', error);
         const toast = await this.toastController.create({
           message: await this.translateService.get('No se a podido actualizar').toPromise(),
           duration: 3000,
@@ -112,6 +195,33 @@ export class PorfilePage implements OnInit {
       } finally {
         await loading.dismiss();
       }
+    }
+  }
+
+  private async reloadUserData() {
+    console.log('🔄 Recargando datos del usuario...');
+    try {
+      const user = await this.authSvc.getCurrentUser();
+      if (user) {
+        this.adven = await lastValueFrom(this.advenService.getByUserId(user.id));
+        console.log('📊 Datos recargados del adven:', this.adven);
+        if (this.adven) {
+          const updatedAdven: any = {
+            ...this.adven,
+            email: user.email,
+            userId: user.id,
+            media: typeof this.adven.media === 'object' && this.adven.media ? 
+                           this.adven.media.url : 
+                           undefined
+          };
+          console.log('🔧 Datos preparados para el formulario:', updatedAdven);
+          this.formGroup.patchValue(updatedAdven);
+          this.formGroup.markAsPristine();
+          console.log('✅ Formulario actualizado y marcado como pristine');
+        }
+      }
+    } catch (error) {
+      console.error('❌ Error recargando datos:', error);
     }
   }
                                                                         
@@ -132,7 +242,4 @@ export class PorfilePage implements OnInit {
       this.router.navigate(['/login']);
     });
   }
-
-  
-
 }

@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit, ViewChild, forwardRef, Injector } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { ModalController, ActionSheetController, PopoverController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -22,7 +22,7 @@ export const PICTURE_SELECTABLE_VALUE_ACCESSOR: any = {
   styleUrls: ['./picture-selectable.component.scss'],
   providers:[PICTURE_SELECTABLE_VALUE_ACCESSOR]
 })
-export class PictureSelectableComponent  implements OnInit, ControlValueAccessor, OnDestroy {
+export class PictureSelectableComponent implements OnInit, ControlValueAccessor, OnDestroy {
 
   /** Subject que mantiene el valor actual de la imagen */
   private _picture = new BehaviorSubject("");
@@ -34,11 +34,15 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
   hasValue:boolean = false;
   hasCameraFeature: boolean = false;
 
+  // NUEVAS PROPIEDADES
+  private onTouched = () => {};
+  private ngControl: NgControl | null = null; // DESPUÉS
   constructor(
     private pictureModal: ModalController,
     private platform: Platform,
     private actionSheetCtrl: ActionSheetController,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private injector: Injector // AGREGAR
   ) {
     this.checkCameraAvailability();
   }
@@ -48,7 +52,15 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
     this._picture.complete();
   }
 
-  ngOnInit() {}
+  // MODIFICAR ngOnInit
+  ngOnInit() {
+    // Obtener referencia al NgControl
+    try {
+      this.ngControl = this.injector.get(NgControl, null);
+    } catch (e) {
+      this.ngControl = null;
+    }
+  }
 
   /** Función que propaga los cambios al formulario padre */
   propagateChange = (obj: any) => {
@@ -62,6 +74,10 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
     if(obj){
       this.hasValue = true;
       this._picture.next(obj);
+    } else {
+      // AGREGAR: También manejar cuando obj es null o undefined
+      this.hasValue = false;
+      this._picture.next('');
     }
   }
 
@@ -69,7 +85,9 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
     this.propagateChange = fn;
   }
 
+  // MODIFICAR registerOnTouched
   registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -80,10 +98,19 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
    * Cambia la imagen actual y propaga el cambio
    * @param picture Nueva URL de la imagen
    */
-  changePicture(picture:string){
-    this.hasValue = picture!='';
+  changePicture(picture: string) {
+    console.log('🖼️ Cambiando imagen a:', picture);
+    this.hasValue = picture != '';
     this._picture.next(picture);
     this.propagateChange(picture);
+    this.onTouched();
+    
+    // AGREGAR: Forzar que el control se marque como dirty
+    if (this.ngControl?.control) {
+      this.ngControl.control.markAsDirty();
+      this.ngControl.control.markAsTouched();
+      console.log('✅ Control marcado como dirty:', this.ngControl.control.dirty);
+    }
   }
 
   /**
@@ -113,8 +140,9 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
    * Elimina la imagen actual
    * @param event Evento del DOM
    */
-  onDeletePicture(event:Event){
+  onDeletePicture(event: Event) {
     event.stopPropagation();
+    console.log('🗑️ Eliminando imagen');
     this.changePicture('');
   }
 
@@ -221,5 +249,4 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
       this.onChangePicture(event, fileLoader);
     }
   }
-
 }

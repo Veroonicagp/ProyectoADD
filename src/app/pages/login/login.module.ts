@@ -8,6 +8,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginPage } from './login.page';
+import { PasswordEyeIconPipe } from 'src/app/shared/pipes/password-eye-icon.pipe';
 
 @NgModule({
   imports: [
@@ -18,6 +19,9 @@ import { LoginPage } from './login.page';
     ReactiveFormsModule,
     TranslateModule.forChild()
   ],
-  declarations: [LoginPage]
+  declarations: [
+    LoginPage,
+    PasswordEyeIconPipe
+  ]
 })
 export class LoginPageModule {}

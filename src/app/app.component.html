@@ -1,32 +1,50 @@
 <ion-app>
   <!-- Menú lateral -->
-  <ion-menu #menu side="start" menuId="mainMenu" contentId="mainContent" >
-   <ion-header>
-     <ion-toolbar>
-       <ion-title>{{'MENU.TITLE'| translate}}</ion-title>
-       <ion-buttons slot="end">
-        <ion-button class="bttn" (click)="changeLanguage()">
-          {{'LOGIN.IDIOMA'| translate}}
-        </ion-button>
-      </ion-buttons>
-     </ion-toolbar>
-   </ion-header>
-   <ion-content>
-    <ion-list>
-      <ion-item (click)="menu.close()"  routerLink="/adventurous" routerDirection="root">{{'MENU.AVENTUREROS'| translate}}</ion-item>
-      <ion-item (click)="menu.close()"  routerLink="/activities" routerDirection="root">{{'MENU.ACTIVIDADES'| translate}}</ion-item>
-      <ion-item (click)="menu.close()"  routerLink="/mi-activities" routerDirection="root">{{'MENU.MI_ACTIVIDADES'| translate}}</ion-item>
-      <ion-item (click)="menu.close()"  routerLink="/about" routerDirection="root">{{'MENU.ABOUT'| translate}}</ion-item>
-      <ion-item (click)="menu.close()"  routerLink="/porfile" routerDirection="root">{{'MENU.PERFIL'| translate}}</ion-item>
-    </ion-list>
-  </ion-content>
-  <ion-footer>
-    <ion-item >
+  <ion-menu #menu side="start" menuId="mainMenu" contentId="mainContent">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{'MENU.TITLE'| translate}}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button class="bttn" (click)="changeLanguage()">
+            {{'LOGIN.IDIOMA'| translate}}
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+      <!-- Sección del usuario -->
+      <div class="user-info" *ngIf="userProfile$ | async as profile">
+        <ion-item lines="none" class="user-item">
+          <ion-avatar slot="start">
+            <img 
+              [src]="profile.adven?.media?.thumbnail || 'assets/imgs/perfil.jpg'" 
+              [alt]="profile.user.username"
+              (error)="$any($event.target).src='assets/imgs/perfil.jpg'">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{profile.adven ? (profile.adven.name + ' ' + profile.adven.surname) : profile.user.username}}</h2>
+            <p>{{profile.user.email}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="full" class="divider-item"></ion-item>
+      </div>
 
+      <ion-list>
+        <ion-item (click)="menu.close()" routerLink="/adventurous" routerDirection="root">{{'MENU.AVENTUREROS'| translate}}</ion-item>
+        <ion-item (click)="menu.close()" routerLink="/activities" routerDirection="root">{{'MENU.ACTIVIDADES'| translate}}</ion-item>
+        <ion-item (click)="menu.close()" routerLink="/mi-activities" routerDirection="root">{{'MENU.MI_ACTIVIDADES'| translate}}</ion-item>
+        <ion-item (click)="menu.close()" routerLink="/about" routerDirection="root">{{'MENU.ABOUT'| translate}}</ion-item>
+        <ion-item (click)="menu.close()" routerLink="/porfile" routerDirection="root">{{'MENU.PERFIL'| translate}}</ion-item>
+      </ion-list>
+    </ion-content>
+    
+    <ion-footer>
+      <ion-item>
         <ion-button class="bttn2" slot="end" (click)="logout()">{{'PROFILE.CLOSE'|translate}}</ion-button>
-
-    </ion-item>
-</ion-footer>
- </ion-menu>
- <ion-router-outlet id="mainContent"></ion-router-outlet>
+      </ion-item>
+    </ion-footer>
+  </ion-menu>
+  
+  <ion-router-outlet id="mainContent"></ion-router-outlet>
 </ion-app>

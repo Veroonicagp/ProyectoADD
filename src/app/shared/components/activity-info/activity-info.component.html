@@ -2,7 +2,7 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-title>
-        {{activity?.title}}
+        {{activity.title}}
       </ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="dismiss()">
@@ -25,10 +25,10 @@
         <div class="info-row">
           <div class="info-item">
             <div class="info-text">
-              <span class="info-value"><ion-icon name="location-outline" color="primary"></ion-icon>{{activity?.location}}</span>
+              <span class="info-value"><ion-icon name="location-outline" color="primary"></ion-icon>{{activity.location}}</span>
             </div>
             <div class="info-text">
-              <span class="info-value"><ion-icon name="pricetag-outline" color="success"></ion-icon>{{activity?.price}}</span>
+              <span class="info-value"><ion-icon name="pricetag-outline" color="success"></ion-icon>{{activity.price}}</span>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
         <ion-card-title>{{'ACTIVIDADES.DESCIPCION' | translate}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p class="description-text">{{activity?.description}}</p>
+        <p class="description-text">{{activity.description}}</p>
       </ion-card-content>
     </ion-card>
    
@@ -48,5 +48,4 @@
       <ion-icon name="share-social-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
 </ion-content>

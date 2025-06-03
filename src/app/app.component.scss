@@ -47,3 +47,53 @@ ion-item {
   border-width: 2px;
   border-radius: 10px;
 }
+.user-info {
+  .user-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 8px;
+    
+    ion-avatar {
+      --size: 50px;
+      
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+    
+    ion-label {
+      h2 {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+      }
+      
+      p {
+        font-size: 0.9rem;
+        color: var(--ion-color-medium);
+      }
+    }
+  }
+  
+  .divider-item {
+    --min-height: 1px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --background: var(--ion-color-light);
+    margin-bottom: 8px;
+  }
+}
+
+// Iconos para los elementos del menú
+ion-list {
+  ion-item {
+    ion-icon {
+      margin-right: 16px;
+      color: var(--ion-color-primary);
+    }
+  }
+}

@@ -23,8 +23,38 @@
           </ion-row>
         </ion-grid>
         
-        <ion-input label-placement="floating" label="{{'LOGIN.EMAIL' | translate}}" fill="outline" type="email" formControlName="email" required></ion-input>
-        <ion-input labelPlacement="floating" label="{{'LOGIN.CONTRASEÑA' | translate}}" fill="outline" type="password" formControlName="password" required></ion-input>
+        <ion-input 
+          label-placement="floating" 
+          label="{{'LOGIN.EMAIL' | translate}}" 
+          fill="outline" 
+          type="email" 
+          formControlName="email" 
+          required>
+        </ion-input>
+        
+        <ion-input 
+          labelPlacement="floating" 
+          label="{{'LOGIN.CONTRASEÑA' | translate}}" 
+          fill="outline" 
+          [type]="showPassword ? 'text' : 'password'" 
+          formControlName="password" 
+          required>
+          <ion-button 
+            slot="end" 
+            fill="clear" 
+            (click)="togglePasswordVisibility()"
+            type="button">
+            <ion-icon 
+              [name]="showPassword | passwordEyeIcon" 
+              slot="icon-only">
+            </ion-icon>
+          </ion-button>
+        </ion-input>
+        
+        <!-- Error de credenciales inválidas -->
+        <ion-text class="input-error" color="danger" *ngIf="loginError">
+          <p>{{loginError | translate}}</p>
+        </ion-text>
         
         <ion-text class="input-error" color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
           <p *ngIf="email?.errors?.['required']">{{'LOGIN.ERRORS.EMAIL_REQUIRED' | translate}}</p>
