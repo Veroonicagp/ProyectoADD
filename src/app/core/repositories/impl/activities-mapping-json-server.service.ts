@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { IBaseMapping } from "../intefaces/base-mapping.interface";
 import { Paginated } from "../../models/paginated.model";
-import { Adven } from "../../models/adven.model";
 import { Activity } from "../../models/activity.model";
 
 export interface ActivityRaw {

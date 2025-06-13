@@ -8,7 +8,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginPage } from './login.page';
-import { PasswordEyeIconPipe } from 'src/app/shared/pipes/password-eye-icon.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,11 +17,12 @@ import { PasswordEyeIconPipe } from 'src/app/shared/pipes/password-eye-icon.pipe
     IonicModule,
     LoginPageRoutingModule,
     ReactiveFormsModule,
-    TranslateModule.forChild()
+    SharedModule,
+    TranslateModule.forChild(), 
+    
   ],
   declarations: [
-    LoginPage,
-    PasswordEyeIconPipe
+    LoginPage
   ]
 })
 export class LoginPageModule {}

@@ -1,28 +1,24 @@
-// Color Variables
 :root {
-  --ion-color-primary: purple;       // Deep purple
+  --ion-color-primary: purple;
   --ion-color-primary-rgb: 126,87,194;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255,255,255;
   --ion-color-primary-shade: #6F4BAD;
   --ion-color-primary-tint: #8B66CA;
 
-  --background-light: #F5F5F5;        // Light gray background
-  --text-color-dark: #333333;         // Dark text for contrast
+  --background-light: #F5F5F5;
+  --text-color-dark: #333333;
 }
 
-// Global Styles for the Page
 .activities-page {
   --ion-background-color: white;
   
-  // Hacer que el header permanezca fijo en la parte superior
   ion-header {
     position: sticky;
     top: 0;
-    z-index: 999; // Asegura que esté por encima del contenido al hacer scroll
+    z-index: 999;
   }
   
-  // Toolbar Styling
   ion-toolbar {
     --background: transparent;
     background: linear-gradient(135deg, white, purple);
@@ -37,7 +33,22 @@
     }
 
     ion-menu-button {
-      color: purple;
+      --color: #333333;
+      color: #333333 !important;
+      
+      ion-icon {
+        color: #333333 !important;
+      }
+    }
+    
+    ion-button {
+      --color: white;
+      color: white !important;
+      
+      ion-icon {
+        font-size: 24px;
+        color: white !important;
+      }
     }
   }
 
@@ -51,29 +62,67 @@
     box-shadow: 0 4px 6px rgba(253, 230, 230, 0.275);
   }
 
-  // Searchbar Styling
   ion-searchbar {
     --background: white;
-    --border-radius: 10px;
-    --box-shadow: 0 2px 5px rgba(126,87,194,0.2);
+    --border-radius: 12px;
+    --box-shadow: 0 2px 8px rgba(126,87,194,0.2);
+    --icon-color: var(--ion-color-primary);
+    --placeholder-color: var(--ion-color-medium);
+    --placeholder-font-style: normal;
+    --color: var(--ion-color-dark);
+    --clear-button-color: var(--ion-color-medium);
     margin: 10px;
     padding: 5px;
+    
+    &.searchbar-has-value {
+      --background: white;
+      --box-shadow: 0 4px 12px rgba(126,87,194,0.3);
+    }
   }
 
-  // Grid Layout para cards 3 columnas
+  .no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--ion-color-medium);
+    
+    ion-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      color: var(--ion-color-light);
+    }
+    
+    h3 {
+      color: var(--ion-color-medium);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    p {
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    
+    ion-button {
+      --color: var(--ion-color-primary);
+    }
+  }
+
   .activities-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
+    gap: 6px;
+    padding: 6px;
   }
   
   .activity-card {
-    width: calc(33.33% - 7px); // Tres columnas
+    width: calc(25% - 5px); 
     box-sizing: border-box;
   }
 
-  // Card Styling
   ion-card {
     margin: 0;
     border-radius: 10px;
@@ -81,7 +130,7 @@
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
     background: white;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 100%;
+    height: 100%; 
 
     &:hover {
       transform: scale(1.01);
@@ -89,15 +138,16 @@
     }
 
     img {
-      height: 350px;
+      height: 160px;
       width: 100%;
-      object-fit: cover;
-      object-position: center; // Centrar la imagen
+      object-fit: contain;
+      object-position: center;
+      background-color: #f8f8f8;
     }
 
     ion-card-header {
       background-color: white;
-      padding: 8px 10px;
+      padding: 4px 6px; 
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
     }
@@ -105,7 +155,7 @@
     ion-card-title {
       color: rgba(0, 0, 0, 0.716);
       font-weight: 600;
-      font-size: 1.2em;
+      font-size: 0.9rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -116,45 +166,95 @@
       display: flex;
       align-items: center;
       margin-top: 2px;
-      font-size: 1em;
+      font-size: 0.75rem; 
 
       ion-icon {
         margin-right: 4px;
-        font-size: 1.1em;
+        font-size: 0.8rem; 
+        color: purple;
       }
     }
 
     ion-card-content {
       background-color: rgba(128, 0, 128, 0.636);
-      color: white;
-      padding: 10px 12px;
-      font-size: 1em;
-      min-height: 70px;
-      max-height: 90px;
+      color: rgba(0, 0, 0, 0.716) !important;
+      font-weight: inherit !important;
+      font-size: 0.75rem;
+      padding: 6px 8px;
+      min-height: 40px;
+      max-height: 60px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+      line-clamp: 3;
+      
+      // Asegurar que todos los elementos hijos tengan el mismo estilo
+      p, span, div, * {
+        color: rgba(0, 0, 0, 0.716) !important;
+        font-weight: inherit !important;
+        font-family: inherit !important;
+      } 
     }
   }
 
-  // Infinite Scroll Styling
   ion-infinite-scroll-content {
     color: var(--ion-color-primary);
   }
+
+  .card-actions {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--ion-color-light);
+  }
 }
 
-// Responsive Adjustments
 @media (max-width: 768px) {
   .activities-page {
     .activity-card {
-      width: calc(50% - 5px); // En tablets, 2 columnas
+      width: calc(50% - 3px);
+    }
+    
+    .activities-grid {
+      gap: 4px;
+      padding: 4px;
     }
     
     ion-card {
+      img {
+        height: 120px;
+        object-fit: contain;
+        background-color: #f8f8f8;
+      }
+      
+      ion-card-header {
+        padding: 3px 5px;
+      }
+      
       ion-card-title {
-        font-size: 1.1em; // Ligeramente más pequeño en tablets pero aún legible
+        font-size: 0.85rem;
+      }
+      
+      ion-card-subtitle {
+        font-size: 0.7rem;
+      }
+      
+      ion-card-content {
+        color: rgba(0, 0, 0, 0.716) !important;
+        font-weight: inherit !important;
+        font-size: 0.7rem;
+        padding: 5px 6px;
+        min-height: 35px;
+        max-height: 50px;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        
+        p, span, div, * {
+          color: rgba(0, 0, 0, 0.716) !important;
+          font-weight: inherit !important;
+        }
       }
     }
   }
@@ -163,28 +263,91 @@
 @media (max-width: 576px) {
   .activities-page {
     .activity-card {
-      width: 100%; // En móviles, 1 columna
+      width: 100%;
+    }
+    
+    .activities-grid {
+      gap: 6px;
+      padding: 6px;
     }
     
     ion-card {
       img {
-        height: 180px; // Más alto en móviles
+        height: 100px;
+        object-fit: contain;
+        background-color: #f8f8f8;
+      }
+      
+      ion-card-header {
+        padding: 4px 6px;
       }
       
       ion-card-title {
-        font-size: 1.2em; // Mantener buen tamaño en móviles
+        font-size: 0.9rem;
+      }
+      
+      ion-card-subtitle {
+        font-size: 0.75rem;
+      }
+      
+      ion-card-content {
+        color: rgba(0, 0, 0, 0.716) !important;
+        font-weight: inherit !important;
+        font-size: 0.75rem;
+        padding: 5px 6px;
+        min-height: 35px;
+        max-height: 50px;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        
+        p, span, div, * {
+          color: rgba(0, 0, 0, 0.716) !important;
+          font-weight: inherit !important;
+        }
       }
     }
   }
 }
 
-// Animations
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-// Additional Utility Classes
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .animated-entry {
-  animation: fadeIn 0.5s ease-out;
+  animation: slideInUp 0.4s ease-out;
+}
+
+.map-view {
+  padding: 16px;
+}
+
+.locations-card {
+  margin-bottom: 16px;
+}
+
+.locations-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.location-chip {
+  margin: 2px;
+  
+  .activity-count {
+    font-size: 0.8em;
+    opacity: 0.7;
+  }
 }

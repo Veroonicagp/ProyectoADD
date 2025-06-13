@@ -4,7 +4,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Activity } from 'src/app/core/models/activity.model';
 import { Share } from '@capacitor/share';
-import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-activity-info',

@@ -1,4 +1,4 @@
-//no hago uso de el
+//no se hace uso de este servicio
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";

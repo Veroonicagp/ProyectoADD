@@ -1,117 +1,261 @@
-/* Layout Container */
-.profile-image-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
+ion-content {
+  --background: white;
+}
+
+ion-toolbar {
+  --background: transparent;
+  background: linear-gradient(135deg, white, purple);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+ion-title {
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+ion-menu-button {
+  --color: #333333;
+  color: #333333 !important;
+  
+  ion-icon {
+    color: #333333 !important;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  background: white;
+}
+
+.about-content {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  max-width: 800px;
+  width: 100%;
+  margin: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.corner-language-btn {
+  --background: rgba(255, 255, 255, 0.9);
+  --color: purple;
+  --border-color: purple;
+  --border-radius: 20px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  height: auto;
+  min-height: 32px;
+  
+  .flag-emoji {
+    font-size: 1rem;
+    margin-right: 4px;
   }
   
-  #profile-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-.about-container {
-    margin-left: 200px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 20px;
+  ion-icon {
+    font-size: 0.9rem;
+    margin-left: 2px;
   }
   
-  .content-section {
-    flex: 1;
-    padding-right: 20px;
+  &:hover {
+    --background: rgba(128, 0, 128, 0.1);
+    transform: scale(1.05);
+    transition: all 0.2s ease;
   }
+}
+
+.content-wrapper {
+  width: 100%;
+}
+
+.logo-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.logo-image {
+  width: 150px;
+  height: auto;
+  max-width: 200px;
+}
+
+h1 {
+  color: purple;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.about-sections {
+  margin-top: 20px;
+}
+
+.section {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(128, 0, 128, 0.1);
   
-  .image-section {
-    flex: 0 0 auto;
-    margin-right: 300px;
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
   }
-  
-  .ready-to-enjoy-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+h2 {
+  color: purple;
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+h3 {
+  color: #6B4C93;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 15px;
+}
+
+p {
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  text-align: justify;
+}
+
+ul {
+  color: #444;
+  line-height: 1.6;
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+.team-member {
+  background: rgba(128, 0, 128, 0.03);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 3px solid purple;
+}
+
+.cta-text {
+  color: purple;
+  font-size: 1.1em;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Responsive para tablets */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
   }
-  
-  .ready-to-enjoy-image img {
-    max-width: 400px;
-    height: auto;
+
+  .about-content {
+    margin: 10px;
+    padding: 25px;
+    max-width: 95%;
   }
-  
-  /* Card Styling */
-  .about-card {
-    width: 100%;
-    max-width: 600px;
-    margin: 0;
-    border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+
+  .logo-image {
+    width: 120px;
   }
-  
-  /* Typography */
-  .creator-name {
-    text-align: left;
-    color: #333;
-    font-size: 1.5em;
-    font-weight: 600;
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .team-member {
+    padding: 12px;
+  }
+}
+
+/* Responsive móvil */
+@media (max-width: 576px) {
+  .container {
+    padding: 10px;
+    align-items: flex-start;
+  }
+
+  .about-content {
+    margin: 5px;
+    padding: 20px 15px;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo-section {
+    margin-bottom: 15px;
     margin-top: 15px;
   }
-  
-  .creator-role {
-    text-align: left;
-    color: #666;
+
+  .logo-image {
+    width: 100px;
+  }
+
+  h1 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 1.1em;
+  }
+
+  h3 {
     font-size: 1em;
-    margin-bottom: 15px;
   }
-  
-  .app-description {
+
+  .section {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .team-member {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 14px;
     text-align: left;
-    color: #444;
-    line-height: 1.6;
-    padding: 0 15px;
   }
-  
-  .app-description p {
-    margin-bottom: 15px;
+
+  ul {
+    padding-left: 15px;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .about-container {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .content-section {
-      padding-right: 0;
-      margin-bottom: 20px;
-    }
-  
-    .creator-name,
-    .creator-role,
-    .app-description {
-      text-align: center;
-    }
-  
-    .ready-to-enjoy-image img {
-      max-width: 300px;
-    }
+
+  li {
+    font-size: 14px;
   }
-  
-  /* Toolbar Styling */
-  ion-toolbar {
-    --background: linear-gradient(135deg, white, purple);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .cta-text {
+    font-size: 1em;
   }
-      
-  ion-title {
-    font-weight: 600;
-    text-align: center;
-    color: white;
-    font-size: 1.2em;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  }
+}

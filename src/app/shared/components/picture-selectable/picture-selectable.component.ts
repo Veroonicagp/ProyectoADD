@@ -1,10 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, forwardRef, Injector } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild, forwardRef, Injector, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { ModalController, ActionSheetController, PopoverController } from '@ionic/angular';
+import { ModalController, ActionSheetController, PopoverController, AlertController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource, CameraDirection } from '@capacitor/camera';
 import { Platform } from '@ionic/angular';
+import { Capacitor } from '@capacitor/core';
 import { PictureOptionsComponent } from '../picture-options/picture-options.component';
+import { CameraModalComponent } from '../camera-modal/camera-modal.component';
 
 export const PICTURE_SELECTABLE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -12,10 +14,8 @@ export const PICTURE_SELECTABLE_VALUE_ACCESSOR: any = {
   multi: true
 };
 
-/**
- * Componente para seleccionar y gestionar imágenes
- * Implementa ControlValueAccessor para integrarse con formularios reactivos de Angular
- */
+export type PictureMode = 'profile' | 'activity';
+
 @Component({
   selector: 'app-picture-selectable',
   templateUrl: './picture-selectable.component.html',
@@ -24,60 +24,87 @@ export const PICTURE_SELECTABLE_VALUE_ACCESSOR: any = {
 })
 export class PictureSelectableComponent implements OnInit, ControlValueAccessor, OnDestroy {
 
-  /** Subject que mantiene el valor actual de la imagen */
   private _picture = new BehaviorSubject("");
-  /** Observable público para la imagen seleccionada */
   public picture$ = this._picture.asObservable();
-  /** Indica si el componente está deshabilitado */
   isDisabled:boolean = false;
-  /** Indica si hay una imagen seleccionada */
   hasValue:boolean = false;
   hasCameraFeature: boolean = false;
 
-  // NUEVAS PROPIEDADES
+  @Input() mode: PictureMode = 'profile';
+  @Output() onImageChanged = new EventEmitter<void>();
+
+  get isActivityMode(): boolean {
+    return this.mode === 'activity';
+  }
+
+  get defaultImage(): string {
+    return this.mode === 'activity' ? 'assets/imgs/aventura.png' : 'assets/imgs/perfil.jpg';
+  }
+
+  get isDefaultImage(): boolean {
+    const currentPicture = this._picture.value;
+    
+    if (this.mode === 'activity') {
+      return !currentPicture || 
+             currentPicture === '' || 
+             currentPicture === 'assets/imgs/aventura.png';
+    } else {
+      return !currentPicture || 
+             currentPicture === '' || 
+             currentPicture === 'assets/imgs/perfil.jpg';
+    }
+  }
+
   private onTouched = () => {};
-  private ngControl: NgControl | null = null; // DESPUÉS
+  private ngControl: NgControl | null = null;
+
   constructor(
     private pictureModal: ModalController,
     private platform: Platform,
     private actionSheetCtrl: ActionSheetController,
     private popoverCtrl: PopoverController,
-    private injector: Injector // AGREGAR
+    private alertCtrl: AlertController,
+    private injector: Injector
   ) {
     this.checkCameraAvailability();
   }
 
-  /** Limpia los recursos al destruir el componente */
   ngOnDestroy(): void {
     this._picture.complete();
   }
 
-  // MODIFICAR ngOnInit
   ngOnInit() {
-    // Obtener referencia al NgControl
     try {
       this.ngControl = this.injector.get(NgControl, null);
     } catch (e) {
       this.ngControl = null;
     }
+    
+    if (this.mode === 'activity' && !this._picture.value) {
+      this._picture.next('assets/imgs/aventura.png');
+    }
   }
 
-  /** Función que propaga los cambios al formulario padre */
   propagateChange = (obj: any) => {
   }
 
-  /**
-   * Establece el valor del componente desde el formulario
-   * @param obj Valor a establecer (URL de la imagen)
-   */
   writeValue(obj: any): void {
-    if(obj){
-      this.hasValue = true;
-      this._picture.next(obj);
+    if (this.mode === 'activity') {
+      if (obj && obj.length > 0 && obj !== 'assets/imgs/aventura.png') {
+        this.hasValue = true;
+        this._picture.next(obj);
+      } else {
+        this.hasValue = false;
+        this._picture.next('assets/imgs/aventura.png');
+      }
     } else {
-      // AGREGAR: También manejar cuando obj es null o undefined
-      this.hasValue = false;
-      this._picture.next('');
+      if (obj && obj.length > 0) {
+        this.hasValue = true;
+        this._picture.next(obj);
+      } else {
+        this.hasValue = false;
+        this._picture.next('');
+      }
     }
   }
 
@@ -85,7 +112,6 @@ export class PictureSelectableComponent implements OnInit, ControlValueAccessor,
     this.propagateChange = fn;
   }
 
-  // MODIFICAR registerOnTouched
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
@@ -94,30 +120,25 @@ export class PictureSelectableComponent implements OnInit, ControlValueAccessor,
     this.isDisabled = isDisabled;
   }
 
-  /**
-   * Cambia la imagen actual y propaga el cambio
-   * @param picture Nueva URL de la imagen
-   */
   changePicture(picture: string) {
-    console.log('🖼️ Cambiando imagen a:', picture);
-    this.hasValue = picture != '';
+    if (this.mode === 'activity') {
+      this.hasValue = picture !== '' && picture !== 'assets/imgs/aventura.png';
+    } else {
+      this.hasValue = picture !== '';
+    }
+    
     this._picture.next(picture);
     this.propagateChange(picture);
     this.onTouched();
     
-    // AGREGAR: Forzar que el control se marque como dirty
     if (this.ngControl?.control) {
       this.ngControl.control.markAsDirty();
       this.ngControl.control.markAsTouched();
-      console.log('✅ Control marcado como dirty:', this.ngControl.control.dirty);
     }
+    
+    this.onImageChanged.emit();
   }
 
-  /**
-   * Maneja el evento de cambio de imagen desde un input file
-   * @param event Evento del DOM
-   * @param fileLoader Elemento input file
-   */
   onChangePicture(event:Event, fileLoader:HTMLInputElement){
     event.stopPropagation();
     fileLoader.onchange = ()=>{
@@ -136,117 +157,240 @@ export class PictureSelectableComponent implements OnInit, ControlValueAccessor,
     fileLoader.click();
   }
 
-  /**
-   * Elimina la imagen actual
-   * @param event Evento del DOM
-   */
-  onDeletePicture(event: Event) {
+  async onDeletePicture(event: Event) {
     event.stopPropagation();
-    console.log('🗑️ Eliminando imagen');
-    this.changePicture('');
+    
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminar foto',
+      message: '¿Estás seguro de que quieres eliminar esta foto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            if (this.mode === 'activity') {
+              this.changePicture('assets/imgs/aventura.png');
+            } else {
+              this.changePicture('');
+            }
+            
+            this.onImageChanged.emit();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
-  /** Cierra el modal de selección de imagen */
   close(){
     this.pictureModal?.dismiss();
   }
 
   private async checkCameraAvailability() {
-    if (this.platform.is('hybrid')) {
+    if (Capacitor.isNativePlatform()) {
       try {
         const permission = await Camera.checkPermissions();
-        this.hasCameraFeature = permission.camera === 'granted';
-      } catch {
+        
+        if (permission.camera === 'granted') {
+          this.hasCameraFeature = true;
+        } else if (permission.camera === 'prompt' || permission.camera === 'prompt-with-rationale') {
+          const requestResult = await Camera.requestPermissions();
+          this.hasCameraFeature = requestResult.camera === 'granted';
+        } else {
+          this.hasCameraFeature = false;
+        }
+      } catch (error) {
+        console.error('Error verificando permisos móvil:', error);
         this.hasCameraFeature = false;
       }
     } else {
-      // Comprobación para navegadores web
-      this.hasCameraFeature = !!(navigator?.mediaDevices?.getUserMedia);
-    }
-  }
-
-  async takePicture() {
-    try {
-      if (this.platform.is('hybrid')) {
-        const image = await Camera.getPhoto({
-          quality: 90,
-          allowEditing: false,
-          resultType: CameraResultType.DataUrl,
-          source: CameraSource.Camera
-        });
-        
-        if (image.dataUrl) {
-          this.changePicture(image.dataUrl);
+      try {
+        if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
+          this.hasCameraFeature = true;
+        } else {
+          this.hasCameraFeature = false;
         }
-      } else {
-        // Para navegadores web
-        const image = await Camera.getPhoto({
-          quality: 90,
-          allowEditing: false,
-          resultType: CameraResultType.DataUrl,
-          source: CameraSource.Camera,
-          webUseInput: false // Esto fuerza el uso de la cámara web
-        });
-        
-        if (image.dataUrl) {
-          this.changePicture(image.dataUrl);
-        }
+      } catch (error) {
+        console.error('Error verificando cámara web:', error);
+        this.hasCameraFeature = false;
       }
-    } catch (error) {
-      console.error('Error al tomar la foto:', error);
     }
   }
 
   async presentPictureOptions(event: Event, fileLoader: HTMLInputElement) {
     event.stopPropagation();
     
-    if (this.hasCameraFeature) {
-      const buttons = [
-        {
-          text: 'Tomar foto',
-          icon: 'camera',
-          handler: () => {
-            this.takePicture();
-          }
-        },
-        {
-          text: 'Seleccionar de galería',
-          icon: 'image',
-          handler: () => {
-            this.onChangePicture(event, fileLoader);
-          }
-        },
-        {
-          text: 'Cancelar',
-          icon: 'close',
-          role: 'cancel'
-        }
-      ];
-
-      if (window.innerHeight < window.innerWidth) {  // Es landscape
-        const popover = await this.popoverCtrl.create({
-          component: PictureOptionsComponent,
-          event: event,
-          alignment: 'center',
-          translucent: true,
-          size: 'auto'
-        });
-        await popover.present();
-        const { data } = await popover.onDidDismiss();
-        
-        if (data === 'camera') {
+    const buttons = [];
+    
+    if (this.mode === 'profile' && this.hasCameraFeature) {
+      buttons.push({
+        text: 'Tomar foto',
+        icon: 'camera',
+        handler: () => {
           this.takePicture();
-        } else if (data === 'gallery') {
-          this.onChangePicture(event, fileLoader);
         }
-      } else {  // Es portrait
-        const actionSheet = await this.actionSheetCtrl.create({
-          buttons: buttons
-        });
-        await actionSheet.present();
+      });
+    }
+    
+    buttons.push({
+      text: 'Seleccionar de galería',
+      icon: 'image',
+      handler: () => {
+        this.onChangePicture(event, fileLoader);
+      }
+    });
+    
+    buttons.push({
+      text: 'Cancelar',
+      icon: 'close',
+      role: 'cancel'
+    });
+
+    if (window.innerHeight < window.innerWidth) {
+      const popover = await this.popoverCtrl.create({
+        component: PictureOptionsComponent,
+        componentProps: {
+          mode: this.mode,
+          hasCameraFeature: this.hasCameraFeature
+        },
+        event: event,
+        alignment: 'center',
+        translucent: true,
+        size: 'auto'
+      });
+      await popover.present();
+      const { data } = await popover.onDidDismiss();
+      
+      if (data === 'camera') {
+        this.takePicture();
+      } else if (data === 'gallery') {
+        this.onChangePicture(event, fileLoader);
       }
     } else {
-      this.onChangePicture(event, fileLoader);
+      const actionSheet = await this.actionSheetCtrl.create({
+        buttons: buttons
+      });
+      await actionSheet.present();
     }
+  }
+
+  async takePicture() {
+    try {
+      if (Capacitor.isNativePlatform()) {
+        const image = await Camera.getPhoto({
+          quality: 90,
+          allowEditing: false,
+          resultType: CameraResultType.Base64,
+          source: CameraSource.Camera,
+          direction: CameraDirection.Rear,
+          presentationStyle: 'fullscreen'
+        });
+        
+        if (image.base64String) {
+          const dataUrl = `data:image/${image.format};base64,${image.base64String}`;
+          this.changePicture(dataUrl);
+        }
+      } else {
+        await this.takePictureWeb();
+      }
+    } catch (error) {
+      console.error('Error al tomar foto:', error);
+      
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      
+      if (errorMessage.includes('cancelled') || errorMessage.includes('canceled') || errorMessage.includes('User cancelled')) {
+        return;
+      }
+      
+      this.showCameraError();
+    }
+  }
+
+  private async takePictureWeb() {
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('getUserMedia no está disponible');
+      }
+
+      const modal = await this.pictureModal.create({
+        component: CameraModalComponent,
+        componentProps: {
+          onCapture: (imageData: string) => {
+            this.changePicture(imageData);
+          },
+          onCancel: () => {
+          }
+        },
+        cssClass: 'camera-modal'
+      });
+
+      await modal.present();
+
+    } catch (error) {
+      console.error('Error accediendo a la cámara:', error);
+      
+      const errorAlert = await this.alertCtrl.create({
+        header: 'Error de cámara',
+        message: 'No se pudo acceder a la cámara. ¿Quieres seleccionar una imagen de la galería?',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          },
+          {
+            text: 'Abrir galería',
+            handler: () => {
+              this.useFileInputFallback();
+            }
+          }
+        ]
+      });
+      
+      await errorAlert.present();
+    }
+  }
+
+  private async showCameraError() {
+    const alert = await this.alertCtrl.create({
+      header: 'Cámara no disponible',
+      message: 'No se pudo acceder a la cámara. Esto puede deberse a permisos denegados o que el sitio no sea seguro (HTTPS). ¿Quieres seleccionar una imagen de la galería?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Abrir galería',
+          handler: () => {
+            this.useFileInputFallback();
+          }
+        }
+      ]
+    });
+    
+    await alert.present();
+  }
+
+  private useFileInputFallback() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    
+    fileInput.onchange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.changePicture(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    
+    fileInput.click();
   }
 }

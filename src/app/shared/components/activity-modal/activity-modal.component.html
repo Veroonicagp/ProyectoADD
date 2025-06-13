@@ -1,69 +1,105 @@
-<ion-content class="activities-page no-scrollbar">
-  <ion-header>
-    <ion-toolbar>
-      <ion-icon slot="start" title="person-outline"></ion-icon>
-      <ion-title>
-        @if (mode=='edit') {
-          {{'ACTIVIDADES.EDITAR'|translate}}
-        }
-        @else {
-          {{'ACTIVIDADES.NUEVA'|translate}}
-        }
-      </ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="dismiss()">
-          <ion-icon slot="icon-only" name="close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <!-- Contenido del formulario con scroll independiente -->
-  <div class="form-container">
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      @if (mode=='edit') {
+        {{'ACTIVIDADES.EDITAR'|translate}}
+      }
+      @else {
+        {{'ACTIVIDADES.NUEVA'|translate}}
+      }
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <div class="form-wrapper">
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-      <ion-col size="12" size-md="4" class="ion-text-center">
-        <ion-card>
+      
+      <ion-col size="12" class="ion-text-center">
+        <ion-card class="image-card">
           <ion-card-content>
-            <app-picture-selectable formControlName="media"></app-picture-selectable>
+            <app-picture-selectable 
+              formControlName="media"
+              mode="activity"
+              (onImageChanged)="onImageChanged()">
+            </app-picture-selectable>
           </ion-card-content>
         </ion-card>
       </ion-col>
+    
+      <div class="form-fields">
+        <ion-input 
+          label-placement="stacked" 
+          label="{{'ACTIVIDADES.TITULO'|translate}}" 
+          fill="outline" 
+          type="text" 
+          formControlName="title"
+          class="purple-input">
+        </ion-input>
+        
+        <ion-input 
+          label-placement="stacked" 
+          fill="outline" 
+          label="{{'ACTIVIDADES.UBI'|translate}}" 
+          type="text" 
+          formControlName="location"
+          class="purple-input">
+        </ion-input>
+        
+        <ion-input 
+          label-placement="stacked" 
+          fill="outline" 
+          label="{{'ACTIVIDADES.PRECIO'|translate}}" 
+          type="text" 
+          formControlName="price"
+          class="purple-input">
+        </ion-input>
+        
+        <ion-textarea 
+          label-placement="stacked" 
+          fill="outline" 
+          label="{{'ACTIVIDADES.DESCIPCION'|translate}}" 
+          formControlName="description" 
+          class="large-textarea purple-input"
+          rows="3">
+        </ion-textarea>
+        
+        <ion-text class="input-error" color="danger" *ngIf="title?.invalid && (title?.dirty || title?.touched)">
+          <p *ngIf="title?.errors?.['required']">{{'ACTIVIDADES.ERRORS.TITLE_REQUIRED'|translate}}</p>
+          <p *ngIf="title?.errors?.['minlength']">{{'ACTIVIDADES.ERRORS.TITLE_INVALID'|translate}}</p>
+        </ion-text>
+        
+        <ion-text class="input-error" color="danger" *ngIf="location?.invalid && (location?.dirty || location?.touched)">
+          <p *ngIf="location?.errors?.['required']">{{'ACTIVIDADES.ERRORS.UBI_REQUIRED'|translate}}</p>
+          <p *ngIf="location?.errors?.['minlength']">{{'ACTIVIDADES.ERRORS.UBI_INVALID'|translate}}</p>
+        </ion-text>
+        
+        <ion-text class="input-error" color="danger" *ngIf="price?.invalid && (price?.dirty || price?.touched)">
+          <p *ngIf="price?.errors?.['required']">{{'ACTIVIDADES.ERRORS.PRICE_REQUIRED'|translate}}</p>
+        </ion-text>
+        
+        <ion-text class="input-error" color="danger" *ngIf="description?.invalid && (description?.dirty || description?.touched)">
+          <p *ngIf="description?.errors?.['required']">{{'ACTIVIDADES.ERRORS.DESCRIPTION_REQUIRED'|translate}}</p>
+          <p *ngIf="description?.errors?.['minlength']">{{'ACTIVIDADES.ERRORS.DESCRIPTION_INVALID'|translate}}</p>
+        </ion-text>
+      </div>
       
-      <ion-input label-placement="floating" label="{{'ACTIVIDADES.TITULO'|translate}}" fill="outline" type="text" formControlName="title"></ion-input>
+      <div class="button-section">
+        <ion-button class="submit-btn" expand="full" type="submit" [disabled]="formGroup.invalid">
+          @if (mode=='edit') {
+            {{'ACTIVIDADES.ACTUALIZAR'|translate}}
+          }
+          @else {
+            {{'ACTIVIDADES.CREAR'|translate}}
+          }
+        </ion-button>
+      </div>
       
-      <ion-input label-placement="floating" fill="outline" label="{{'ACTIVIDADES.UBI'|translate}}" type="text" formControlName="location"></ion-input>
-      
-      <ion-input label-placement="floating" fill="outline" label="{{'ACTIVIDADES.PRECIO'|translate}}" type="text" formControlName="price"></ion-input>
-      
-      <ion-textarea label-placement="floating" fill="outline" label="{{'ACTIVIDADES.DESCIPCION'|translate}}" type="text" formControlName="description" class="large-textarea"></ion-textarea>
-      
-      <ion-text class="input-error" color="danger" *ngIf="title?.invalid && (title?.dirty || title?.touched)">
-        <p *ngIf="title?.errors?.['required']">{{'ACTIVIDADES.ERRORS.TITLE_REQUIRED'|translate}}</p>
-        <p *ngIf="title?.errors?.['minlength']">{{'ACTIVIDADES.ERRORS.TITLE_INVALID'|translate}}</p>
-      </ion-text>
-      
-      <ion-text class="input-error" color="danger" *ngIf="price?.invalid && (price?.dirty || price?.touched)">
-        <p *ngIf="price?.errors?.['required']">{{'ACTIVIDADES.ERRORS.PRICE_REQUIRED'|translate}}</p>
-      </ion-text>
-      
-      <ion-text class="input-error" color="danger" *ngIf="location?.invalid && (location?.dirty || location?.touched)">
-        <p *ngIf="location?.errors?.['required']">{{'ACTIVIDADES.ERRORS.UBI_REQUIRED'|translate}}</p>
-        <p *ngIf="location?.errors?.['minlength']">{{'ACTIVIDADES.ERRORS.UBI_INVALID'|translate}}</p>
-      </ion-text>
-      
-      <ion-text class="input-error" color="danger" *ngIf="description?.invalid && (description?.dirty || description?.touched)">
-        <p *ngIf="description?.errors?.['required']">{{'ACTIVIDADES.ERRORS.DESCRIPTION_REQUIRED'|translate}}</p>
-        <p *ngIf="description?.errors?.['minlength']">{{'ACTIVIDADES.ERRORS.DESCRIPTION_INVALID'|translate}}</p>
-      </ion-text>
-      
-      <ion-button class="bttn" expand="full" type="submit">
-        @if (mode=='edit') {
-          {{'ACTIVIDADES.EDITAR2'|translate}}
-        }
-        @else {
-          {{'ACTIVIDADES.CREAR'|translate}}
-        }
-      </ion-button>
     </form>
   </div>
 </ion-content>

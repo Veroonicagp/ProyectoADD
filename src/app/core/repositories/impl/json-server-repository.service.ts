@@ -1,14 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { IBaseRepository, SearchParams } from '../intefaces/base-repository.interface';
 import { API_URL_TOKEN, AUTH_TOKEN, REPOSITORY_MAPPING_TOKEN, RESOURCE_NAME_TOKEN } from '../repository.tokens';
 import { Model } from '../../models/base.model';
 import { IBaseMapping } from '../intefaces/base-mapping.interface';
 import { Paginated } from '../../models/paginated.model';
 import { BaseRepositoryHttpService } from './base-repository-http.service';
-import { BaseAuthenticationService } from '../../services/impl/base-authentication.service';
 import { IAuthentication } from '../../services/interfaces/authentication.interface';
+import { SearchParams } from '../intefaces/base-repository.interface';
 
 export interface PaginatedRaw<T> {
   first: number

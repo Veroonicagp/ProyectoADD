@@ -5,25 +5,30 @@ import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/core/models/auth.model';
 import { AdvenService } from 'src/app/core/services/impl/adven.service';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
+import { LanguageService } from 'src/app/core/services/language.service';
 import { passwordsMatchValidator, passwordValidator } from 'src/app/core/utils/validators';
-
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
+  private returnUrl: string = '/activities';
+  
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
   
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private route:ActivatedRoute,
-    private authSvc:BaseAuthenticationService,
-    private translate: TranslateService,
-    private advenSvc:AdvenService
+    private route: ActivatedRoute,
+    private authSvc: BaseAuthenticationService,
+    public translate: TranslateService,
+    private languageService: LanguageService, 
+    private advenSvc: AdvenService
   ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -33,12 +38,31 @@ export class RegisterPage {
       confirmPassword: ['', [Validators.required]]
     },
     { validators: passwordsMatchValidator });
-   }
+  }
 
-   onSubmit() {
+  ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
+    
+    this.authSvc.authenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        console.log('Usuario ya autenticado en register, redirigiendo...');
+        this.router.navigate([this.returnUrl]);
+      }
+    });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  onSubmit() {
     if (this.registerForm.valid) {
       this.authSvc.signUp(this.registerForm.value).subscribe({
-        next: (resp:User) => {
+        next: (resp: User) => {
           const userData = {
             ...this.registerForm.value,
             userId: resp.id.toString()
@@ -46,56 +70,71 @@ export class RegisterPage {
           
           this.advenSvc.add(userData).subscribe({
             next: resp => {
-              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/activities';
-              this.router.navigateByUrl(returnUrl);
+              console.log('Registro exitoso, redirigiendo a:', this.returnUrl);
+              this.registerForm.reset();
+              this.router.navigate([this.returnUrl]);
             },
-            error: err => {}
+            error: err => {
+              console.error('Error creando perfil de aventurero:', err);
+            }
           });
         },
         error: err => {
-          console.log(err);
+          console.error('Error en registro:', err);
         }
       });
     } else {
       console.log('Formulario no válido');
+      Object.keys(this.registerForm.controls).forEach(key => {
+        this.registerForm.get(key)?.markAsTouched();
+      });
     }
+  }
 
+  onLogin() {
+    this.registerForm.reset();
+    this.router.navigate(['/login'], { 
+      queryParams: { returnUrl: this.returnUrl }, 
+      replaceUrl: true 
+    });
+  }
 
-
-   }
-
-   changeLanguage() {
+  changeLanguage() {
     const currentLang = this.translate.currentLang;
     const newLang = currentLang === 'en' ? 'es' : 'en';
+    
+    const languageBtn = document.querySelector('.language-btn');
+    if (languageBtn) {
+      languageBtn.classList.add('changing');
+      setTimeout(() => {
+        languageBtn.classList.remove('changing');
+      }, 600);
+    }
+    
     this.translate.use(newLang);
+    
+    this.languageService.storeLanguage(newLang);
+    
+    console.log(`Idioma cambiado a: ${newLang}`);
   }
 
-   onLogin(){
-    this.registerForm.reset();
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
-    this.router.navigate(['/login'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
-  }
-
-  
-  get name(){
+  get name() {
     return this.registerForm.controls['name'];
   }
 
-  get surname(){
+  get surname() {
     return this.registerForm.controls['surname'];
   }
 
-  get email(){
+  get email() {
     return this.registerForm.controls['email'];
   }
 
-  get password(){
+  get password() {
     return this.registerForm.controls['password'];
   }
 
-  get confirmPassword(){
+  get confirmPassword() {
     return this.registerForm.controls['confirmPassword'];
   }
-
-
 }

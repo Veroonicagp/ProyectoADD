@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AdventurousPageRoutingModule } from './adventurous-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdventurousPage } from './adventurous.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AdventurousPage } from './adventurous.page';
     FormsModule,
     IonicModule,
     AdventurousPageRoutingModule,
-    TranslateModule.forChild()
+    SharedModule,
+    TranslateModule.forChild(),
   ],
   declarations: [AdventurousPage]
 })

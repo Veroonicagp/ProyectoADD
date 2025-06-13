@@ -1,96 +1,188 @@
-/* Contenedor principal */
+ion-content {
+  --background: white;
+}
+
 .container {
   display: flex;
-  background: rgb(241, 222, 241);
   justify-content: center;
   align-items: center;
-  height: 100%;
-  padding: 20px;
+  gap: 60px;
+  min-height: 100vh;
+  padding: 8px;
+  background: white;
 }
 
-.ion-card{
-  margin-left: 200px;
-}
-
-/* Formulario con fondo violeta claro */
 .login-form {
-  background: white; /* Violeta claro */
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   max-width: 400px;
-  width: 100%; /* Ajusta el ancho al 100% dentro de su contenedor */
-  margin-left: 200px; /* Aumentar margen de separación de la izquierda */
-  margin-top: 50px;
-  margin-bottom: 10px;
+  width: 100%;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Título dentro del formulario */
+.language-toggle-corner {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+}
+
+.corner-language-btn {
+  --background: rgba(255, 255, 255, 0.9);
+  --color: purple;
+  --border-color: purple;
+  --border-radius: 20px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  height: auto;
+  min-height: 32px;
+  
+  .flag-emoji {
+    font-size: 1rem;
+    margin-right: 4px;
+  }
+  
+  ion-icon {
+    font-size: 0.9rem;
+    margin-left: 2px;
+  }
+  
+  &:hover {
+    --background: rgba(128, 0, 128, 0.1);
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+  }
+}
+
 h1 {
   color: purple;
   text-align: center;
-  margin-bottom: 20px;
-}
-
-
-
-/* Errores de validación */
-.input-error p {
-  margin: 0;
-  font-size: 12px;
-}
-ion-input {
-  margin-bottom: 15px; /* Color del texto del placeholder */
-}
-
-ion-input:focus {
-  --border-color: #9b4dca; /* Color púrpura cuando está enfocado */
-}
-
-.ion-button {
+  margin-bottom: 12px;
   margin-top: 10px;
 }
 
+.input-error p {
+  margin: 0;
+  font-size: 11px;
+}
 
-/* Botón de inicio de sesión en púrpura */
+ion-input {
+  margin-bottom: 10px;
+}
+
+ion-input:focus {
+  --border-color: #9b4dca;
+}
+
+.ion-button {
+  margin-top: 6px;
+}
+
 .bttnL {
-  --background: purple; /* Púrpura */
-  --color: white; /* Color del texto en blanco */
+  --background: purple;
+  --color: white;
   --padding-top: 10px;
   --padding-bottom: 10px;
   text-transform: none;
 }
 
-/* Botón de registro en texto púrpura */
 .bttnR {
-  --color: purple; /* Púrpura */
-  --background: transparent; /* Fondo transparente */
+  --color: purple;
+  --background: transparent;
   text-transform: none;
 }
 
-
-/* Imagen a la derecha, más grande */
 .imagen-responsiva {
   width: 100%;
-  max-width: 650px; /* Ajusta el tamaño de la imagen */
+  max-width: 650px;
   display: block;
-  margin: 20px auto; /* Centra la imagen */
+  margin: 20px auto;
 }
 
-/* Responsividad */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    justify-content: center; /* Centra todo el contenido */
+    justify-content: center;
+    gap: 30px;
+    padding: 10px;
   }
 
   .login-form {
-    margin-left: 0; /* El formulario ocupa todo el espacio disponible en pantallas pequeñas */
+    margin: 0;
+    max-width: 95%;
   }
 
   .imagen-responsiva {
-    display: block;
-    margin: 0 auto;
-    max-width: 90%; /* Ajusta la imagen en pantallas pequeñas */
+    max-width: 500px;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px; 
+    padding: 10px;
+    min-height: 100vh;
+  }
+  
+  .contenedor {
+    display: flex; 
+    order: 1; 
+    margin: 0;
+  }
+
+  .imagen-responsiva {
+    max-width: 200px;
+    margin: 0;
+  }
+
+  .login-form {
+    order: 2;
+    padding: 15px;
+    margin: 0;
+    max-width: 95%;
+  }
+  
+  .language-toggle-corner {
+    top: 8px;
+    right: 8px;
+  }
+  
+  .corner-language-btn {
+    --padding-start: 6px;
+    --padding-end: 6px;
+    min-height: 28px;
+    
+    .flag-emoji {
+      font-size: 0.9rem;
+    }
+    
+    ion-icon {
+      font-size: 0.8rem;
+    }
+  }
+
+  h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 12px;
+  }
+  
+  ion-input {
+    margin-bottom: 8px;
+  }
+  
+  .input-error p {
+    font-size: 10px;
   }
 }

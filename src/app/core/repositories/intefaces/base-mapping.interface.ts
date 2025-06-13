@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-import { Model } from '../../models/base.model';
 import { Paginated } from '../../models/paginated.model';
 
 export interface IBaseMapping<T> {

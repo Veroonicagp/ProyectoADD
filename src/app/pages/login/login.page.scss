@@ -1,61 +1,92 @@
-/* Aplicar el fondo a toda la pantalla */
 ion-content {
-  --background: rgb(241, 222, 241);
+  --background: white;
 }
 
-/* Contenedor principal */
 .container {
   display: flex;
-  justify-content: space-between; /* Espacio entre card e imagen */
+  justify-content: center;
   align-items: center;
-  height: 100%;
-  padding: 20px;
-  max-width: 1200px; /* Limitar ancho máximo */
-  margin: 0 auto; /* Centrar horizontalmente */
+  gap: 60px;
+  height: 100vh;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.ion-card {
-  margin-left: 200px;
-}
-
-/* Formulario con fondo blanco */
 .login-form {
+  position: relative;
   background: white;
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 25px; 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   max-width: 400px;
-  width: 100%; /* Ajusta el ancho al 100% dentro de su contenedor */
-  margin-bottom: 10px;
-  flex: 0 0 auto; /* No crecer ni encogerse */
+  width: 100%;
+  margin-bottom: 5px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Título dentro del formulario */
+.language-toggle-corner {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+}
+
+.corner-language-btn {
+  --background: rgba(255, 255, 255, 0.9);
+  --color: purple;
+  --border-color: purple;
+  --border-radius: 20px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  height: auto;
+  min-height: 32px;
+  
+  .flag-emoji {
+    font-size: 1rem;
+    margin-right: 4px;
+  }
+  
+  ion-icon {
+    font-size: 0.9rem;
+    margin-left: 2px;
+  }
+  
+  &:hover {
+    --background: rgba(128, 0, 128, 0.1);
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+  }
+}
+
 h1 {
   color: purple;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px; 
+  margin-top: 10px; 
 }
 
-/* Errores de validación */
 .input-error p {
   margin: 0;
   font-size: 12px;
 }
 
 ion-input {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 ion-input:focus {
-  --border-color: #9b4dca; /* Color púrpura cuando está enfocado */
+  --border-color: #9b4dca;
 }
 
 .ion-button {
-  margin-top: 10px;
+  margin-top: 8px; 
 }
 
-/* Botón de inicio de sesión en púrpura */
 ion-button.login-button {
   --background: purple;
   --color: white;
@@ -64,55 +95,41 @@ ion-button.login-button {
   text-transform: none;
 }
 
-/* Botón de registro en texto púrpura */
 ion-button.register-button {
   --color: purple;
   --background: transparent;
   text-transform: none;
 }
 
-/* Contenedor de la imagen - Fuera del card en desktop */
 .contenedor {
   display: flex;
   justify-content: center;
-  flex: 0 0 auto; /* No crecer ni encogerse */
-  margin-left: 50px; /* Espacio entre card e imagen */
+  flex: 0 0 auto;
 }
 
-/* Imagen a la derecha, más grande */
 .imagen-responsiva {
   width: 100%;
-  max-width: 500px; /* Ajusta el tamaño de la imagen */
+  max-width: 500px;
   display: block;
 }
 
-/* Fila superior para móvil - No visible en escritorio */
-.mobile-top-row {
-  display: none; /* Oculto por defecto en desktop */
-}
-
-/* Botones de escritorio */
-.desktop-buttons {
-  display: block;
-}
-
-/* Responsividad - Tablets */
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .container {
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    gap: 30px;
+    padding: 15px;
   }
 
   .login-form {
-    margin-left: 0;
-    margin-top: 20px;
+    margin: 0;
     max-width: 90%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   }
 
   .contenedor {
-    margin-left: 0;
-    margin-top: 30px;
+    margin: 0;
   }
 
   .imagen-responsiva {
@@ -120,28 +137,59 @@ ion-button.register-button {
   }
 }
 
-/* Responsividad - Móviles */
 @media (max-width: 576px) {
   .container {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
     padding: 10px;
-    justify-content: center; /* Centrar verticalmente */
-    align-items: center; /* Centrar horizontalmente */
-    min-height: 100%; /* Asegurar que ocupe toda la altura */
+    min-height: 100vh;
+  }
+
+  .contenedor {
+    display: flex;
+    order: 1;
+    margin: 0;
+  }
+
+  .imagen-responsiva {
+    max-width: 200px;
+    margin: 0;
   }
 
   .login-form {
-    margin: 0 auto; /* Centrar horizontalmente con márgenes automáticos */
+    order: 2; 
+    margin: 0;
     padding: 20px 15px;
-    max-width: 90%; /* Ancho ligeramente menor que la pantalla */
+    max-width: 95%;
     border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrar el contenido verticalmente */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .language-toggle-corner {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .corner-language-btn {
+    --padding-start: 6px;
+    --padding-end: 6px;
+    min-height: 28px;
+    
+    .flag-emoji {
+      font-size: 0.9rem;
+    }
+    
+    ion-icon {
+      font-size: 0.8rem;
+    }
   }
 
   h1 {
-    font-size: 22px;
-    margin-bottom: 15px;
+    font-size: 20px;
+    margin-bottom: 12px;
+    margin-top: 15px;
   }
 
   ion-input {
@@ -151,53 +199,5 @@ ion-button.register-button {
 
   ion-button {
     font-size: 14px;
-  }
-
-  /* Mostrar la fila superior en móviles */
-  .mobile-top-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
-  /* Imagen pequeña para móviles */
-  .mobile-top-row .imagen-mini {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-  }
-
-  /* Ocultar los botones de escritorio en móvil */
-  .desktop-buttons {
-    display: none;
-  }
-
-  /* Ocultar la imagen grande y el grid contenedor en móviles */
-  .contenedor {
-    display: none;
-  }
-}
-
-/* Responsividad - Móviles pequeños */
-@media (max-width: 360px) {
-  .container {
-    padding: 5px;
-  }
-
-  .login-form {
-    padding: 15px 10px;
-    max-width: 95%; /* Aumentar ligeramente el ancho en pantallas muy pequeñas */
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-  
-  /* Ajustar tamaño en pantallas muy pequeñas */
-  .mobile-top-row .imagen-mini {
-    width: 40px;
-    height: 40px;
   }
 }

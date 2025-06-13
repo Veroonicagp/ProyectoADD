@@ -30,7 +30,6 @@ export class MiActivitiesPage implements OnInit {
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-
     @Inject(ACTIVITIES_COLLECTION_SUBSCRIPTION_TOKEN)
     private activitySubcrition: ICollectionSubscription<Activity>
   ) { }
@@ -62,11 +61,7 @@ export class MiActivitiesPage implements OnInit {
 
       switch(change.type) {
         case 'added':
-          /**if (!this.loadedIds.has(change.id)) {
-            currentActivities.push(change.data!);
-            this.loadedIds.add(change.id);
-          }
-          break;**/
+          break;
         
         case 'modified':
           const index = currentActivities.findIndex(p => p.id === change.id);
@@ -135,7 +130,10 @@ export class MiActivitiesPage implements OnInit {
       componentProps: {
         activity,
         advenId: this.advenId
-      }
+      },
+      cssClass: 'activity-modal-size',
+      backdropDismiss: false,
+      showBackdrop: true
     });
 
     modal.onDidDismiss().then((response) => {
@@ -155,7 +153,10 @@ export class MiActivitiesPage implements OnInit {
       component: ActivityModalComponent,
       componentProps: {
         advenId: this.advenId
-      }
+      },
+      cssClass: 'activity-modal-size',
+      backdropDismiss: false,
+      showBackdrop: true
     });
     
     modal.onDidDismiss().then((response) => {

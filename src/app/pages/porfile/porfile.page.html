@@ -7,44 +7,81 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <ion-row class="ion-align-items-center">
-      <ion-col size="12" size-md="4" >
+<ion-content [fullscreen]="true" class="profile-content">
+  <div class="profile-container">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="profile-form">
+      <ion-row class="ion-align-items-stretch profile-row">
+        <ion-col size="12" size-md="6" class="form-column">
+          <ion-card class="profile-card">
+            <ion-card-header class="compact-header">
+              <ion-card-title class="profile-title">{{'PROFILE.TITLE2'|translate}}</ion-card-title>
+            </ion-card-header>
+            
+            <ion-card-content class="profile-card-content">
+              <div class="image-container">
+                <app-picture-selectable 
+                  formControlName="media"
+                  mode="profile"
+                  (onImageChanged)="onImageChanged()">
+                </app-picture-selectable>
+              </div>
+              
+              <div class="form-fields">
+                <ion-input 
+                  class="compact-input" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  label="{{'REGISTRO.NAME'|translate}}" 
+                  type="text" 
+                  formControlName="name" 
+                  required>
+                </ion-input>
+                
+                <ion-input 
+                  class="compact-input" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  label="{{'REGISTRO.SURNAME'|translate}}" 
+                  type="text" 
+                  formControlName="surname" 
+                  required>
+                </ion-input>
+                
+                <ion-input 
+                  class="compact-input" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  label="{{'REGISTRO.EMAIL'|translate}}" 
+                  type="email" 
+                  formControlName="email" 
+                  autocomplete="off" 
+                  required>
+                </ion-input>
+              </div>
+              
+              <div class="button-container">
+                <ion-button 
+                  class="bttn update-button" 
+                  [disabled]="!formGroup.valid || !formGroup.dirty" 
+                  type="submit"
+                  expand="block">
+                  {{ 'PROFILE.UPDATE' | translate }}
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
 
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>{{'PROFILE.TITLE2'|translate}}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-col size="12" size-md="4" class="ion-text-center">
-              <ion-card >
-                <ion-card-content>
-                  <app-picture-selectable formControlName="media"></app-picture-selectable>
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
-          <ion-input class="p" label-placement="floating" fill="outline" label="{{'REGISTRO.NAME'|translate}}" type="text" formControlName="name" required></ion-input>
-      
-      
-          <ion-input class="p" label-placement="floating" fill="outline" label="{{'REGISTRO.SURNAME'|translate}}" type="text" formControlName="surname" required></ion-input>
-      
-      
-          <ion-input class="p" label-placement="floating" fill="outline" label="{{'REGISTRO.EMAIL'|translate}}" type="email" formControlName="email" autocomplete="off" required></ion-input>
-        </ion-card-content>
-        <div class="ion-padding">
-          <ion-button class="bttn" [disabled]="!formGroup.valid || !formGroup.dirty" type="submit">
-            {{ 'PROFILE.UPDATE' | translate }}
-          </ion-button>
-        </div>
-        
-          
-        </ion-card>
-      </ion-col>
-
-      <ion-col size="12" size-md="8">
-        <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png" alt="Imagen" style="width: 100%; height: auto;"></ion-img>
-      </ion-col>
-    </ion-row>
-</form>
+        <ion-col size="12" size-md="6" class="image-column">
+          <div class="logo-container">
+            <ion-img 
+              class="logo-image" 
+              src="assets/imgs/RTE.png" 
+              alt="Ready to Enjoy Logo">
+            </ion-img>
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
 </ion-content>

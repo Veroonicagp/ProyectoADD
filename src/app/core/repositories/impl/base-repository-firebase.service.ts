@@ -104,17 +104,17 @@ export class BaseRepositoryFirebaseService<T extends Model> implements IBaseRepo
     const docRef = doc(this.db, this.collectionName, id);
     const updateData = this.mapping.setUpdate(entity);
     
-    console.log('🔥 Actualizando en Firebase - ID:', id);
-    console.log('🔥 Datos a actualizar:', updateData);
-    console.log('🔥 Colección:', this.collectionName);
+    console.log('Actualizando en Firebase - ID:', id);
+    console.log('Datos a actualizar:', updateData);
+    console.log('Colección:', this.collectionName);
     
     return from(updateDoc(docRef, updateData)).pipe(
       map(() => {
-        console.log('✅ Actualización exitosa en Firebase');
+        console.log('Actualización exitosa en Firebase');
         return this.mapping.getUpdated({ ...entity, id } as T);
       }),
       catchError(error => {
-        console.error('❌ Error actualizando Firebase:', error);
+        console.error('Error actualizando Firebase:', error);
         throw error;
       })
     );

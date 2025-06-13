@@ -1,4 +1,3 @@
-// src/app/core/person.model.ts
 import { Adven } from "./adven.model";
 import { Model } from "./base.model";
 

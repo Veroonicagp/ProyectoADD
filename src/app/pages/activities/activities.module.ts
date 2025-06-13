@@ -8,6 +8,7 @@ import { ActivitiesPageRoutingModule } from './activities-routing.module';
 
 import { ActivitiesPage } from './activities.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     ActivitiesPageRoutingModule,
-    TranslateModule.forChild()
+    SharedModule,
+    TranslateModule.forChild(),
   ],
   declarations: [ActivitiesPage]
 })

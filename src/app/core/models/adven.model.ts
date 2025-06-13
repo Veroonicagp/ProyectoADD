@@ -1,4 +1,3 @@
-// src/app/core/person.model.ts
 import { Model } from "./base.model";
 
 export interface Adven extends Model{
@@ -14,4 +13,3 @@ export interface Adven extends Model{
     },
     userId?:string
 }
-//

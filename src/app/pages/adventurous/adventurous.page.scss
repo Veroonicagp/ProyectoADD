@@ -1,33 +1,28 @@
-// Color Variables
 :root {
-  --ion-color-primary: purple;       // Deep purple
+  --ion-color-primary: purple;
   --ion-color-primary-rgb: 126,87,194;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255,255,255;
   --ion-color-primary-shade: #6F4BAD;
   --ion-color-primary-tint: #8B66CA;
 
-  --background-light: #F5F5F5;        // Light gray background
-  --text-color-dark: #333333;         // Dark text for contrast
+  --background-light: #F5F5F5;
+  --text-color-dark: #333333;
 }
 
-// Global Styles for the Page
 .activities-page {
   --ion-background-color: white;
   
-  // Toolbar Styling
   ion-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  
+  ion-toolbar {
     --background: transparent;
     background: linear-gradient(135deg, white, purple);
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 999; // Para mantener el título fijo durante el scroll
-  }
-
-  ion-toolbar {
-    --background: transparent;
-    --color: var(--ion-color-primary-contrast);
     
     ion-title {
       font-weight: 600;
@@ -38,87 +33,263 @@
     }
 
     ion-menu-button {
-      color: purple;
+      --color: #333333;
+      color: #333333 !important;
+      
+      ion-icon {
+        color: #333333 !important;
+      }
+    }
+    
+    ion-button {
+      --color: white;
+      color: white !important;
+      
+      ion-icon {
+        color: white !important;
+      }
     }
   }
 
-  // Searchbar Styling
-  ion-searchbar {
-    --background: white;
-    --border-radius: 10px;
-    --box-shadow: 0 2px 5px rgba(126,87,194,0.2);
-    margin: 10px;
-    padding: 5px;
+  .advens-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .adven-card {
+    width: calc(33.333% - 6px);
+    box-sizing: border-box;
   }
 
-  // Card Styling
   ion-card {
-    margin: 15px;
-    border-radius: 20px; // Increased border radius for more rounded corners
-    overflow: hidden; // Ensures content doesn't overflow rounded corners
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.275);
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
     background: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
 
     &:hover {
       transform: scale(1.02);
-      box-shadow: 0 8px 16px rgba(126,87,194,0.2);
+      box-shadow: 0 4px 8px rgba(126,87,194,0.2);
     }
 
-    ion-item {
-      --padding-start: 16px;
-      --inner-padding-end: 16px;
+    &:active {
+      transform: scale(0.98);
+    }
+
+    .avatar-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px 16px 8px 16px;
       
-      ion-avatar {
-        width: 50px;
-        height: 50px;
-        margin: 10px 0;
+      .adven-avatar {
+        --size: 80px;
+        width: 80px;
+        height: 80px;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+          object-fit: cover;
+          border: 2px solid rgba(126,87,194,0.2);
+        }
       }
     }
 
     ion-card-header {
       background-color: white;
-      color: white;
-      padding: 15px;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
+      padding: 8px 16px 12px 16px;
+      text-align: center;
+      flex-shrink: 0;
     }
 
     ion-card-title {
-      color: rgba(0, 0, 0, 0.716);
+      color: rgba(0, 0, 0, 0.8);
       font-weight: 600;
-      font-size: 1.2em;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     ion-card-subtitle {
-      color: rgba(0, 0, 0, 0.716);
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .click-indicator {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(126,87,194,0.1);
+      border-radius: 6px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
-      margin-top: 5px;
-      font-weight: normal;
+      justify-content: center;
+      
+      ion-icon {
+        font-size: 16px;
+        color: purple;
+      }
     }
   }
 
-  // Infinite Scroll Styling
   ion-infinite-scroll-content {
     color: var(--ion-color-primary);
   }
 }
 
-// Responsive Adjustments
-@media (max-width: 600px) {
-  ion-card {
-    margin: 10px;
+@media (max-width: 768px) {
+  .activities-page {
+    .adven-card {
+      width: calc(50% - 4px);
+    }
+    
+    .advens-grid {
+      gap: 6px;
+      padding: 8px;
+    }
+    
+    ion-card {
+      height: 180px;
+      
+      .avatar-container {
+        padding: 12px 12px 6px 12px;
+        
+        .adven-avatar {
+          --size: 70px;
+          width: 70px;
+          height: 70px;
+          
+          img {
+            border-radius: 6px;
+          }
+        }
+      }
+      
+      ion-card-header {
+        padding: 6px 12px 8px 12px;
+      }
+      
+      ion-card-title {
+        font-size: 0.95rem;
+      }
+      
+      ion-card-subtitle {
+        font-size: 0.8rem;
+      }
+      
+      .click-indicator {
+        width: 24px;
+        height: 24px;
+        bottom: 6px;
+        right: 6px;
+        border-radius: 4px;
+        
+        ion-icon {
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
 
-// Animations
+@media (max-width: 576px) {
+  .activities-page {
+    .adven-card {
+      width: calc(50% - 3px);
+    }
+    
+    .advens-grid {
+      gap: 4px;
+      padding: 6px;
+    }
+    
+    ion-card {
+      height: 160px;
+      
+      .avatar-container {
+        padding: 10px 10px 6px 10px;
+        
+        .adven-avatar {
+          --size: 60px;
+          width: 60px;
+          height: 60px;
+          
+          img {
+            border-radius: 6px;
+          }
+        }
+      }
+      
+      ion-card-header {
+        padding: 4px 8px 6px 8px;
+      }
+      
+      ion-card-title {
+        font-size: 0.9rem;
+      }
+      
+      ion-card-subtitle {
+        font-size: 0.75rem;
+      }
+      
+      .click-indicator {
+        width: 22px;
+        height: 22px;
+        bottom: 6px;
+        right: 6px;
+        border-radius: 4px;
+        
+        ion-icon {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .activities-page {
+    .adven-card {
+      width: calc(25% - 6px);
+    }
+  }
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-// Additional Utility Classes
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .animated-entry {
-  animation: fadeIn 0.5s ease-out;
+  animation: slideInUp 0.4s ease-out;
 }

@@ -3,46 +3,84 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{'ABOUT.TITLE'| translate}}</ion-title>
+    <ion-title>{{'ABOUT.TITLE' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="about-container">
-    <div class="content-section">
-      <ion-card class="about-card">
-        <div class="profile-image-container">
-          <ion-img 
-            src="assets/imgs/veronicagp.jpeg" 
-            alt="Verónica González Pons"
-            id="profile-photo"
-          ></ion-img>
+<ion-content [fullscreen]="true" scrollY="true">
+  <div class="container">
+    <div class="about-content">
+      <div class="content-wrapper">
+        <div class="logo-section">
+          <ion-img class="logo-image" src="assets/imgs/RTE.png" alt="ReadyToEnjoy Logo"></ion-img>
         </div>
-        <ion-card-header>
-          <ion-card-title class="creator-name">Verónica González Pons</ion-card-title>
-          <ion-card-subtitle class="creator-role">{{'ABOUT.CREADORA'| translate}}</ion-card-subtitle>
-        </ion-card-header>
-
-        <ion-card-content class="app-description">
-          <p>
-            {{'ABOUT.INFO1'| translate}}
-          </p>
+        
+        <ion-grid>
+          <ion-row>
+            <ion-col style="display:flex" class="ion-justify-content-center">
+              <ion-text><h1>{{'ABOUT.MAIN_TITLE' | translate}}</h1></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
+        <div class="about-sections">
+                    
+          <div class="section">
+            <h2>{{'ABOUT.WHAT_IS_TITLE' | translate}}</h2>
+            <p>{{'ABOUT.WHAT_IS_CONTENT' | translate}}</p>
+          </div>
           
-          <p>
-            {{'ABOUT.INFO2'| translate}}
-          </p>
-        </ion-card-content>
-      </ion-card>
-    </div>
-
-    <div class="image-section">
-      <div class="ready-to-enjoy-image">
-        <ion-img class="imagen-responsiva" src="assets/imgs/RTE.png"></ion-img>
+          <div class="section">
+            <h2>{{'ABOUT.MISSION_TITLE' | translate}}</h2>
+            <p>{{'ABOUT.MISSION_INTRO' | translate}}</p>
+            <ul>
+              <li>{{'ABOUT.MISSION_POINT1' | translate}}</li>
+              <li>{{'ABOUT.MISSION_POINT2' | translate}}</li>
+              <li>{{'ABOUT.MISSION_POINT3' | translate}}</li>
+              <li>{{'ABOUT.MISSION_POINT4' | translate}}</li>
+            </ul>
+          </div>
+          
+          <div class="section">
+            <h2>{{'ABOUT.HOW_WORKS_TITLE' | translate}}</h2>
+            <p>{{'ABOUT.HOW_WORKS_CONTENT' | translate}}</p>
+          </div>
+          
+          <div class="section">
+            <h2>{{'ABOUT.TEAM_TITLE' | translate}}</h2>
+            <p>{{'ABOUT.TEAM_INTRO' | translate}}</p>
+                        
+            <div class="team-member">
+              <h3>{{'ABOUT.ROCIO_NAME' | translate}}</h3>
+              <p>{{'ABOUT.ROCIO_DESCRIPTION' | translate}}</p>
+              <p class="github-link">
+                <a href="https://github.com/rociocorbacho" target="_blank" rel="noopener">
+                  <ion-icon name="logo-github"></ion-icon>
+                  GitHub: &#64;rociocorbacho
+                </a>
+              </p>
+            </div>
+            
+            <div class="team-member">
+              <h3>{{'ABOUT.VERONICA_NAME' | translate}}</h3>
+              <p>{{'ABOUT.VERONICA_DESCRIPTION' | translate}}</p>
+              <p class="github-link">
+                <a href="https://github.com/Veroonicagp" target="_blank" rel="noopener">
+                  <ion-icon name="logo-github"></ion-icon>
+                  GitHub: &#64;Veroonicagp
+                </a>
+              </p>
+            </div>
+          </div>
+          
+          <div class="section">
+            <h2>{{'ABOUT.COMMUNITY_TITLE' | translate}}</h2>
+            <p>{{'ABOUT.COMMUNITY_CONTENT' | translate}}</p>
+            <p class="cta-text"><strong>{{'ABOUT.CTA_TEXT' | translate}}</strong></p>
+          </div>
+        
+        </div>
       </div>
     </div>
   </div>
 </ion-content>
-
-
-
-

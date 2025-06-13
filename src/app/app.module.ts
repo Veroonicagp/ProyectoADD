@@ -14,6 +14,7 @@ import { ACTIVITIES_API_URL_TOKEN, ACTIVITIES_RESOURCE_NAME_TOKEN, ADVEN_API_URL
 import { ActivitiesMappingFactory, AdvenMappingFactory, AuthMappingFactory, AdvenRepositoryFactory, AuthenticationServiceFactory, MediaServiceFactory, ActivitiesRepositoryFactory, AdvensCollectionSubscriptionFactory, ActivitiesCollectionSubscriptionFactory } from './core/repositories/repository.factory';
 import { AdvenService } from './core/services/impl/adven.service';
 import { ActivitiesService } from './core/services/impl/activities.service';
+import { UserService } from './core/services/impl/user.service'; // NUEVO IMPORT
 import { environment } from 'src/environments/environment';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -28,6 +29,7 @@ export function createTranslateLoader(http: HttpClient) {
     IonicModule.forRoot(), 
     AppRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -35,7 +37,6 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       },
     }),
-    SharedModule
     ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -72,6 +73,8 @@ export function createTranslateLoader(http: HttpClient) {
       provide: 'ActivitiesService',
       useClass: ActivitiesService
     },
+    
+    UserService,
     AuthenticationServiceFactory,
     MediaServiceFactory,
     AdvensCollectionSubscriptionFactory,

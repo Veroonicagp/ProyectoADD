@@ -1,0 +1,171 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background: transparent; background: linear-gradient(135deg, white, purple); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <ion-buttons slot="start">
+      <ion-menu-button style="--color: #333333; color: #333333;"></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="font-weight: 600; text-align: center; color: white; font-size: 1.2em; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+      {{'USER_MANAGEMENT.TITLE' | translate}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshUsers()" style="--color: white; color: white;">
+        <ion-icon name="refresh-outline" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="user-management-page">
+  <!-- Verificar permisos de gestor -->
+  <div *ngIf="isManager$ | async; else noPermissions">
+    
+    <!-- Header con estadísticas -->
+    <ion-card class="stats-card">
+      <ion-card-header>
+        <ion-card-title class="stats-title">
+          <ion-icon name="shield-checkmark-outline" color="danger"></ion-icon>
+          {{'USER_MANAGEMENT.PANEL_TITLE' | translate}}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="panel-description">{{'USER_MANAGEMENT.PANEL_DESCRIPTION' | translate}}</p>
+        <div class="warning-box">
+          <ion-icon name="warning-outline" color="warning"></ion-icon>
+          <div>
+            <strong>{{'USER_MANAGEMENT.WARNING_TITLE' | translate}}:</strong>
+            <span>{{'USER_MANAGEMENT.WARNING_MESSAGE' | translate}}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Lista de usuarios -->
+    <ion-card class="users-card">
+      <ion-card-header>
+        <ion-card-title class="users-title">
+          <ion-icon name="people-outline" color="primary"></ion-icon>
+          {{'USER_MANAGEMENT.USER_LIST_TITLE' | translate}}
+          <ion-chip color="medium" size="small" *ngIf="users$ | async as users">
+            <ion-label>{{users.length}} {{'USER_MANAGEMENT.USERS_COUNT' | translate}}</ion-label>
+          </ion-chip>
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content class="users-card-content">
+        <div *ngIf="users$ | async as users; else loadingUsers">
+          <div *ngIf="users.length === 0; else usersList" class="empty-state">
+            <ion-icon name="people-outline" class="empty-icon"></ion-icon>
+            <h3>{{'USER_MANAGEMENT.NO_USERS_TITLE' | translate}}</h3>
+            <p>{{'USER_MANAGEMENT.NO_USERS' | translate}}</p>
+          </div>
+
+          <ng-template #usersList>
+            <div class="users-grid">
+              <ion-card *ngFor="let user of users; trackBy: trackByUserId" class="user-card" [class.current-user]="user.id === currentUserId">
+                
+                <ion-card-header class="user-card-header">
+                  <div class="user-avatar-section">
+                    <ion-avatar class="user-avatar">
+                      <ion-icon name="person-circle-outline"></ion-icon>
+                    </ion-avatar>
+                    <div class="user-basic-info">
+                      <ion-card-title class="user-name">{{ user.username }}</ion-card-title>
+                      <ion-card-subtitle class="user-email">{{ user.email }}</ion-card-subtitle>
+                    </div>
+                  </div>
+                  
+                  <ion-chip 
+                    *ngIf="user.id === currentUserId"
+                    color="warning"
+                    class="current-user-chip">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-label>{{'USER_MANAGEMENT.YOU' | translate}}</ion-label>
+                  </ion-chip>
+                </ion-card-header>
+
+                <ion-card-content class="user-card-content">
+                  <div class="user-meta">
+                    <div class="user-role">
+                      <ion-chip [color]="getRoleColor(user.role.name)" class="role-chip">
+                        <ion-icon [name]="getRoleIcon(user.role.name)"></ion-icon>
+                        <ion-label>{{ user.role.name }}</ion-label>
+                      </ion-chip>
+                    </div>
+                    
+                    <div class="user-status">
+                      <ion-chip 
+                        [color]="user.isActive ? 'success' : 'danger'" 
+                        class="status-chip">
+                        <ion-icon [name]="user.isActive ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+                        <ion-label>{{ user.isActive ? ('USER_MANAGEMENT.ACTIVE' | translate) : ('USER_MANAGEMENT.INACTIVE' | translate) }}</ion-label>
+                      </ion-chip>
+                    </div>
+                  </div>
+
+                  <div class="user-details" *ngIf="user.createdAt">
+                    <small class="creation-date">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      {{'USER_MANAGEMENT.CREATED' | translate}}: {{user.createdAt | date:'short'}}
+                    </small>
+                  </div>
+
+                  <div class="action-buttons">
+                    <ion-button 
+                      *ngIf="user.id !== currentUserId"
+                      fill="solid" 
+                      size="small"
+                      (click)="confirmDeleteUser(user)"
+                      color="danger"
+                      class="action-btn delete-btn">
+                      <ion-icon name="trash-outline" slot="start"></ion-icon>
+                      {{'USER_MANAGEMENT.DELETE' | translate}}
+                    </ion-button>
+
+                    <div *ngIf="user.id === currentUserId" class="current-user-notice">
+                      <ion-text color="medium">
+                        <small>{{'USER_MANAGEMENT.CANNOT_DELETE_SELF' | translate}}</small>
+                      </ion-text>
+                    </div>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ng-template>
+        </div>
+
+        <ng-template #loadingUsers>
+          <div class="loading-state">
+            <ion-spinner name="crescent" color="primary"></ion-spinner>
+            <p>{{'USER_MANAGEMENT.LOADING_USERS' | translate}}</p>
+          </div>
+        </ng-template>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+  <ng-template #noPermissions>
+    <div class="no-permissions-container">
+      <ion-card class="no-permissions-card">
+        <ion-card-header>
+          <ion-card-title class="no-permissions-title">
+            <ion-icon name="lock-closed-outline" color="warning"></ion-icon>
+            {{'USER_MANAGEMENT.ACCESS_RESTRICTED' | translate}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="no-permissions-content">
+          <p>{{'USER_MANAGEMENT.NO_PERMISSIONS_MESSAGE' | translate}}</p>
+          <p class="manager-only-text">{{'USER_MANAGEMENT.MANAGER_ONLY' | translate}}</p>
+          <ion-button 
+            routerLink="/activities" 
+            fill="outline" 
+            color="primary"
+            class="back-button">
+            <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+            {{'USER_MANAGEMENT.BACK_TO_ACTIVITIES' | translate}}
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ng-template>
+
+</ion-content>

@@ -1,4 +1,3 @@
-
 import { Adven } from "../../models/adven.model";
 import { IBaseRepository } from "./base-repository.interface";
 
