@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Actividades de {{adven.name}} {{adven.surname}}
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="adven-activities-content">
+    <!-- Header con información del aventurero -->
+    <div class="adven-header">
+      <ion-avatar class="adven-avatar-large">
+        <img [src]="adven.media?.thumbnail || 'https://ionicframework.com/docs/img/demos/avatar.svg'" 
+             [alt]="adven.name + ' ' + adven.surname" />
+      </ion-avatar>
+      <div class="adven-info">
+        <h2>{{adven.name}} {{adven.surname}}</h2>
+        <p class="adven-email" *ngIf="adven.email">{{adven.email}}</p>
+      </div>
+    </div>
+  
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando actividades...</p>
+    </div>
+  
+    <div *ngIf="!isLoading && !hasActivities" class="no-activities">
+      <ion-icon name="map-outline" class="no-activities-icon"></ion-icon>
+      <h3>Sin actividades</h3>
+      <p>{{adven.name}} aún no ha compartido ninguna actividad.</p>
+    </div>
+  
+    <div *ngIf="!isLoading && hasActivities" class="activities-grid">
+      <div *ngFor="let activity of activities$ | async; let i = index" class="activity-card animated-entry">
+        <ion-card (click)="openActivityDetail(activity)" button detail="false">
+          <img [src]="activity.media?.thumbnail || 'assets/imgs/aventura.png'" 
+               [alt]="activity.title" />
+          
+          <ion-card-header>
+            <ion-card-title>{{activity.title}}</ion-card-title>
+            <ion-card-subtitle>
+              <ion-icon name="location-outline"></ion-icon> {{activity.location}}
+            </ion-card-subtitle>
+            <ion-card-subtitle>
+              <ion-icon name="pricetag-outline"></ion-icon> {{activity.price}}
+            </ion-card-subtitle>
+          </ion-card-header>
+          
+          <ion-card-content>
+            {{activity.description}}
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </ion-content>

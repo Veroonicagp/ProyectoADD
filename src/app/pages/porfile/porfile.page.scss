@@ -1,0 +1,537 @@
+.info {
+  font-size: 16px;
+  color: purple;
+}
+
+ion-content {
+  background-color: violet;
+  color: purple;
+  font-family: Arial, sans-serif;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+ion-toolbar {
+  --background: transparent;
+  background: linear-gradient(135deg, white, purple);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+  ion-title {
+      font-weight: 600;
+      text-align: center;
+      color: white;
+      font-size: 1.2em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  }
+}
+
+.profile-content {
+  height: calc(100vh - 56px) !important;
+  max-height: calc(100vh - 56px) !important;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-container {
+  height: 100% !important;
+  max-height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.profile-form {
+  height: 100% !important;
+  max-height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.profile-row {
+  height: 100% !important;
+  max-height: 100% !important;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100% !important;
+  max-height: 100% !important;
+  padding: 0 15px;
+  overflow: hidden;
+}
+
+.image-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100% !important;
+  max-height: 100% !important;
+  padding: 0 15px;
+  overflow: hidden;
+}
+
+.profile-card {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0px 8px 20px rgba(128, 0, 128, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.compact-header {
+  padding: 15px 20px 5px 20px;
+  text-align: center;
+  flex-shrink: 0;
+  
+  .profile-title {
+      font-size: 1.2rem;
+      margin: 0;
+      color: purple;
+      font-weight: 700;
+  }
+}
+
+.profile-card-content {
+  padding: 5px 20px 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+  
+  app-picture-selectable {
+      ::ng-deep {
+          .user-picture {
+              min-width: 220px !important;
+              height: 220px !important;
+              max-width: 220px;
+              max-height: 220px;
+              border-radius: 16px !important;
+              border: 3px solid rgba(128, 0, 128, 0.2);
+              overflow: hidden;
+              
+              ion-img {
+                  border-radius: 13px !important;
+              }
+          }
+          
+          .change-picture-btn {
+              width: 18px !important;
+              height: 18px !important;
+              bottom: 6px;
+              right: 6px;
+              --background: purple;
+              --border-radius: 50%;
+              
+              ion-icon {
+                  font-size: 18px !important;
+                  --font-size: 18px !important;
+                  width: 18px !important;
+                  height: 18px !important;
+              }
+              
+              .button-native ion-icon {
+                  font-size: 18px !important;
+              }
+          }
+          
+          .delete-picture-btn {
+              width: 18px !important;
+              height: 18px !important;
+              bottom: 6px;
+              left: 6px;
+              --border-radius: 50%;
+              
+              ion-icon {
+                  font-size: 18px !important;
+                  --font-size: 18px !important;
+                  width: 18px !important;
+                  height: 18px !important;
+              }
+              
+              .button-native ion-icon {
+                  font-size: 18px !important;
+              }
+          }
+      }
+  }
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.compact-input {
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  --border-radius: 8px;
+  --border-width: 2px;
+  --border-color: rgba(128, 0, 128, 0.3);
+  margin: 0;
+  
+  &.ion-focused {
+      --border-color: purple;
+      --color: purple;
+  }
+}
+
+.p {
+  margin-top: 4px !important;
+}
+
+.button-container {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bttn, .update-button {
+  --background: purple;
+  --background-activated: #7B68EE;
+  --background-hover: #9370DB;
+  --color: white;
+  --border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(128, 0, 128, 0.3);
+  height: 40px;
+  font-weight: 600;
+  width: 100%;
+  max-width: none;
+  font-size: 0.9rem;
+  
+  &:disabled {
+      --background: #cccccc;
+      --color: #666666;
+      --box-shadow: none;
+  }
+}
+
+.logo-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.logo-image, .imagen-responsiva {
+  max-width: 90%;
+  height: auto;
+  max-height: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(128, 0, 128, 0.2));
+}
+
+@media (max-width: 768px) {
+  .profile-content {
+      height: calc(100vh - 56px) !important;
+      max-height: calc(100vh - 56px) !important;
+  }
+  
+  .profile-container {
+      padding: 15px;
+      height: 100% !important;
+  }
+  
+  .profile-row {
+      flex-direction: column;
+      gap: 0;
+      height: 100% !important;
+  }
+  
+  .form-column {
+      order: 1;
+      padding: 0;
+      height: 100% !important;
+      max-height: 100% !important;
+      overflow: hidden;
+  }
+  
+  .image-column {
+      display: none !important;
+  }
+  
+  .profile-card {
+      max-width: 100%;
+      margin: 0;
+      height: 100%;
+      max-height: 100%;
+  }
+  
+  .compact-header {
+      padding: 20px 20px 10px 20px;
+      
+      .profile-title {
+          font-size: 1.3rem;
+      }
+  }
+  
+  .profile-card-content {
+      padding: 10px 20px 20px 20px;
+      gap: 18px;
+      flex: 1;
+  }
+  
+  .image-container {
+      margin-bottom: 10px;
+      
+      app-picture-selectable {
+          ::ng-deep {
+              .user-picture {
+                  min-width: 260px !important;
+                  height: 260px !important;
+                  max-width: 260px;
+                  max-height: 260px;
+                  border-radius: 16px !important;
+                  
+                  ion-img {
+                      border-radius: 12px !important;
+                  }
+              }
+              
+              .change-picture-btn,
+              .delete-picture-btn {
+                  width: 24px !important; 
+                  height: 24px !important;
+                  
+                  ion-icon {
+                      font-size: 18px !important;
+                      --font-size: 18px !important;
+                      width: 18px !important;
+                      height: 18px !important;
+                  }
+                  
+                  .button-native ion-icon {
+                      font-size: 18px !important;
+                  }
+              }
+          }
+      }
+  }
+  
+  .form-fields {
+      gap: 15px; 
+      flex: 1;
+  }
+  
+  .compact-input {
+      --padding-top: 14px;
+      --padding-bottom: 14px;
+      height: 54px;
+      font-size: 1rem;
+  }
+  
+  .button-container {
+      margin-top: 20px;
+  }
+  
+  .bttn, .update-button {
+      height: 52px;
+      font-size: 1.1rem;
+      width: 100%;
+      max-width: none;
+      font-weight: 700;
+  }
+}
+
+@media (max-height: 700px) {
+  .profile-container {
+      padding: 8px;
+  }
+  
+  .image-container {
+      app-picture-selectable {
+          ::ng-deep {
+              .user-picture {
+                  min-width: 160px !important;
+                  height: 160px !important;
+                  max-width: 160px;
+                  max-height: 160px;
+                  border-radius: 10px !important;
+                  
+                  ion-img {
+                      border-radius: 7px !important;
+                  }
+              }
+              
+              .change-picture-btn,
+              .delete-picture-btn {
+                  width: 14px !important;
+                  height: 14px !important;
+                  
+                  ion-icon {
+                      font-size: 14px !important;
+                      --font-size: 14px !important;
+                      width: 14px !important;
+                      height: 14px !important;
+                  }
+                  
+                  .button-native ion-icon {
+                      font-size: 14px !important;
+                  }
+              }
+          }
+      }
+  }
+  
+  .compact-header {
+      padding: 8px 15px 2px 15px;
+      
+      .profile-title {
+          font-size: 1rem;
+      }
+  }
+  
+  .profile-card-content {
+      gap: 6px;
+      padding: 2px 15px 8px 15px;
+  }
+  
+  .form-fields {
+      gap: 4px;
+  }
+  
+  .compact-input {
+      --padding-top: 6px;
+      --padding-bottom: 6px;
+  }
+  
+  .p {
+      margin-top: 2px !important;
+  }
+  
+  .bttn, .update-button {
+      height: 32px;
+      font-size: 0.8rem;
+      width: 100%;
+      max-width: none;
+  }
+}
+
+.profile-card {
+  animation: slideInUp 0.4s ease-out;
+}
+
+.logo-image, .imagen-responsiva {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+      transform: translateY(20px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.95);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ion-content, .profile-content, .profile-container, .profile-form, .profile-row {
+  overflow: hidden !important;
+}
+
+// Fix agresivo para el botón ACTUALIZAR en móviles
+@media (max-width: 768px) {
+  
+  // Permitir scroll vertical en móviles
+  .profile-content {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  
+  .profile-container {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: calc(100vh - 56px) !important;
+  }
+  
+  .profile-form {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  
+  .form-column {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  
+  .profile-card {
+    height: auto !important;
+    min-height: calc(100vh - 86px) !important;
+  }
+  
+  .profile-card-content {
+    overflow: visible !important;
+    flex: none !important;
+    height: auto !important;
+  }
+  
+  // Asegurar que el botón sea visible
+  .button-container {
+    position: relative !important;
+    z-index: 1000 !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+    width: 100% !important;
+  }
+  
+  .bttn, .update-button {
+    position: relative !important;
+    z-index: 1001 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}

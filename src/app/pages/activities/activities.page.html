@@ -1,0 +1,81 @@
+<ion-content class="activities-page">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{'ACTIVIDADES.NOMBRE' | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="onSearchInput($event)"
+    (ionClear)="clearSearch()"
+    placeholder="{{'ACTIVIDADES.SEARCH_PLACEHOLDER' | translate}}"
+    debounce="300"
+    showClearButton="focus"
+    searchIcon="location-outline"
+  ></ion-searchbar>
+
+  <!-- Mensaje cuando no hay resultados -->
+  <div *ngIf="(filteredActivities$ | async)?.length === 0 && searchTerm" class="no-results">
+    <ion-icon name="search-outline"></ion-icon>
+    <h3>No se encontraron actividades</h3>
+    <p>No hay actividades en "{{searchTerm}}"</p>
+    <ion-button fill="clear" (click)="clearSearch()">
+      <ion-icon name="close-circle" slot="start"></ion-icon>
+      Limpiar búsqueda
+    </ion-button>
+  </div>
+  
+  <div class="activities-grid">
+    <div *ngFor="let activity of filteredActivities$ | async; let i = index" class="activity-card animated-entry">
+      <!-- Directiva aplicada con color púrpura -->
+      <ion-card 
+        appHighlightHover="rgba(128, 0, 128, 0.25)"
+        originalColor="white">
+        <!-- Imagen de la actividad -->
+        <img [src]="activity.media?.thumbnail || ''" />
+        
+        <ion-card-header>
+          <ion-card-title>{{activity.title}}</ion-card-title>
+          <ion-card-subtitle>
+            <ion-icon name="location-outline"></ion-icon> {{activity.location}}
+          </ion-card-subtitle>
+          <ion-card-subtitle>
+            <ion-icon name="pricetag-outline"></ion-icon>{{activity.price}}
+          </ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          {{activity.description}}
+        </ion-card-content>
+        
+        <div class="card-actions">
+          <ion-button 
+            fill="clear" 
+            size="small"
+            (click)="openActivityInfo(activity, i); $event.stopPropagation()">
+            <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+            Ver
+          </ion-button>
+          
+          <ion-button 
+            fill="clear" 
+            size="small"
+            (click)="openLocationMap(activity.location, activity); $event.stopPropagation()">
+            <ion-icon name="map-outline" slot="start"></ion-icon>
+            Mapa
+          </ion-button>
+        </div>
+      </ion-card>
+    </div>
+  </div>
+  
+  <ion-infinite-scroll 
+    *ngIf="!searchTerm" 
+    (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

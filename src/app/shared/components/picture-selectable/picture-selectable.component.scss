@@ -1,0 +1,290 @@
+div.user-picture{
+  min-width:300px;
+  height:300px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  
+  ion-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+  
+  ion-button.picture-button{
+    margin:0;
+    --padding-start:0;
+    --padding-end:0;
+    --border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    z-index: 10;
+    
+    .button-native{
+      padding:0!important;
+      border-radius: 50%;
+    }
+    
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+ion-modal.auto-height{
+  &.bottom {
+    align-items: flex-end;
+  }
+
+  --height: auto;
+
+  .ion-page {
+    position: relative;
+    display: block;
+    contain: content;
+
+    .inner-content {
+      max-height: 80vh;
+      overflow: auto;
+      padding: 10px;
+    }
+  }
+}
+
+.change-picture-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  --background: #8A2BE2;
+  --background-activated: #7B68EE;
+  --background-hover: #9370DB;
+  --color: white;
+  --box-shadow: 0 6px 12px rgba(138, 43, 226, 0.4);
+  --ripple-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+    --box-shadow: 0 8px 16px rgba(138, 43, 226, 0.6);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #8A2BE2, #9370DB);
+    z-index: -1;
+    animation: pulse 2s infinite;
+  }
+}
+
+.delete-picture-btn {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  --background: #DC143C;
+  --background-activated: #B22222;
+  --background-hover: #FF6347;
+  --color: white;
+  --box-shadow: 0 6px 12px rgba(220, 20, 60, 0.4);
+  --ripple-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+    --box-shadow: 0 8px 16px rgba(220, 20, 60, 0.6);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #DC143C, #FF6347);
+    z-index: -1;
+    opacity: 0.8;
+  }
+}
+
+.empty-picture-btn {
+  height: 100%;
+  width: 100%;
+  --border-radius: 8px;
+  --background: #8A2BE2;
+  --color: white;
+}
+
+.empty-picture-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.adventure-default-image {
+  width: 100%;
+  height: 100%;
+  border: 3px dashed #8A2BE2;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f8f4ff, #ede7ff);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(138, 43, 226, 0.1) 50%, transparent 51%);
+    background-size: 20px 20px;
+    opacity: 0.3;
+  }
+  
+  ion-icon {
+    font-size: 64px;
+    color: #8A2BE2;
+    margin-bottom: 12px;
+    z-index: 2;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  span {
+    font-size: 14px;
+    color: #8A2BE2;
+    font-weight: bold;
+    letter-spacing: 2px;
+    z-index: 2;
+    position: relative;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  &:hover {
+    border-color: #9370DB;
+    background: linear-gradient(135deg, #f0e6ff, #e6d9ff);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(138, 43, 226, 0.2);
+    
+    ion-icon {
+      color: #9370DB;
+      transform: scale(1.1);
+    }
+    
+    span {
+      color: #9370DB;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 8px rgba(138, 43, 226, 0.3);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  div.user-picture {
+    min-width: 250px;
+    height: 250px;
+    
+    .change-picture-btn,
+    .delete-picture-btn {
+      width: 45px;
+      height: 45px;
+      bottom: 10px;
+      
+      ion-icon {
+        font-size: 20px;
+      }
+    }
+    
+    .change-picture-btn {
+      right: 10px;
+    }
+    
+    .delete-picture-btn {
+      left: 10px;
+    }
+  }
+  
+  .adventure-default-image {
+    ion-icon {
+      font-size: 48px;
+    }
+    
+    span {
+      font-size: 12px;
+    }
+  }
+}
+
+div.user-picture {
+  &:hover {
+    .change-picture-btn::before {
+      animation-duration: 1s;
+    }
+  }
+}
+
+div.user-picture.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  
+  .change-picture-btn,
+  .delete-picture-btn {
+    --background: #cccccc;
+    --box-shadow: none;
+    
+    &::before {
+      display: none;
+    }
+  }
+}
