@@ -121,7 +121,8 @@
       "EMAIL_INVALID": "*Please enter a valid email",
       "NAME_INVALID": "*The name must be at least two characters",
       "SURNAME_INVALID": "*Your surname must be at least two characters",
-      "CONTRASEÑA_INVALID": "*At least 8 characters, one uppercase letter, one lowercase letter, one digit and one special character (&#64;$!%*?&.)"
+      "CONTRASEÑA_INVALID": "*At least 8 characters, one uppercase letter, one lowercase letter, one digit and one special character (&#64;$!%*?&.)",
+      "EMAIL_ALREADY_EXISTS": "*This email is already registered. Try with another user"
     }
   },
   "MENU": {

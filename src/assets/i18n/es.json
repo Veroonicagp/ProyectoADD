@@ -121,7 +121,8 @@
       "EMAIL_INVALID": "*Por favor, introduce un email válido",
       "NAME_INVALID": "*El nombre debe tener al menos dos caracteres",
       "SURNAME_INVALID": "*Su/s apellido/s debe/n tener al menos dos caracteres",
-      "CONTRASEÑA_INVALID": "*Al menos 8 caracteres, una mayúscula, una minúscula, un dígito y un caracter especial (&#64;$!%*?&.)"
+      "CONTRASEÑA_INVALID": "*Al menos 8 caracteres, una mayúscula, una minúscula, un dígito y un caracter especial (&#64;$!%*?&.)",
+      "EMAIL_ALREADY_EXISTS": "*Este email ya está registrado. Inténtelo con otro usuario"
     }
   },
   "MENU": {
@@ -195,7 +196,7 @@
     "CREATED": "Creado",
     "CONFIRM_DELETE_TITLE": "Confirmar Eliminación",
     "CONFIRM_DELETE_SUBTITLE": "⚠️ ACCIÓN IRREVERSIBLE",
-    "CONFIRM_DELETE_MESSAGE": "¿Eliminar al usuario \"{username}\"?\n\nEmail: {email}\n\nEsta acción borrará permanentemente:\n• El perfil del usuario\n• Todas sus actividades\n• Todos sus datos\n\n¡NO se puede deshacer!",
+    "CONFIRM_DELETE_MESSAGE": "¿Eliminar al usuario \"{username}\"?\n\n\nEsta acción borrará permanentemente:\n• El perfil del usuario\n• Todas sus actividades\n• Todos sus datos\n\n¡NO se puede deshacer!",
     "CANCEL": "Cancelar",
     "DELETE_USER": "Eliminar Usuario",
     "DELETING_USER": "Eliminando usuario...",

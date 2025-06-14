@@ -87,7 +87,6 @@ export class UserManagementPage implements OnInit, OnDestroy {
       return;
     }
   
-    // Obtener las traducciones
     const translations = await firstValueFrom(this.translate.get([
       'USER_MANAGEMENT.CONFIRM_DELETE_TITLE',
       'USER_MANAGEMENT.CONFIRM_DELETE_SUBTITLE',
@@ -96,7 +95,6 @@ export class UserManagementPage implements OnInit, OnDestroy {
       'USER_MANAGEMENT.DELETE_USER'
     ]));
   
-    // Crear el mensaje interpolando el nombre del usuario
     const message = translations['USER_MANAGEMENT.CONFIRM_DELETE_MESSAGE']
       .replace('{username}', user.username);
   

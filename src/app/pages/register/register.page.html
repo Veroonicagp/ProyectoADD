@@ -102,6 +102,10 @@
           <p *ngIf="email?.errors?.['email']">{{'REGISTRO.ERRORS.EMAIL_INVALID'|translate}}</p>
         </ion-text>
         
+        <ion-text class="input-error" color="danger" *ngIf="hasEmailExistsError">
+          <p>{{'REGISTRO.ERRORS.EMAIL_ALREADY_EXISTS'|translate}}</p>
+        </ion-text>
+        
         <ion-text class="input-error" color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
           <p *ngIf="password?.errors?.['required']">{{'REGISTRO.ERRORS.PASSWORD_REQUIRED'|translate}}</p>
           <p *ngIf="password?.errors?.['passwordStrength']">{{'REGISTRO.ERRORS.CONTRASEÑA_INVALID'|translate}}</p>
